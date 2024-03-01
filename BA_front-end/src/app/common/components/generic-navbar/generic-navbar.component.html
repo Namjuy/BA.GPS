@@ -1,0 +1,98 @@
+<!-- ------------------Create navbar------------------ -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <!-- ------------------Create logo-------------------- -->
+  <a class="navbar__logo-container" href="https://bagps.vn/" target="_blank">
+    <img class="navbar__logo" src="../../../assets/logo.png" alt="logo" />
+  </a>
+
+  <!-- ------------------Create navbar toggle------------------- -->
+  <button
+    aria-expanded="false"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-label="Toggle navigation"
+    class="navbar-toggler"
+    type="button"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div
+    class="collapse navbar-collapse justify-content-between xl"
+    id="navbarSupportedContent"
+  >
+    <!-- ------------------Create menu items--------------------- -->
+    <ul class="navbar-middle navbar-nav">
+      <li
+        *ngFor="let menuItem of menuItems"
+        class="nav-item"
+      >
+        <a class="nav-link" target="_blank" [href]="menuItem.link">{{
+          menuItem.title | translate
+        }}</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-right navbar-nav">
+      <!-- -----------------Create phone contact item----------------- -->
+      <li *ngIf="!userId" class="navbar-right__phone nav-item d-inline-block">
+        <a href="tel:19080000" class="nav-link">
+          <i class="navbar-right__icon--phone bi bi-telephone-fill pe-2"></i
+          >19080000</a
+        >
+      </li>
+
+      <!-- ---------------------Create language choosing item----------------- -->
+      <li class="navbar-right__language nav-item d-flex align-items-center">
+        <div class="dropdown">
+          <a
+            aria-haspopup="true"
+            aria-expanded="false"
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            <ng-container
+              *ngIf="selectedLanguage === 'vi'; else englishContent"
+            >
+              <i class="navbar-right__icon--language bi-star-fill"></i> Tiếng
+              việt
+            </ng-container>
+            <ng-template #englishContent>
+              <img
+                class="dropdown-item__image"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg"
+                alt=""
+              />English
+            </ng-template>
+          </a>
+          <!-- ------------------Create dropdown language menu -------------- -->
+          <div
+            class="dropdown-menu dropdown-menu-center"
+            aria-labelledby="navbarDropdown"
+          >
+            <a (click)="switchLanguage('vi')" class="dropdown-item">
+              <i class="navbar-right__icon--language bi-star-fill"></i>Tiếng
+              việt
+            </a>
+            <div class="dropdown-divider"></div>
+            <a (click)="switchLanguage('en')" class="dropdown-item">
+              <img
+                class="dropdown-item__image"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg"
+                alt=""
+              />English
+            </a>
+          </div>
+        </div>
+        <!-- ------------------Create logout link -------------- -->
+        <a *ngIf="userId" class="navbar-right__logout" (click)="logout()">{{
+          "LOGOUT" | translate
+        }}</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div *ngIf="userId" class="navbar-line"></div>

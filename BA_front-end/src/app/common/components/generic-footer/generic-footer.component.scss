@@ -1,0 +1,122 @@
+// --------------------Footer----------------
+footer {
+  display: flex;
+  width: 85%;
+  margin: 0 auto;
+
+  // ------------------Footer Location----------
+  .footer-location {
+    width: 80%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+
+    .footer-item {
+      max-width: calc(100% / 5);
+
+      .footer-item__label--area {
+        font: bold 15px RobotoBold, sans-serif;
+        color: rgba(27, 88, 173, 0.869);
+      }
+
+      .footer-item__label--location {
+        font: normal small RobotoRegular, sans-serif;
+      }
+    }
+  }
+
+  .footer-location::-webkit-scrollbar {
+    width: 0;
+  }
+
+  // ---------------Footer download----------------
+  .footer-download {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .footer-app__link {
+      text-align: end;
+
+      .footer-app__image {
+        width: 130px;
+      }
+    }
+
+    // --------------Footer social----------------
+    .footer-social {
+      width: 130px;
+      justify-content: space-between;
+
+      .footer-social__link {
+        max-width: calc(100% / 3 - 10px);
+
+        .footer-social__image {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// --------------Responsive--------------
+@media screen and (max-width: 1200px) {
+  footer {
+    .footer-location .footer-item {
+      max-width: calc(100% / 4);
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  footer {
+    .footer-location .footer-item,
+    .footer-download {
+      min-width: 30%;
+      margin: 0 auto;
+    }
+
+    .footer-app__link {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  footer {
+    display: block;
+    width: 100%;
+    .footer-location .footer-item,
+    .footer-download {
+      margin: 0 auto;
+
+      .footer-app__link {
+        text-align: center;
+      }
+      .footer-social {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  footer {
+    .footer-location .footer-item {
+      max-width: 100%;
+
+      .footer-item__label--area {
+        text-align: center;
+      }
+    }
+    .footer-location {
+      flex-wrap: wrap;
+    }
+
+    .footer-download {
+      margin: 0 auto;
+    }
+  }
+}

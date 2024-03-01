@@ -1,0 +1,94 @@
+<!-- Navigation bar with background style -->
+<nav class="bg-secondary-subtle">
+  <!-- Left side of the pagination bar -->
+  <div class="pagination__left">
+    <!-- Pagination controls -->
+    <ul class="pagination pagination-sm py-1 mb-0">
+      <!-- First page button -->
+      <li
+        [class.disabled]="inputPaginationData.get('currentPage') == 1"
+        class="page-item"
+        (click)="handleFirstPage()"
+      >
+        <a class="page-link" href="#" aria-label="Previous">
+          <i class="bi bi-skip-start-fill"></i>
+        </a>
+      </li>
+
+      <!-- Previous page button -->
+      <li
+        [class.disabled]="inputPaginationData.get('currentPage') == 1"
+        class="page-item"
+        (click)="handlePreviousPage()"
+      >
+        <a class="page-link" href="#" aria-label="Previous">
+          <i class="bi bi-caret-left-fill"></i>
+        </a>
+      </li>
+
+      <!-- Display page numbers -->
+      <li
+        class="page-item"
+        *ngFor="let pageNumber of getPages()"
+        [class.active]="inputPaginationData.get('currentPage') === pageNumber"
+      >
+        <a class="page-link" (click)="changePage(pageNumber)">{{
+          pageNumber
+        }}</a>
+      </li>
+
+      <!-- Next page button -->
+      <li
+        [class.disabled]="inputPaginationData.get('currentPage') == getPages().length"
+        class="page-item"
+        (click)="handleNextPage()"
+      >
+        <a class="page-link" href="#" aria-label="Next">
+          <i class="bi bi-caret-right-fill"></i>
+        </a>
+      </li>
+
+      <!-- Last page button -->
+      <li
+        [class.disabled]="inputPaginationData.get('currentPage') == getPages().length"
+        class="page-item"
+        (click)="handleLastPage()"
+      >
+        <a class="page-link" href="#" aria-label="Next">
+          <i class="bi bi-skip-end-fill"></i>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Items per page dropdown -->
+    <div class="btn-group dropdown-center py-1 mb-0">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        {{ itemsPerPage }}
+      </button>
+
+      <!-- Dropdown menu for selecting items per page -->
+      <ul class="dropdown-menu">
+        <li class="page-item" (click)="setItemPerPage(5)">5</li>
+        <li class="page-item" (click)="setItemPerPage(10)">10</li>
+        <li class="page-item" (click)="setItemPerPage(20)">20</li>
+      </ul>
+      <p>dòng mỗi trang</p>
+    </div>
+  </div>
+
+  <!-- Right side of the pagination bar -->
+  <div class="pagination__right d-flex align-items-center">
+    <!-- Display details about the current page and total rows -->
+    <p class="pagination__right--detail py-1 mb-0">
+      {{ (inputPaginationData.get("currentPage") - 1) * itemsPerPage + 1 }} -
+      {{ inputPaginationData.get("indexOfLastItem") }} trên tổng
+      {{ inputPaginationData.get("totalRow") }} dòng
+      <i class="bi bi-arrow-clockwise"></i>
+    </p>
+  </div>
+</nav>

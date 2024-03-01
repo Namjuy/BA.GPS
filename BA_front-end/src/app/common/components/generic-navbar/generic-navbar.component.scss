@@ -1,0 +1,116 @@
+/* ------------------Navbar------------------- */
+nav {
+    background-color: white;
+    height: auto;
+    z-index: 100;
+    width: 90%;
+    margin: 0 auto;
+  
+    /* --------------------Navbar logo------------------ */
+    .navbar__logo-container {
+      margin-right: 10%;
+  
+      .navbar__logo {
+        height: 45px;
+        padding: 5px;
+      }
+    }
+  
+    /* --------------------NavBar menu--------------------- */
+    .navbar-middle {
+      display: flex;
+      justify-content: space-between;
+  
+      .nav-link {
+        font: small BobotoBold, sans-serif;
+        color: #1b75d0;
+      }
+    }
+  
+    /* ------------------Navbar right--------------------- */
+    .navbar-right {
+      .navbar-right__phone {
+        border: #1b75d0 1px solid;
+        border-radius: 20px;
+        font: italic small RobotoItalic, sans-serif;
+        padding: 0;
+  
+        .nav-link {
+          display: flex;
+          justify-content: center;
+          color: #1b75d0;
+        }
+  
+        .navbar-right__icon--phone {
+          color: #1b75d0;
+        }
+      }
+  
+      .navbar-right__language {
+        font: small RobotoRegular, sans-serif;
+  
+        .nav-link {
+          .dropdown-item__image {
+            margin-right: 5px;
+            width: 19px;
+          }
+        }
+        .navbar-right__logout{
+          width: max-content;
+          text-decoration: none;
+          cursor: pointer;
+        }
+  
+        .navbar-right__icon--language {
+          color: yellow;
+          background-color: red;
+          font-size: 13px;
+          padding: 3px;
+          border-radius: 50%;
+          margin-right: 5px;
+        }
+  
+        .dropdown-item {
+          .dropdown-item__image {
+            width: 19px;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+  
+  .navbar-line{
+    width: 100%;
+    background-color:#1b75d0;
+    height: 2px;
+    margin-bottom: 5px;
+  }
+  
+  /* ---------------------------Responsive------------------- */
+  @media screen and (max-width: 1200px) {
+    .navbar-middle {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    nav .navbar__logo-container {
+      margin-right: 5%;
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    nav .navbar-nav .nav-item {
+      justify-content: center;
+      border: none;
+  
+      .nav-link {
+        text-align: center;
+      }
+    }
+  
+    .navbar-right .navbar-right__item {
+      border: 0;
+    }
+  }

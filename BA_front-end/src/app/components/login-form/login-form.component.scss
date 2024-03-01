@@ -1,0 +1,222 @@
+
+
+/* -------------------Carousel------------------ */
+.carousel {
+    .carousel-inner {
+      height: 650px;
+      width: 100%;
+  
+      .carousel-item {
+        height: 100%;
+        min-width: 1920px;
+        overflow: hidden;
+        object-fit: cover;
+  
+        .carousel-item__image {
+          height: 100%;
+          max-width: none;
+          object-position: left;
+        }
+      }
+    }
+  
+    /* ------------------Carousel caption------------------ */
+    .carousel-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 1em;
+      width: 50vw;
+      background-color: rgba(171, 171, 171, 0.42);
+      left: 3%;
+      top: 70%;
+      height: 15%;
+      border-radius: 15px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  
+      .carousel-container {
+        padding-top: 1em;
+        width: 80%;
+        text-align: start;
+  
+        .carousel-caption__title {
+          font-family: RobotoBold, sans-serif;
+        }
+  
+        .carousel-caption__detail--full,
+        .carousel-caption__detail--short {
+          font-family: RobotoRegular, sans-serif;
+        }
+  
+        .carousel-caption__detail--short {
+          display: none;
+        }
+      }
+  
+      .carousel-caption__button--detail {
+        background-color: rgb(19, 196, 57);
+        border: none;
+  
+        .carousel-caption__link {
+          font-family: RobotoRegular, sans-serif;
+          text-decoration: none;
+          color: white;
+        }
+  
+        &:hover {
+          background-color: rgba(13, 151, 43, 0.677);
+        }
+      }
+    }
+  
+    /* ------------------------Carousel indicator----------------- */
+    .carousel-indicators {
+      .carousel-indicators__circle--outter {
+        border-radius: 50%;
+        height: 18px;
+        width: 18px;
+        border: 2px solid white;
+        margin: 5px;
+  
+        .carousel-indicators__circle--inner {
+          position: relative;
+          height: 8px;
+          width: 8px;
+          top: -50%;
+        }
+      }
+    }
+  
+    /* --------------------Login modal------------------ */
+    #login-modal {
+      margin: 0 auto;
+      right: 4%;
+      top: 10%;
+      width: 350px;
+  
+      .login-modal__link {
+        margin: 30px 0;
+  
+        .login-modal__image {
+          height: 50px;
+        }
+      }
+  
+      /* ------------------Username and password input---------- */
+      .input-group {
+        width: 85%;
+        font-family: RobotoRegular;
+  
+        .form-control {
+          font-size: small;
+        }
+  
+        .input-group-prepend,
+        .input-group-prepend__icon-container--right {
+          border-radius: 0 50% 50% 0;
+          background-color: white;
+        }
+  
+        .input-group-prepend__icon-container--left {
+          border-radius: 50% 0 0 50%;
+        }
+      }
+  
+      .forget-pass-container {
+        width: 85%;
+        margin: 0 auto;
+        font-family: RobotoRegular;
+  
+        .forget-pass__label,
+        .form-check-label {
+          font-size: small;
+        }
+  
+        .forget-pass__label {
+          color: rgb(73, 73, 216);
+          text-decoration: none;
+        }
+      }
+  
+      .login__button--submit {
+        width: 85%;
+        background-color: #3dd5f3;
+        border: none;
+        font-family: RobotoRegular, sans-serif;
+        font-size: small;
+  
+        &:hover {
+          background-color: #38bbd6;
+        }
+      }
+  
+      /* -----------------QR code------------------- */
+      .qr-container {
+        padding: 20px;
+        font-family: RobotoRegular;
+  
+        .qr__image {
+          width: 35%;
+        }
+      }
+    }
+  }
+  
+  /* -------------------Responsive---------------------- */
+  @media screen and (max-width: 992px) {
+    .carousel {
+      .carousel-inner {
+        height: 700px;
+      }
+      #login-modal {
+        top: 3%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+      .carousel-inner {
+        position: relative;
+  
+        .carousel-caption {
+          width: 95vw;
+  
+          left: 2.5vw;
+          top: 73%;
+  
+          .carousel-caption__title,
+          .carousel-caption__detail {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .carousel .carousel-caption .carousel-container .carousel-caption__icon {
+      display: none;
+    }
+  
+    .carousel
+      .carousel-caption
+      .carousel-container
+      .carousel-caption__detail--full {
+      display: none;
+    }
+  
+    .carousel
+      .carousel-caption
+      .carousel-container
+      .carousel-caption__detail--short {
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 350px) {
+    .carousel #login-modal {
+      width: 100vw;
+    }
+  }
