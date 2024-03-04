@@ -13,6 +13,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { GenericNavbarComponent } from './common/components/generic-navbar/generic-navbar.component';
 import { GenericFooterComponent } from './common/components/generic-footer/generic-footer.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { GenericTableComponent } from './common/components/generic-table/generic-table.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,7 +26,16 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, GenericNavbarComponent, GenericFooterComponent, LoginFormComponent, ],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    HomeComponent,
+    GenericNavbarComponent,
+    GenericFooterComponent,
+    LoginFormComponent,
+    UserManagementComponent,
+    GenericTableComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,7 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
