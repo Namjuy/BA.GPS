@@ -19,7 +19,7 @@ export class UserService {
     'Content-Type': 'application/json',
   });
   // 10.1.21.114:1234
-  private userApi = 'https://10.1.20.121:12345/User';
+  private userApi = 'http://localhost:5086/User';
 
   constructor(private http: HttpClient) {}
 

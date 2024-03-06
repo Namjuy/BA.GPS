@@ -3,7 +3,141 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: roboto, "Helvetica Neue", sans-serif; }
+* {
+  box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  overflow: hidden;
+  font-family: robotoRegular, sans-serif;
+  font-size: 14px;
+  position: relative;
+  background: #ffffff;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+}
+
+element {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+element::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+/* set button(top and bottom of the scrollbar) */
+body::-webkit-scrollbar-button {
+  display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  font-size: 12px;
+  font-family: robotoRegular, sans-serif;
+}
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+button {
+  border: none;
+  background-color: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+span {
+  font-size: 12px;
+  font-family: robotoRegular, sans-serif;
+}
+input {
+  font-size: 12px;
+  font-family: robotoRegular, sans-serif;
+ 
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    font-size: 90%;
+  }
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+// class common
+.container {
+  width: 100%;
+}
+
+.page-heading {
+  font-size: 20px;
+  font-family: robotoBold, sans-serif;
+  color: rgb(0, 115, 255);
+  text-align: center;
+}
+
+@media screen and (max-width: 575px) {
+  .container {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}

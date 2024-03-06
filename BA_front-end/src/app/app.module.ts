@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
@@ -15,10 +15,15 @@ import { GenericFooterComponent } from './common/components/generic-footer/gener
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
 import { GenericTableComponent } from './common/components/generic-table/generic-table.component';
+import { GenericPaginationComponent } from './common/components/generic-pagination/generic-pagination.component';
+import { GenericModalComponent } from './common/components/generic-modal/generic-modal.component';
+import { GenericFilterComponent } from './common/components/generic-filter/generic-filter.component';
+import { NgModule } from '@angular/core';
+
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', component: HomeComponent },
+  { path: 'user-management', component: UserManagementComponent },
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,6 +40,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginFormComponent,
     UserManagementComponent,
     GenericTableComponent,
+    GenericPaginationComponent,
+    GenericModalComponent,
+    GenericFilterComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -51,8 +60,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     FormsModule,
+  
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

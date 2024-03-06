@@ -1,0 +1,95 @@
+<div class="home-filter d-flex">
+  <div class="home-filter__left mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Nhập thông tin tìm kiếm"
+      aria-label="Username"
+      name="inputSearchValue"
+      [(ngModel)]="inputSearchValue"
+    />
+    <span class="input-group-text"><i class="bi bi-search"></i></span>
+    <div class="dropdown-center">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        [(ngModel)]="optionValue"
+        name="optionValue"
+      >
+        {{ optionLabel }}
+      </button>
+      <ul class="dropdown-menu">
+        <li *ngFor="let item of selectOption">
+          <a (click)="handleSelectOption(item.type)" class="dropdown-item">{{
+            item.content
+          }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="home-filter__right">
+    <p class="home-filter__title">Thông tin được cập nhật</p>
+    <ul>
+      <li class="d-flex dropdown-menu__date">
+        <span>
+          Từ ngày
+          <input type="date" [(ngModel)]="startDate" />
+        </span>
+        <span>
+          - Đến ngày
+          <input type="date" [(ngModel)]="endDate" />
+        </span>
+      </li>
+    </ul>
+
+    <span class="d-flex">
+      Giới tính:
+      <p>
+        Nam
+        <input
+          [(ngModel)]="selectedGender"
+          type="radio"
+          name="gender"
+          value="1"
+        />
+      </p>
+      <p>
+        Nữ
+        <input
+          [(ngModel)]="selectedGender"
+          type="radio"
+          name="gender"
+          value="0"
+        />
+      </p>
+      <p>
+        Tất cả
+        <input
+          [(ngModel)]="selectedGender"
+          type="radio"
+          name="gender"
+          value=""
+          checked
+        />
+      </p>
+    </span>
+
+    <button
+      (click)="onSearch()"
+      type="button"
+      class="home-filter__btn-search btn btn-primary btn-sm"
+    >
+      <i class="bi bi-search"></i>Tìm kiếm
+    </button>
+  </div>
+  <button
+    class="btn btn-primary button__create"
+    data-bs-toggle="modal"
+    data-bs-target="#genericModal"
+  >
+    Tạo mới
+  </button>
+</div>

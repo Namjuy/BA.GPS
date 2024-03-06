@@ -1,21 +1,42 @@
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="genericModal" tabindex="-1" aria-labelledby="genericModal" aria-hidden="true">
+<div
+  class="modal fade"
+  id="genericModal"
+  tabindex="-1"
+  aria-labelledby="genericModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="genericModalLabel">
+          {{ modalTitle }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" method="post">
+        <div class="modal-body d-flex flex-column">
+          <span *ngFor="let item of labelItems" class="input-container mb-4">
+            <label class="input-label">{{ item.heading }}:</label>
+            <input [type]="item.type" [formControlName]="item.value" />
+            
+          </span>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Lưu</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Huỷ
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

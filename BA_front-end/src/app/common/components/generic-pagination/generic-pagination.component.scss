@@ -1,0 +1,92 @@
+/* Styles for a background with subtle secondary color */
+.bg-secondary-subtle {
+    display: flex;
+    justify-content: space-between;
+  
+    /* Styles for the left section of the background */
+    .pagination__left {
+      display: flex;
+  
+      /* Styles for pagination component */
+      .pagination {
+        height: 30px;
+        margin-right: 4px;
+      }
+  
+      /* Styles for button group component */
+      .btn-group {
+        /* Styles for dropdown toggle button */
+        .dropdown-toggle {
+          font-size: 12px;
+          height: 30px;
+          background-color: white;
+          color: black;
+          border: none;
+        }
+  
+        /* Styles for dropdown menu */
+        .dropdown-menu {
+          min-width: 50px;
+  
+          /* Styles for each page item in dropdown menu */
+          .page-item {
+            text-align: center;
+            font-size: 12px;
+            &:disabled{
+              
+            }
+          }
+        }
+  
+        p {
+          margin: auto 5px;
+        }
+      }
+    }
+  
+    /* Styles for the right section of the background */
+    .pagination__right {
+      /* Styles for additional details in the right section */
+      .pagination__right--detail {
+        font-size: 12px;
+  
+        /* Styles for refresh icon */
+        .bi-arrow-clockwise {
+          font-size: 15px;
+  
+          /* Hover effect for refresh icon */
+          &:hover {
+            color: #0087ff;
+          }
+        }
+      }
+    }
+  }
+  
+  /* Media query for screens up to 576px wide */
+  @media screen and (max-width: 576px) {
+    .bg-secondary-subtle {
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+  
+      /* Styles for left section on smaller screens */
+      .pagination__left {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+  }
+  
+  /* Media query for screens up to 320px wide */
+  @media screen and (max-width: 320px) {
+    .bg-secondary-subtle {
+      /* Styles for pagination component in left section on smaller screens */
+      .pagination__left {
+        .pagination {
+          margin-right: 0;
+        }
+      }
+    }
+  }

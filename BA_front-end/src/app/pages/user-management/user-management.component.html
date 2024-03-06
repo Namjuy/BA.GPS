@@ -1,1 +1,22 @@
-<app-generic-table></app-generic-table>
+<app-generic-navbar></app-generic-navbar>
+<p class="page-heading">Danh sách người dùng</p>
+<div class="container">
+  <app-generic-filter
+    [selectOption]="selectOption"
+    (handleSearch)="handleSearch($event)"
+  ></app-generic-filter>
+  <app-generic-table
+    [list]="list"
+    [listContent]="tableContent"
+  ></app-generic-table>
+  <app-generic-modal
+    [modalTitle]="'Thêm'"
+    [labelItems]="formItem"
+    [form]="userForm"
+  ></app-generic-modal>
+  <app-generic-modal
+  [modalTitle]="'Sửa'"
+  [labelItems]="formItem"
+  [form]="userForm"
+></app-generic-modal>
+</div>

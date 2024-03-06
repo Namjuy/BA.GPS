@@ -1,0 +1,138 @@
+.home__heading {
+  color: rgb(0, 85, 255);
+  font-family: RobotoBold, sans-serif;
+}
+
+.home-filter {
+  justify-content: space-between;
+
+  .button__create{
+    width: 90px;
+  }
+  .home-filter__left {
+    display: flex;
+    width: 30%;
+    height: 30px;
+
+    .form-control {
+      font-size: 12px;
+      border-radius: 0;
+      border-right: white;
+      z-index: 1;
+    }
+
+    .input-group-text {
+      font-size: 12px;
+      border-radius: 0;
+      background-color: white;
+      border-left: 0;
+    }
+  }
+
+  .home-filter__right {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 30px;
+    width: 70%;
+
+    .home-filter__title {
+      text-align: center;
+      margin-bottom: 0;
+      font-size: 12px;
+    }
+
+    .btn-primary {
+      height: 30px;
+      font-size: 12px;
+      margin: auto 0;
+      font-family: RobotoRegular, sans-serif;
+    }
+  }
+
+  .btn-primary {
+    height: 30px;
+    font-size: 12px;
+    font-family: RobotoRegular, sans-serif;
+  }
+
+}
+
+.form-check {
+  margin-top: 20px;
+
+  .form-check-label {
+    font-size: 13px;
+    font-family: RobotoRegular, sans-serif;
+  }
+
+  button {
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+}
+
+.dropdown-center {
+  text-align: center;
+  font-family: RobotoBold, sans-serif;
+
+  .dropdown-toggle {
+    background-color: white;
+    color: black;
+    font-size: 12px;
+    border-radius: 0;
+    height: 30px;
+  }
+
+  .dropdown-menu {
+    font-size: 12px;
+    font-family: RobotoRegular, sans-serif;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .home__heading {
+    text-align: center;
+  }
+
+  .home-filter {
+    flex-wrap: wrap;
+
+    .home-filter__left,
+    .home-filter__right {
+      width: 100%;
+    }
+
+    .home-filter__right {
+      justify-content: space-between;
+    }
+  }
+}
+
+@media screen and (max-width: 477px) {
+  .home-filter {
+    height: fit-content;
+
+    .home-filter__right {
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      .home-filter__title {
+        text-align: center;
+        margin-right: 0;
+      }
+
+      .home-filter__btn-search {
+        margin-left: 0px;
+      }
+    }
+  }
+
+  .form-check {
+    margin-top: 50px;
+  }
+}

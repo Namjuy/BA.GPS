@@ -1,0 +1,21 @@
+.modal-content {
+  width: 400px;
+  .modal-title {
+    text-align: center;
+  }
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    .input-label {
+      width: 150px;
+    }
+    input {
+      width: 80%;
+    }
+  }
+
+  .btn {
+    font-size: 12px;
+    height: 30px;
+  }
+}

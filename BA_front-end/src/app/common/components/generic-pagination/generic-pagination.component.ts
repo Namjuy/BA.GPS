@@ -3,8 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-generic-pagination',
   templateUrl: './generic-pagination.component.html',
-  styleUrls: ['./generic-pagination.component.css']
+  styleUrls: ['./generic-pagination.component.scss']
 })
+
+//2/3/2024
 export class GenericPaginationComponent implements OnInit {
   @Output() currentPage = new EventEmitter<number>();
   @Output() itemsPerPageNumber = new EventEmitter<number>();
