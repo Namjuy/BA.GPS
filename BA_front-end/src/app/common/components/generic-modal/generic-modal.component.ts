@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-generic-modal',
@@ -11,18 +12,19 @@ export class GenericModalComponent implements OnInit {
   @Input() modalTitle: string = '';
   @Input() labelItems: any;
   @Input() form: FormGroup | any;
-  
-  constructor() {}
+
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['en', 'vi']);
+    translate.setDefaultLang('vi');
+  }
 
   ngOnInit() {}
 
   onSubmit() {
     if (this.form.valid) {
       console.log(this.form.value);
-    }
-    else{
+    } else {
       console.log(1);
-      
     }
   }
 }

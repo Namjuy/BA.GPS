@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth-service.service';
 import { UserService } from 'src/app/services/user-service.service';
 
 @Component({
@@ -14,25 +16,40 @@ export class UserManagementComponent implements OnInit {
   list: User[] = [];
   userFilter: any;
   userForm: FormGroup | any;
+  selectedUser: User | any;
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private translate: TranslateService
+  ) {
+    translate.addLangs(['vi', 'en']);
+    translate.setDefaultLang('vi');
+  }
 
   ngOnInit() {
     this.getUser();
+  }
+
+  initializeForm = () => {
     const formControls: Record<string, any> = {};
-    this.formItem.forEach((item: any) => {
-      formControls[item.value] = ['', item.validator];
-    });
+    if (this.selectedUser) {
+      this.formItem.forEach((item: any) => {
+        formControls[item.value] = ['', item.validator];
+      });
+    } else {
+      this.formCreateItem.forEach((item: any) => {
+        formControls[item.value] = ['', item.validator];
+      });
+    }
 
     this.userForm = this.formBuilder.group(formControls);
-  }
+  };
 
   formItem = [
     {
-      heading: 'Tên Tài khoản',
+      heading: 'USERNAME',
       value: 'userName',
       validator: [
         Validators.required,
@@ -40,9 +57,10 @@ export class UserManagementComponent implements OnInit {
         Validators.maxLength(50),
       ],
       type: 'text',
+      errorMessage: 'Tên tài khoản không hợp lệ',
     },
     {
-      heading: 'Họ và tên',
+      heading: 'FULLNAME',
       value: 'fullName',
       validator: [
         Validators.required,
@@ -50,68 +68,77 @@ export class UserManagementComponent implements OnInit {
         Validators.pattern('^[a-zA-ZÀ-Ỹà-ỹ0-9 ]+$'),
       ],
       type: 'text',
+      errorMessage: 'Họ và tên không hợp lệ',
     },
     {
-      heading: 'Ngày sinh',
+      heading: 'DATE_OF_BIRTH',
       value: 'dateOfBirth',
       validator: [this.userService.dateOfBirthValidator, Validators.required],
       type: 'date',
+      errorMessage: 'Tuổi không hợp lệ , yêu cầu trên 18 tuổi',
     },
     {
       heading: 'Email',
       value: 'email',
       validator: Validators.email,
       type: 'text',
+      errorMessage: 'Email không hợp lệ',
     },
     {
-      heading: 'Điện thoại',
+      heading: 'PHONE',
       value: 'phoneNumber',
       validator: [Validators.required, Validators.pattern('[0-9 ]{10}')],
       type: 'text',
+      errorMessage: 'Số điện thoại không hợp lệ',
     },
     {
-      heading: 'Địa chỉ',
+      heading: 'ADDRESS',
       value: 'address',
       validator: [Validators.pattern('^[a-zA-ZÀ-Ỹà-ỹ0-9 ]+$')],
       type: 'text',
+      errorMessage: 'Địa chỉ không hợp lệ',
     },
+  ];
+
+  formCreateItem = [
+    ...this.formItem,
     {
-      heading: 'Mật khẩu',
+      heading: 'PASSWORD',
       value: 'passWord',
       validator: [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(100),
-        Validators.pattern('^[a-zA-Z0-9]+$'),
+        Validators.pattern('^(?=.*[A-Z])(?=.*[!@#$%^&*()])(?=.*[0-9]).{8,}$'),
       ],
       type: 'text',
+      errorMessage:
+        'Mật khẩu chưa ít nhất 1 ký tự viết hoa , 1 ký tự đặc biệt và 1 chữ số',
     },
     {
-      heading: 'Xác nhận mật khẩu',
+      heading: 'CONFIRM_PASSWORD',
       value: 'confirmPassWord',
       validator: [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(100),
-        Validators.pattern('^[a-zA-Z0-9]+$'),
       ],
-      type: 'text',
+      errorMessage: 'Xác nhận mật khẩu không khớp',
     },
   ];
-
   tableContent = [
-    { heading: 'Tên Tài khoản', value: 'userName' },
-    { heading: 'Họ và tên', value: 'fullName' },
-    { heading: 'Ngày sinh', value: 'dateOfBirth' },
+    { heading: 'USERNAME', value: 'userName' },
+    { heading: 'FULLNAME', value: 'fullName' },
+    { heading: 'DATE_OF_BIRTH', value: 'dateOfBirth' },
     { heading: 'Email', value: 'email' },
-    { heading: 'Điện thoại', value: 'phoneNumber' },
+    { heading: 'PHONE', value: 'phoneNumber' },
   ];
 
   selectOption = [
-    { content: 'Tên đăng nhập', type: 'userName' },
-    { content: 'Họ và tên', type: 'fullName' },
+    { content: 'USERNAME', type: 'userName' },
+    { content: 'FULLNAME', type: 'fullName' },
     { content: 'Email', type: 'email' },
-    { content: 'Điện thoại', type: 'phoneNumber' },
+    { content: 'PHONE', type: 'phoneNumber' },
   ];
 
   // Fetch all users
@@ -135,5 +162,16 @@ export class UserManagementComponent implements OnInit {
       .subscribe((response) => {
         this.list = response;
       });
+  };
+
+  handleSelectedUser = (event: any) => {
+    this.selectedUser = event;
+    this.initializeForm();
+    this.userForm.patchValue(this.selectedUser);
+  };
+
+  handleCreate = () => {
+    this.selectedUser = undefined;
+    this.initializeForm();
   };
 }

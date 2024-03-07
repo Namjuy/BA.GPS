@@ -3,7 +3,7 @@
     <input
       type="text"
       class="form-control"
-      placeholder="Nhập thông tin tìm kiếm"
+      placeholder="{{ 'INPUT_SEARCH_VALUE' | translate }}"
       aria-label="Username"
       name="inputSearchValue"
       [(ngModel)]="inputSearchValue"
@@ -18,12 +18,12 @@
         [(ngModel)]="optionValue"
         name="optionValue"
       >
-        {{ optionLabel }}
+        {{ optionLabel | translate }}
       </button>
       <ul class="dropdown-menu">
         <li *ngFor="let item of selectOption">
           <a (click)="handleSelectOption(item.type)" class="dropdown-item">{{
-            item.content
+            item.content | translate
           }}</a>
         </li>
       </ul>
@@ -31,15 +31,15 @@
   </div>
 
   <div class="home-filter__right">
-    <p class="home-filter__title">Thông tin được cập nhật</p>
+    <p class="home-filter__title">{{ "MODIFED_DATE" | translate }}</p>
     <ul>
       <li class="d-flex dropdown-menu__date">
         <span>
-          Từ ngày
+          {{ "FROM" | translate }}
           <input type="date" [(ngModel)]="startDate" />
         </span>
         <span>
-          - Đến ngày
+          - {{ "TO" | translate }}
           <input type="date" [(ngModel)]="endDate" />
         </span>
       </li>
@@ -48,7 +48,7 @@
     <span class="d-flex">
       Giới tính:
       <p>
-        Nam
+        {{ "MALE" | translate }}
         <input
           [(ngModel)]="selectedGender"
           type="radio"
@@ -57,7 +57,7 @@
         />
       </p>
       <p>
-        Nữ
+        {{ "FEMALE" | translate }}
         <input
           [(ngModel)]="selectedGender"
           type="radio"
@@ -66,7 +66,7 @@
         />
       </p>
       <p>
-        Tất cả
+        {{ "ALL" | translate }}
         <input
           [(ngModel)]="selectedGender"
           type="radio"
@@ -82,14 +82,15 @@
       type="button"
       class="home-filter__btn-search btn btn-primary btn-sm"
     >
-      <i class="bi bi-search"></i>Tìm kiếm
+      <i class="bi bi-search"></i>{{ "SEARCH" | translate }}
     </button>
   </div>
   <button
     class="btn btn-primary button__create"
     data-bs-toggle="modal"
     data-bs-target="#genericModal"
+    (click)="onCreate()"
   >
-    Tạo mới
+    {{ "CREATE" | translate }}
   </button>
 </div>

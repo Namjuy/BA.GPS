@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { HelperService } from '../../helpers/helper.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-generic-filter',
@@ -7,10 +8,10 @@ import { HelperService } from '../../helpers/helper.service';
   styleUrls: ['./generic-filter.component.scss'],
 })
 export class GenericFilterComponent implements OnInit {
-  
   @Input() selectOption: any;
   @Output() handleSearch = new EventEmitter<Map<string, any>>();
-
+  @Output() handelCreate = new EventEmitter();
+  
   inputSearchValue: string = '';
   optionLabel: string = '';
   optionValue: string = '';
@@ -21,7 +22,10 @@ export class GenericFilterComponent implements OnInit {
 
   filterMap = new Map<string, any>();
 
-  constructor(private helper: HelperService) {}
+  constructor(private helper: HelperService, private translate:TranslateService) {
+    translate.addLangs(['vi','en']);
+    translate.setDefaultLang('vi')
+  }
 
   ngOnInit() {
     if (this.selectOption && this.selectOption.length > 0) {
@@ -49,4 +53,7 @@ export class GenericFilterComponent implements OnInit {
     this.optionValue = option;
   }
 
+  onCreate = () => {
+    this.handelCreate.emit();
+  };
 }

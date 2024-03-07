@@ -3,12 +3,12 @@
     <!-- Table header -->
     <thead class="table__head">
       <tr>
-        <th>STT</th>
+        <th>{{'INDEX'|translate}}</th>
         <th *ngFor="let headingItem of listContent">
-          {{ headingItem.heading }}
+          {{ headingItem.heading | translate }}
         </th>
-        <th>Sửa</th>
-        <th>Xoá</th>
+        <th>{{ 'EDIT'| translate}}</th>
+        <th>{{ 'DELETE'| translate}}</th>
       </tr>
     </thead>
 
@@ -24,6 +24,7 @@
             data-bs-toggle="modal"
             data-bs-target="#genericModal"
             class="bi bi-wrench"
+            (click)="getSelectedUser(item)"
           ></i>
         </td>
         <td>
