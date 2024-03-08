@@ -1,19 +1,20 @@
 <app-generic-navbar></app-generic-navbar>
-<p class="page-heading">{{ "USER_LIST_MANAGEMENT" | translate }}</p>
+<p class="page-heading mb-4">{{ "USER_LIST_MANAGEMENT" | translate }}</p>
 <div class="container">
   <app-generic-filter
     [selectOption]="selectOption"
     (handleSearch)="handleSearch($event)"
     (handelCreate)="handleCreate()"
   ></app-generic-filter>
-  <app-generic-table
-    [list]="list"
-    [listContent]="tableContent"
-    (selectedUser)="handleSelectedUser($event)"
-  ></app-generic-table>
-  <app-generic-modal
-    [modalTitle]="selectedUser ? 'Sửa' : 'Thêm'"
-    [labelItems]="selectedUser ? formItem : formCreateItem"
-    [form]="userForm"
-  ></app-generic-modal>
 </div>
+<app-generic-table
+  [list]="list"
+  [listContent]="tableContent"
+  (selectedUser)="handleSelectedUser($event)"
+></app-generic-table>
+<app-generic-pagination></app-generic-pagination>
+<app-generic-modal
+  [modalTitle]="selectedUser ? 'Sửa' : 'Thêm'"
+  [labelItems]="selectedUser ? formItem : formCreateItem"
+  [form]="userForm"
+></app-generic-modal>

@@ -7,11 +7,13 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './generic-filter.component.html',
   styleUrls: ['./generic-filter.component.scss'],
 })
+
+//1/3/2024
 export class GenericFilterComponent implements OnInit {
-  @Input() selectOption: any;
+  @Input() selectOption: [{ content: string; type: string }] | any;
   @Output() handleSearch = new EventEmitter<Map<string, any>>();
   @Output() handelCreate = new EventEmitter();
-  
+
   inputSearchValue: string = '';
   optionLabel: string = '';
   optionValue: string = '';
@@ -22,9 +24,12 @@ export class GenericFilterComponent implements OnInit {
 
   filterMap = new Map<string, any>();
 
-  constructor(private helper: HelperService, private translate:TranslateService) {
-    translate.addLangs(['vi','en']);
-    translate.setDefaultLang('vi')
+  constructor(
+    private helper: HelperService,
+    private translate: TranslateService
+  ) {
+    translate.addLangs(['vi', 'en']);
+    translate.setDefaultLang('vi');
   }
 
   ngOnInit() {
@@ -43,17 +48,12 @@ export class GenericFilterComponent implements OnInit {
 
     // Emit the filter map to the parent component
     this.handleSearch.emit(this.filterMap);
-    console.log(this.filterMap);
   }
 
-  handleSelectOption(option: string): void {
-    this.optionLabel =
-      this.selectOption.find((item: any) => item.type === option)?.content ||
-      '';
-    this.optionValue = option;
+  handleSelectOption(option: any): void {
+    this.optionLabel = option.content;
+    this.optionValue = option.type;
   }
 
-  onCreate = () => {
-    this.handelCreate.emit();
-  };
+  onCreate = () => this.handelCreate.emit();
 }

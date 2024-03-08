@@ -1,5 +1,6 @@
 <div class="home-filter d-flex">
   <div class="home-filter__left mb-3">
+    <!-- Input search -->
     <input
       type="text"
       class="form-control"
@@ -9,6 +10,8 @@
       [(ngModel)]="inputSearchValue"
     />
     <span class="input-group-text"><i class="bi bi-search"></i></span>
+
+    <!-- Dropdown for options -->
     <div class="dropdown-center">
       <button
         class="btn btn-secondary dropdown-toggle"
@@ -17,66 +20,66 @@
         aria-expanded="false"
         [(ngModel)]="optionValue"
         name="optionValue"
+        ngDefaultControl
       >
         {{ optionLabel | translate }}
       </button>
       <ul class="dropdown-menu">
-        <li *ngFor="let item of selectOption">
-          <a (click)="handleSelectOption(item.type)" class="dropdown-item">{{
-            item.content | translate
-          }}</a>
+        <li
+          *ngFor="let item of selectOption"
+          (click)="handleSelectOption(item)"
+        >
+          <a class="dropdown-item">{{ item.content | translate }}</a>
         </li>
       </ul>
     </div>
   </div>
 
   <div class="home-filter__right">
+    <!-- Date selection -->
     <p class="home-filter__title">{{ "MODIFED_DATE" | translate }}</p>
-    <ul>
-      <li class="d-flex dropdown-menu__date">
-        <span>
-          {{ "FROM" | translate }}
-          <input type="date" [(ngModel)]="startDate" />
-        </span>
-        <span>
-          - {{ "TO" | translate }}
-          <input type="date" [(ngModel)]="endDate" />
-        </span>
-      </li>
-    </ul>
 
-    <span class="d-flex">
-      Giới tính:
-      <p>
+    <div class="d-flex dropdown-menu__date">
+      <span>{{ "FROM" | translate }}</span>
+      <input type="date" [(ngModel)]="startDate" />
+      <span>- {{ "TO" | translate }}</span>
+      <input type="date" [(ngModel)]="endDate" />
+    </div>
+
+    <!-- Gender selection -->
+    <span class="d-flex align-items-center btn-radio__gender">
+      {{ "GENDER" | translate }}:
+      <label>
         {{ "MALE" | translate }}
-        <input
-          [(ngModel)]="selectedGender"
-          type="radio"
-          name="gender"
-          value="1"
-        />
-      </p>
-      <p>
+      </label>
+      <input
+        [(ngModel)]="selectedGender"
+        type="radio"
+        name="gender"
+        value="1"
+      />
+      <label>
         {{ "FEMALE" | translate }}
-        <input
-          [(ngModel)]="selectedGender"
-          type="radio"
-          name="gender"
-          value="0"
-        />
-      </p>
-      <p>
+      </label>
+      <input
+        [(ngModel)]="selectedGender"
+        type="radio"
+        name="gender"
+        value="0"
+      />
+      <label>
         {{ "ALL" | translate }}
-        <input
-          [(ngModel)]="selectedGender"
-          type="radio"
-          name="gender"
-          value=""
-          checked
-        />
-      </p>
+      </label>
+      <input
+        [(ngModel)]="selectedGender"
+        type="radio"
+        name="gender"
+        value=""
+        checked
+      />
     </span>
 
+    <!-- Search button -->
     <button
       (click)="onSearch()"
       type="button"
@@ -85,6 +88,8 @@
       <i class="bi bi-search"></i>{{ "SEARCH" | translate }}
     </button>
   </div>
+
+  <!-- Create button -->
   <button
     class="btn btn-primary button__create"
     data-bs-toggle="modal"

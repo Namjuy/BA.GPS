@@ -60,5 +60,6 @@
   "ALL":"Tất cả",
   "SEARCH": "Tìm kiếm",
   "CREATE":"Tạo",
-  "USER_LIST_MANAGEMENT":"Quản lý danh sách người dùng"
+  "USER_LIST_MANAGEMENT":"Quản lý danh sách người dùng",
+  "NO_ITEM_REMAIN":"Không có giá trị nào phù hợp"
 }

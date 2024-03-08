@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 import { JwtService } from './jwt-service.service';
 
 @Injectable({
@@ -70,13 +70,12 @@ export class AuthService {
     }
   }
 
-  //Handel check the password and confirm password are same
-  passwordMatchValidator(group: FormGroup): { [key: string]: any } | null {
-    const newPassword = group.get('newPassword')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
+ //Handel check the password and confirm password are same
+ passwordMatchValidator:(form: FormGroup)=> ValidationErrors | null=(form)=> {
+  const newPassword = form.get('newPassword')?.value;
+  const confirmPassword = form.get('confirmPassword')?.value;
 
-    return newPassword === confirmPassword ? null : { mismatch: true };
-  }
-
+  return newPassword === confirmPassword ? null : { mismatch: true };
+}
   
 }

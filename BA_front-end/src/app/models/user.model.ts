@@ -4,7 +4,7 @@ export class User {
   passWordHash: string = '';
   fullName: string = '';
   dateOfBirth: Date = new Date();
-  isMale: number = 0;
+  gender: number = 0;
   phoneNumber: number = 0;
   email: string = '';
   address: string = '';

@@ -6,19 +6,20 @@
 .home-filter {
   justify-content: space-between;
 
-  .button__create{
+  .button__create {
     width: 90px;
   }
   .home-filter__left {
     display: flex;
-    width: 30%;
+    
     height: 30px;
-
+    align-items: center;
     .form-control {
       font-size: 12px;
       border-radius: 0;
       border-right: white;
       z-index: 1;
+      width: 200px;
     }
 
     .input-group-text {
@@ -26,6 +27,7 @@
       border-radius: 0;
       background-color: white;
       border-left: 0;
+      height: 30px;
     }
   }
 
@@ -43,10 +45,21 @@
     }
 
     .btn-primary {
+      width: 85px;
       height: 30px;
       font-size: 12px;
-      margin: auto 0;
       font-family: RobotoRegular, sans-serif;
+    }
+
+    .dropdown-menu__date{
+      align-items: center;
+      justify-content: space-between;
+      width: 300px;
+    }
+
+    .btn-radio__gender{
+      width: 200px;
+      justify-content: space-between;
     }
   }
 
@@ -55,7 +68,6 @@
     font-size: 12px;
     font-family: RobotoRegular, sans-serif;
   }
-
 }
 
 .form-check {
@@ -92,7 +104,9 @@
     font-family: RobotoRegular, sans-serif;
   }
 }
-
+@media screen and (max-width:1024px) {
+  
+}
 @media screen and (max-width: 992px) {
   .home__heading {
     text-align: center;

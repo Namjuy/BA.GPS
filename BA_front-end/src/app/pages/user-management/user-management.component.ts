@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { HelperService } from 'src/app/common/helpers/helper.service';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { UserService } from 'src/app/services/user-service.service';
@@ -21,8 +22,9 @@ export class UserManagementComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private helper: HelperService,
+    private authService:AuthService
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
@@ -44,7 +46,7 @@ export class UserManagementComponent implements OnInit {
       });
     }
 
-    this.userForm = this.formBuilder.group(formControls);
+    this.userForm = this.formBuilder.group(formControls, this.authService.passwordMatchValidator);
   };
 
   formItem = [
@@ -78,10 +80,17 @@ export class UserManagementComponent implements OnInit {
       errorMessage: 'Tuổi không hợp lệ , yêu cầu trên 18 tuổi',
     },
     {
+      heading: 'GENDER',
+      value: 'isMale',
+      validator: [],
+      type: 'gender',
+      errorMessage: 'Giới tính không hợp lệ',
+    },
+    {
       heading: 'Email',
       value: 'email',
       validator: Validators.email,
-      type: 'text',
+      type: 'email',
       errorMessage: 'Email không hợp lệ',
     },
     {
@@ -99,7 +108,7 @@ export class UserManagementComponent implements OnInit {
       errorMessage: 'Địa chỉ không hợp lệ',
     },
   ];
-
+ 
   formCreateItem = [
     ...this.formItem,
     {
@@ -126,12 +135,16 @@ export class UserManagementComponent implements OnInit {
       errorMessage: 'Xác nhận mật khẩu không khớp',
     },
   ];
+
+
   tableContent = [
-    { heading: 'USERNAME', value: 'userName' },
-    { heading: 'FULLNAME', value: 'fullName' },
-    { heading: 'DATE_OF_BIRTH', value: 'dateOfBirth' },
-    { heading: 'Email', value: 'email' },
-    { heading: 'PHONE', value: 'phoneNumber' },
+    { heading: 'USERNAME', value: 'userName', type: 'text' },
+    { heading: 'FULLNAME', value: 'fullName', type: 'text' },
+    { heading: 'DATE_OF_BIRTH', value: 'dateOfBirth', type: 'date' },
+    { heading: 'GENDER', value: 'isMale', type: 'text' },
+    { heading: 'Email', value: 'email', type: 'text' },
+    { heading: 'PHONE', value: 'phoneNumber', type: 'text' },
+    { heading: 'MODIFED_DATE', value: 'lastModifyDate', type: 'date' },
   ];
 
   selectOption = [
@@ -166,8 +179,12 @@ export class UserManagementComponent implements OnInit {
 
   handleSelectedUser = (event: any) => {
     this.selectedUser = event;
+    this.selectedUser.dateOfBirth = this.helper.formatDate(
+      this.selectedUser.dateOfBirth
+    );
     this.initializeForm();
     this.userForm.patchValue(this.selectedUser);
+    
   };
 
   handleCreate = () => {
