@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 /* Importing Bootstrap SCSS file. */
-
 
 * {
   box-sizing: border-box;
@@ -73,11 +71,7 @@ span {
 input {
   font-size: 12px;
   font-family: robotoRegular, sans-serif;
-<<<<<<< HEAD
 
-=======
-  height: 30px;
->>>>>>> dd97623dcb5a11b140009eeb59a5e46a9bf3ed6c
   &:focus {
     outline: none;
   }
