@@ -1,5 +1,7 @@
 <app-generic-navbar></app-generic-navbar>
+
 <p class="page-heading mb-4">{{ "USER_LIST_MANAGEMENT" | translate }}</p>
+
 <div class="container">
   <app-generic-filter
     [selectOption]="selectOption"
@@ -7,14 +9,20 @@
     (handelCreate)="handleCreate()"
   ></app-generic-filter>
 </div>
+
 <app-generic-table
   [list]="list"
   [listContent]="tableContent"
   (selectedUser)="handleSelectedUser($event)"
 ></app-generic-table>
+
 <app-generic-pagination></app-generic-pagination>
-<app-generic-modal
-  [modalTitle]="selectedUser ? 'Sửa' : 'Thêm'"
-  [labelItems]="selectedUser ? formItem : formCreateItem"
-  [form]="userForm"
-></app-generic-modal>
+
+<app-generic-modal [modalTitle]="selectedUser ? 'Sửa' : 'Thêm'">
+  <ng-container>
+    <app-user-form
+      [labelItems]="selectedUser ? formItem : formCreateItem"
+      [form]="userForm"
+    ></app-user-form>
+  </ng-container>
+</app-generic-modal>

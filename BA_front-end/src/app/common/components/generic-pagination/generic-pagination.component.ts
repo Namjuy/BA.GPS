@@ -6,7 +6,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./generic-pagination.component.scss']
 })
 
-//2/3/2024
+////Name   Date       Comments
+////duypn  2/3/2024  create
 export class GenericPaginationComponent implements OnInit {
 
 

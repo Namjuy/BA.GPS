@@ -19,6 +19,7 @@ import { GenericPaginationComponent } from './common/components/generic-paginati
 import { GenericModalComponent } from './common/components/generic-modal/generic-modal.component';
 import { GenericFilterComponent } from './common/components/generic-filter/generic-filter.component';
 import { NgModule } from '@angular/core';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 
 const appRoutes: Routes = [
@@ -43,7 +44,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GenericPaginationComponent,
     GenericModalComponent,
     GenericFilterComponent,
-   
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

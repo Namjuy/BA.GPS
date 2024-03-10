@@ -32,6 +32,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
+    this.initializeForm();
   }
 
   initializeForm = () => {

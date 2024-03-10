@@ -1,0 +1,21 @@
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    .input-label {
+      width: 150px;
+      padding: 5px;
+    }
+    .input-form {
+      width: 80%;
+      .form-control {
+        height: 30px;
+        font-size: 12px;
+      }
+    }
+  }
+  
+  .btn {
+    font-size: 12px;
+    height: 30px;
+  }
+  

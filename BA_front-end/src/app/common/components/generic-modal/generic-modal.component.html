@@ -18,51 +18,8 @@
           aria-label="Close"
         ></button>
       </div>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" method="post">
-        <div class="modal-body d-flex flex-column">
-          <span *ngFor="let item of labelItems" class="input-container mb-4">
-            <label class="input-label">{{ item.heading | translate }}:</label>
-            <div class="input-form d-flex flex-column ps-2">
-              <input
-                *ngIf="item.type !== 'gender'"
-                [type]="item.type"
-                [formControlName]="item.value"
-                class="form-control"
-                [class.is-valid]="form.get(item.value)?.valid"
-                [class.is-invalid]="
-                  !form.get(item.value)?.valid && form.get(item.value)?.dirty
-                "
-                id="{{ item.value }}"
-              />
-
-              <span
-                class="text-danger invalid-feedback"
-                id="item.value"
-                *ngIf="
-                  form.get(item.value)?.invalid && form.get(item.value)?.touched
-                "
-                >{{ item.errorMessage }}</span
-              >
-            </div>
-          </span>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="!form.valid"
-          >
-            {{ "SAVE" | translate }}
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            {{ "CANCEL" | translate }}
-          </button>
-        </div>
-      </form>
+      <ng-content></ng-content>
     </div>
+    
   </div>
 </div>

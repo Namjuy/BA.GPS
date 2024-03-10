@@ -1,0 +1,66 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" method="post">
+  <div class="modal-body d-flex flex-column">
+    <span *ngFor="let item of labelItems" class="input-container mb-4">
+      <label class="input-label">{{ item.heading | translate }}:</label>
+      <div class="input-form d-flex flex-column ps-2">
+        <input
+          *ngIf="item.type !== 'gender'"
+          [type]="item.type"
+          [formControlName]="item.value"
+          class="form-control"
+          [class.is-valid]="form.get(item.value)?.valid"
+          [class.is-invalid]="
+            !form.get(item.value)?.valid && form.get(item.value)?.dirty
+          "
+          id="{{ item.value }}"
+        />
+
+        <ng-container *ngIf="item.type == 'gender'">
+          <div class="d-flex">
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                [formControlName]="item.value"
+                [id]="'maleRadio'"
+                [value]="1"
+                [checked]="item.value == 1"
+              />
+              <label class="form-check-label" for="maleRadio">{{
+                "MALE" | translate
+              }}</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                [formControlName]="item.value"
+                [id]="'femaleRadio'"
+                [value]="0"
+                [checked]="item.value == 0"
+              />
+              <label class="form-check-label" for="femaleRadio">{{
+                "FEMALE" | translate
+              }}</label>
+            </div>
+          </div>
+        </ng-container>
+
+        <span
+          class="text-danger invalid-feedback"
+          id="item.value"
+          *ngIf="form.get(item.value)?.invalid && form.get(item.value)?.touched"
+          >{{ item.errorMessage }}</span
+        >
+      </div>
+    </span>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+      {{ "SAVE" | translate }}
+    </button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+      {{ "CANCEL" | translate }}
+    </button>
+  </div>
+</form>
