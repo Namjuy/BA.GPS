@@ -1,17 +1,24 @@
 .modal-content {
-  width: 400px;
+  width: 500px;
   .modal-title {
     text-align: center;
+    width: 100%;
   }
   .input-container {
     display: flex;
     justify-content: space-between;
     .input-label {
       width: 150px;
+      padding: 5px;
     }
     .input-form {
-      width: 100%;
+      width: 80%;
+      .form-control{
+        height: 30px;
+        font-size: 12px;
+      }
     }
+    
   }
 
   .btn {

@@ -113,12 +113,14 @@
   
         .input-group-prepend,
         .input-group-prepend__icon-container--right {
-          border-radius: 0 50% 50% 0;
+          border-radius: 0 45% 45% 0;
           background-color: white;
+          height: 30px;
         }
   
         .input-group-prepend__icon-container--left {
-          border-radius: 50% 0 0 50%;
+          border-radius: 45% 0 0 45%;
+          height: 30px;
         }
       }
   

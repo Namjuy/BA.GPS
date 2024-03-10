@@ -3,12 +3,12 @@
     <!-- Table header -->
     <thead class="table__head">
       <tr>
-        <th>{{'INDEX'|translate}}</th>
+        <th>{{ "INDEX" | translate }}</th>
         <th *ngFor="let headingItem of listContent">
           {{ headingItem.heading | translate }}
         </th>
-        <th>{{ 'EDIT'| translate}}</th>
-        <th>{{ 'DELETE'| translate}}</th>
+        <th>{{ "EDIT" | translate }}</th>
+        <th>{{ "DELETE" | translate }}</th>
       </tr>
     </thead>
 
@@ -17,7 +17,11 @@
       <tr *ngFor="let item of list; let i = index" class="table__row">
         <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
         <td class="table__data" *ngFor="let headingItem of listContent">
-          {{ item[headingItem.value] }}
+          {{
+            headingItem.type === "date"
+              ? convertDateFormat(item[headingItem.value])
+              : item[headingItem.value]
+          }}
         </td>
         <td>
           <i
@@ -40,10 +44,8 @@
     <!-- Table displaying none user -->
     <tbody *ngIf="list.length === 0" class="empty-list-message mt-4 p-5">
       <tr>
-        <td colspan="10">Không tồn tại người dùng nào.</td>
+        <td class="error-message" colspan="10">{{'NO_ITEM_REMAIN'|translate}}</td>
       </tr>
     </tbody>
   </table>
 </div>
-
-

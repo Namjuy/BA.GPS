@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
-
+import { HelperService } from '../../helpers/helper.service';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
@@ -17,15 +18,19 @@ export class GenericTableComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private helper: HelperService,
+    private datePipe: DatePipe
+  ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
   }
 
   ngOnInit() {}
 
-  getSelectedUser = (selectedItem: any) => {
-    this.selectedUser.emit(selectedItem);
-    console.log(this.selectedUser);
-  };
+  getSelectedUser = (selectedItem: any) => this.selectedUser.emit(selectedItem);
+
+  convertDateFormat = (inputDateString: Date) =>
+    this.datePipe.transform(inputDateString, 'dd/MM/yyyy');
 }

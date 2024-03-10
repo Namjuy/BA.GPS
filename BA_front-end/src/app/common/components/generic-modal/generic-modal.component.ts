@@ -12,7 +12,6 @@ export class GenericModalComponent implements OnInit {
   @Input() modalTitle: string = '';
   @Input() labelItems: any;
   @Input() form: FormGroup | any;
-
   constructor(private translate: TranslateService) {
     translate.addLangs(['en', 'vi']);
     translate.setDefaultLang('vi');
@@ -26,5 +25,9 @@ export class GenericModalComponent implements OnInit {
     } else {
       console.log(1);
     }
+  }
+
+  setGender(){
+
   }
 }

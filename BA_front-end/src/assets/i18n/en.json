@@ -59,5 +59,6 @@
   "ALL":"All",
   "SEARCH": "Search",
   "CREATE":"Create",
-  "USER_LIST_MANAGEMENT":"User list management"
+  "USER_LIST_MANAGEMENT":"User list management",
+  "NO_ITEM_REMAIN":"No suitable item"
 }
