@@ -25,9 +25,8 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
- 
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-            
+
               "src/styles.scss"
             ],
             "scripts": []
@@ -90,5 +89,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "d81938ef-5820-475d-9c97-39fc1b2f57c8"
   }
 }

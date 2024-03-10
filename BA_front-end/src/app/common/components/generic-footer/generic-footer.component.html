@@ -1,29 +1,33 @@
 <!-- ---------------------Create Footer--------------------- -->
 
 <footer class="pt-4">
-  <div (wheel)="onMouseWheel($event)"  class="footer-location row d-flex">
+  <div (wheel)="onMouseWheel($event)" class="footer-location row d-flex">
     <!-- ---------------------Creater Location Footer-------------------- -->
     <div
-      *ngFor="let item of  footerItems.get('footerCol'); let i = index"
+      *ngFor="let item of footerItems.get('footerCol'); let i = index"
       class="footer-item mb-3"
     >
-      <p class="footer-item__label--area">{{ item.area | translate}}</p>
-      <p class="footer-item__label--location">{{ item.location |translate}}</p>
+      <p class="footer-item__label--area">{{ item.area | translate }}</p>
+      <p class="footer-item__label--location">
+        {{ item.location | translate }}
+      </p>
     </div>
   </div>
-  <div class="footer-download mb-3 ">
+  <div class="footer-download mb-3 d-flex flex-column">
     <!-- ---------------------Display App Image--------------- -->
-    <a
-      *ngFor="let item of footerItems.get('footerApp'); let i = index"
-      [ngClass]="i === footerItems.get('footerApp').length - 1 ? 'mb-3' : ''"
-      class="footer-app__link"
-      target="_blank"
-      [href]="item.link"
-      ><img
-        class="footer-app__image"
-        [src]="item.imageURL"
-        [alt]="item.imageName"
-    /></a>
+    <div class="d-flex">
+      <a
+        *ngFor="let item of footerItems.get('footerApp'); let i = index"
+        [ngClass]="i === footerItems.get('footerApp').length - 1 ? 'mb-3' : ''"
+        class="footer-app__link"
+        target="_blank"
+        [href]="item.link"
+        ><img
+          class="footer-app__image"
+          [src]="item.imageURL"
+          [alt]="item.imageName"
+      /></a>
+    </div>
 
     <!-- ---------------------Display Social Image------------------ -->
     <div class="footer-social d-flex">

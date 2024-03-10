@@ -33,12 +33,10 @@ footer {
   .footer-download {
     width: 15%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
+    align-items:center;
     .footer-app__link {
       text-align: end;
-
+      width: 100%;
       .footer-app__image {
         width: 130px;
       }
@@ -47,10 +45,10 @@ footer {
     // --------------Footer social----------------
     .footer-social {
       width: 130px;
-      justify-content: space-between;
+      justify-content: space-around;
 
       .footer-social__link {
-        max-width: calc(100% / 3 - 10px);
+        max-width: calc(100% / 2 - 10px);
 
         .footer-social__image {
           width: 100%;
