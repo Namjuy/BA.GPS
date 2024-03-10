@@ -19,10 +19,10 @@
 <app-generic-pagination></app-generic-pagination>
 
 <app-generic-modal [modalTitle]="selectedUser ? 'Sửa' : 'Thêm'">
-  <ng-container>
-    <app-user-form
-      [labelItems]="selectedUser ? formItem : formCreateItem"
-      [form]="userForm"
-    ></app-user-form>
-  </ng-container>
+  <app-user-form
+    [labelItems]="selectedUser ? formItem : formCreateItem"
+    [form]="userForm"
+  ></app-user-form>
 </app-generic-modal>
+
+<app-toast [content]="'Cập nhật thành công'"></app-toast>

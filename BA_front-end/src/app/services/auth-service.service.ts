@@ -71,11 +71,12 @@ export class AuthService {
   }
 
  //Handel check the password and confirm password are same
- passwordMatchValidator:(form: FormGroup)=> ValidationErrors | null=(form)=> {
-  const newPassword = form.get('newPassword')?.value;
-  const confirmPassword = form.get('confirmPassword')?.value;
+ passwordMatchValidator: (form: FormGroup) => ValidationErrors | null = (form) => {
+  const passWord = form.get('passWord')?.value;
+  const confirmPassWord = form.get('confirmPassWord')?.value;
 
-  return newPassword === confirmPassword ? null : { mismatch: true };
+  return passWord === confirmPassWord ? null : { mismatch: true };
 }
+
   
 }

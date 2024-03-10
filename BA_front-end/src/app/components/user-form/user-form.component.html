@@ -50,13 +50,20 @@
           class="text-danger invalid-feedback"
           id="item.value"
           *ngIf="form.get(item.value)?.invalid && form.get(item.value)?.touched"
-          >{{ item.errorMessage }}</span
-        >
+          >{{ item.errorMessage }}
+        </span>
+      
       </div>
     </span>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+    <button
+      type="submit"
+      appToast
+      class="btn btn-primary"
+      [attr.data-bs-dismiss]="form.valid ? 'modal' : null"
+      [disabled]="!form.valid"
+    >
       {{ "SAVE" | translate }}
     </button>
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

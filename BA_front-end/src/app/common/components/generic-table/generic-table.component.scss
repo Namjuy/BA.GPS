@@ -20,6 +20,13 @@ th {
   text-align: center;
   font-size: 12px;
   font-family: robotoRegular, sans-serif;
+  td{
+    .bi{
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
 }
 .error-message{
   text-align: center;

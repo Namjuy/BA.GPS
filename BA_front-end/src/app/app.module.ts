@@ -20,6 +20,8 @@ import { GenericModalComponent } from './common/components/generic-modal/generic
 import { GenericFilterComponent } from './common/components/generic-filter/generic-filter.component';
 import { NgModule } from '@angular/core';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { ToastDirective } from './directives/toast.directive';
+import { ToastComponent } from './common/components/toast/toast.component';
 
 
 const appRoutes: Routes = [
@@ -44,7 +46,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     GenericPaginationComponent,
     GenericModalComponent,
     GenericFilterComponent,
-    UserFormComponent
+    UserFormComponent,
+    ToastDirective,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

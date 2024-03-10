@@ -130,8 +130,7 @@ export class UserManagementComponent implements OnInit {
       value: 'confirmPassWord',
       validator: [
         Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(100),
+       
       ],
       errorMessage: 'Xác nhận mật khẩu không khớp',
     },
