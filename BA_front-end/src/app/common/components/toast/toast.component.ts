@@ -3,14 +3,12 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-toast',
   templateUrl: './toast.component.html',
-  styleUrls: ['./toast.component.scss']
+  styleUrls: ['./toast.component.scss'],
 })
 export class ToastComponent implements OnInit {
+  @Input() toastType: any;
+  @Input() content: any;
+  constructor() {}
 
-  @Input() content :any;
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

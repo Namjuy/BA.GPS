@@ -22,6 +22,8 @@ import { NgModule } from '@angular/core';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ToastDirective } from './directives/toast.directive';
 import { ToastComponent } from './common/components/toast/toast.component';
+import { DeleteItemInforComponent } from './common/components/delete-item-infor/delete-item-infor.component';
+
 
 
 const appRoutes: Routes = [
@@ -48,7 +50,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GenericFilterComponent,
     UserFormComponent,
     ToastDirective,
-    ToastComponent
+    ToastComponent,
+    DeleteItemInforComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
   
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, ToastDirective],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

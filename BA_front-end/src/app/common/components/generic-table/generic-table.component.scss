@@ -1,10 +1,15 @@
 .table-container {
   overflow-x: auto;
-  max-width: 1920px;
+  overflow-y: auto;
+  max-height: 500px;
+}
+.table {
+  width: 100%;
+  height: fit-content;
+  border-collapse: collapse;
 }
 .table__head {
   text-align: center;
-  border-collapse: collapse;
   position: sticky;
   top: 0;
 }
@@ -14,20 +19,24 @@ th {
   color: #fff;
   font-size: 13px;
   font-family: robotoBold, sans-serif;
+  vertical-align: middle;
 }
 
-.table__row {
-  text-align: center;
-  font-size: 12px;
-  font-family: robotoRegular, sans-serif;
-  td{
-    .bi{
-      &:hover{
-        cursor: pointer;
+tbody {
+  .table__row {
+    text-align: center;
+    font-size: 12px;
+    font-family: robotoRegular, sans-serif;
+    td {
+      vertical-align: middle;
+      .bi {
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
 }
-.error-message{
+.error-message {
   text-align: center;
 }

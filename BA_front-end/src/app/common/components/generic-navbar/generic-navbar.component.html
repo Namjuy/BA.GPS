@@ -19,7 +19,7 @@
   </button>
 
   <div
-    class="collapse navbar-collapse justify-content-around xl"
+    class="collapse navbar-collapse justify-content-end xl"
     id="navbarSupportedContent"
   >
     <!-- ------------------Create menu items--------------------- -->
@@ -33,13 +33,13 @@
 
     <ul class="navbar-right navbar-nav">
       <!-- -----------------Create phone contact item----------------- -->
-      <li *ngIf="!userId" class="navbar-right__phone nav-item d-inline-block">
+      <li *ngIf="!userName" class="navbar-right__phone nav-item d-inline-block">
         <a href="tel:19080000" class="nav-link">
           <i class="navbar-right__icon--phone bi bi-telephone-fill pe-2"></i
           >19080000</a
         >
       </li>
-
+      <li><hr class="dropdown-divider"></li>
       <!-- ---------------------Create language choosing item----------------- -->
       <li class="navbar-right__language nav-item d-flex align-items-center">
         <div class="dropdown">
@@ -86,12 +86,13 @@
             </a>
           </div>
         </div>
+        
         <!-- ------------------Create logout link -------------- -->
-        <a *ngIf="userId" class="navbar-right__logout" (click)="logout()">{{
+        <a *ngIf="userName" class="navbar-right__logout" (click)="logout()">{{
           "LOGOUT" | translate
         }}</a>
       </li>
     </ul>
   </div>
 </nav>
-<div *ngIf="userId" class="navbar-line"></div>
+<div *ngIf="userName" class="navbar-line"></div>

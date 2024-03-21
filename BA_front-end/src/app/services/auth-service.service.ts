@@ -1,8 +1,8 @@
-
+import { LoginRequest } from './../models/loginRequest';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { JwtService } from './jwt-service.service';
 
@@ -27,13 +27,13 @@ export class AuthService {
 
   // Method to handle user login
   login(username: string, password: string): Observable<any> {
-    // Construct the login URL with provided username and password
-    const loginUrl = `https://10.1.20.121:12345/api/Authentication/login?username=${username}&password=${password}`;
-
-    // Send a POST request to the login URL with the HttpHeaders
-    return this.http.post<any>(loginUrl, { headers: this.headers });
+    const loginUrl = `http://localhost:5086/api/Authentication/login`;
+    return this.http
+      .post(loginUrl, { username, password }, {responseType: 'text'})
+   
   }
 
+ 
   //Method to handle logout
   logout() {
     localStorage.clear();
@@ -70,13 +70,13 @@ export class AuthService {
     }
   }
 
- //Handel check the password and confirm password are same
- passwordMatchValidator: (form: FormGroup) => ValidationErrors | null = (form) => {
-  const passWord = form.get('passWord')?.value;
-  const confirmPassWord = form.get('confirmPassWord')?.value;
+  //Handel check the password and confirm password are same
+  passwordMatchValidator: (form: FormGroup) => ValidationErrors | null = (
+    form
+  ) => {
+    const passWord = form.get('passWord')?.value;
+    const confirmPassWord = form.get('confirmPassWord')?.value;
 
-  return passWord === confirmPassWord ? null : { mismatch: true };
-}
-
-  
+    return passWord === confirmPassWord ? null : { mismatch: true };
+  };
 }

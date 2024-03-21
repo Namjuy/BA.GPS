@@ -1,14 +1,46 @@
-#toast-loginSuccess, #toast-createSuccess, #toast-updateSuccess{
-    position: absolute; /*or fixed*/
-    top: 80px;
-    right: 0px;
-    height: 20px;
-    z-index: 1000;
-    .d-flex {
+.toast-success {
+  position: absolute; /*or fixed*/
+  top: 90px;
+  right: 0px;
+  height: 20px;
+  z-index: 1000;
+  width: 250px;
+  border: 15%;
+  
+  .d-flex {
+    box-shadow: -10px 0px 10px 1px #aaaaaa;
+    align-items: center;
+    background-color: green;
+    i {
+      font-size: 20px;
+    }
+    .toast-body {
       background-color: green;
-      .toast-body {
-      
-        background-color: green;
-      }
+     
     }
   }
+}
+
+.toast-failed {
+  position: absolute; /*or fixed*/
+  top: 90px;
+  right: 0px;
+  height: 20px;
+  z-index: 1000;
+  width: 250px;
+  border: 15%;
+  
+  .d-flex {
+    box-shadow: -10px 0px 10px 1px #aaaaaa;
+    align-items: center;
+    background-color: red;
+    i {
+      font-size: 20px;
+    }
+    .toast-body {
+      background-color: red;
+     
+    }
+  }
+}
+

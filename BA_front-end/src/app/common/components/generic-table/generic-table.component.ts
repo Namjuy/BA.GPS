@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { HelperService } from '../../helpers/helper.service';
 import { DatePipe } from '@angular/common';
+import { DataListInfor } from 'src/app/models/dataListInfor';
 @Component({
   selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
@@ -11,12 +12,12 @@ import { DatePipe } from '@angular/common';
 
 // 4/3/2024
 export class GenericTableComponent implements OnInit {
-  @Input() list: User[] | any;
+  @Input() listItem :any;
   @Input() listContent: any;
-
-  @Output() selectedUser = new EventEmitter();
-  currentPage: number = 1;
-  itemsPerPage: number = 5;
+  @Input() currentPage: any;
+  @Input() itemsPerPage: any;
+  @Output() selectedItem = new EventEmitter();
+  @Output() isDelete = new EventEmitter();
 
   constructor(
     private translate: TranslateService,
@@ -27,10 +28,15 @@ export class GenericTableComponent implements OnInit {
     translate.setDefaultLang('vi');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+   
+    
+  }
 
-  getSelectedUser = (selectedItem: any) => this.selectedUser.emit(selectedItem);
+  getSelectedItem = (item: any) => this.selectedItem.emit(item);
 
   convertDateFormat = (inputDateString: Date) =>
     this.datePipe.transform(inputDateString, 'dd/MM/yyyy');
+  checkDelete =(item:any) => this.isDelete.emit(item);
+
 }

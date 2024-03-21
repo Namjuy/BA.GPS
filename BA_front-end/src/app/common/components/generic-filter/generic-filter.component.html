@@ -1,5 +1,5 @@
 <div class="home-filter d-flex">
-  <div class="home-filter__left mb-3">
+  <div class="home-filter__input mb-3">
     <!-- Input search -->
     <input
       type="text"
@@ -35,7 +35,32 @@
     </div>
   </div>
 
-  <div class="home-filter__right">
+  <div class="home-filter__gender d-flex mb-3">
+    <p class="home-filter__title">{{ "GENDER" | translate }}</p>
+    <div class="dropdown-center">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        [(ngModel)]="genderValue"
+        name="genderValue"
+        ngDefaultControl
+      >
+        {{ genderLabel | translate }}
+      </button>
+      <ul class="dropdown-menu">
+        <li
+          *ngFor="let item of selectGender"
+          (click)="handleSelectGender(item)"
+        >
+          <a class="dropdown-item">{{ item.content | translate }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="home-filter__date mb-3">
     <!-- Date selection -->
     <p class="home-filter__title">{{ "MODIFED_DATE" | translate }}</p>
 
@@ -45,40 +70,9 @@
       <span>- {{ "TO" | translate }}</span>
       <input type="date" [(ngModel)]="endDate" />
     </div>
-
-    <!-- Gender selection -->
-    <span class="d-flex align-items-center btn-radio__gender">
-      {{ "GENDER" | translate }}:
-      <label>
-        {{ "MALE" | translate }}
-      </label>
-      <input
-        [(ngModel)]="selectedGender"
-        type="radio"
-        name="gender"
-        value="1"
-      />
-      <label>
-        {{ "FEMALE" | translate }}
-      </label>
-      <input
-        [(ngModel)]="selectedGender"
-        type="radio"
-        name="gender"
-        value="0"
-      />
-      <label>
-        {{ "ALL" | translate }}
-      </label>
-      <input
-        [(ngModel)]="selectedGender"
-        type="radio"
-        name="gender"
-        value=""
-        checked
-      />
-    </span>
-
+  </div>
+  
+  <div class="home-filter__button mb-3">
     <!-- Search button -->
     <button
       (click)="onSearch()"
@@ -87,15 +81,15 @@
     >
       <i class="bi bi-search"></i>{{ "SEARCH" | translate }}
     </button>
-  </div>
 
-  <!-- Create button -->
-  <button
-    class="btn btn-primary button__create"
-    data-bs-toggle="modal"
-    data-bs-target="#genericModal"
-    (click)="onCreate()"
-  >
-    {{ "CREATE" | translate }}
-  </button>
+    <!-- Create button -->
+    <button
+      class="btn btn-primary button__create"
+      data-bs-toggle="modal"
+      data-bs-target="#genericModal"
+      (click)="onCreate()"
+    >
+      {{ "CREATE" | translate }}
+    </button>
+  </div>
 </div>

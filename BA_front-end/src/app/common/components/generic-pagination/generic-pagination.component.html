@@ -5,34 +5,40 @@
     <!-- Pagination controls -->
     <ul class="pagination pagination-sm py-1 mb-0">
       <!-- First page button -->
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
+      <li  [class.disabled]="currentPageIndex == 1" class="page-item" (click)="handleFirstPage()">
+        <a class="page-link" aria-label="Previous">
           <i class="bi bi-skip-start-fill"></i>
         </a>
       </li>
 
       <!-- Previous page button -->
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
+      <li [class.disabled]="currentPageIndex == 1" class="page-item" (click)="handlePrevious()">
+        <a class="page-link" aria-label="Previous">
           <i class="bi bi-caret-left-fill"></i>
         </a>
       </li>
 
       <!-- Display page numbers -->
-      <li class="page-item">
-        <a class="page-link">{{ 1 }}</a>
-      </li>
+      <li
+      class="page-item"
+      *ngFor="let pageNumber of getNumberPage()"
+      [class.active]="currentPageIndex=== pageNumber"
+    >
+      <a class="page-link" (click)="changePage(pageNumber)">{{
+        pageNumber
+      }}</a>
+    </li>
 
       <!-- Next page button -->
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
+      <li [class.disabled]="currentPageIndex == totalPage" class="page-item" (click)="handleNext()">
+        <a class="page-link" aria-label="Next">
           <i class="bi bi-caret-right-fill"></i>
         </a>
       </li>
 
       <!-- Last page button -->
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
+      <li [class.disabled]="currentPageIndex == totalPage" class="page-item" (click)="handleLastPage()">
+        <a class="page-link" aria-label="Next">
           <i class="bi bi-skip-end-fill"></i>
         </a>
       </li>
@@ -46,14 +52,14 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {{ itemsPerPage }}
+        {{ pageSize }}
       </button>
 
       <!-- Dropdown menu for selecting items per page -->
       <ul class="dropdown-menu">
-        <li class="page-item">5</li>
-        <li class="page-item">10</li>
-        <li class="page-item">20</li>
+        <li class="page-item" (click)="setItemPerPage(5)">5</li>
+        <li class="page-item" (click)="setItemPerPage(10)">10</li>
+        <li class="page-item" (click)="setItemPerPage(20)" >20</li>
       </ul>
       <p>dòng mỗi trang</p>
     </div>

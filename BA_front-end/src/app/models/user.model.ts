@@ -1,4 +1,5 @@
 export class User {
+
   userId: string = '';
   userName: string = '';
   passWordHash: string = '';

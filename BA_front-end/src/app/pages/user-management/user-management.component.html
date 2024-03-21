@@ -5,24 +5,51 @@
 <div class="container">
   <app-generic-filter
     [selectOption]="selectOption"
+    [selectGender]="selectGender"
     (handleSearch)="handleSearch($event)"
     (handelCreate)="handleCreate()"
   ></app-generic-filter>
 </div>
 
 <app-generic-table
-  [list]="list"
+  [listItem]="userListInfor.dataList"
   [listContent]="tableContent"
-  (selectedUser)="handleSelectedUser($event)"
+  [currentPage]="currentIndex"
+  [itemsPerPage]="itemsPerPage"
+  (selectedItem)="handleSelectedUser($event)"
+  (isDelete)="handleDelete($event)"
 ></app-generic-table>
 
-<app-generic-pagination></app-generic-pagination>
+<app-generic-pagination
+  (getPageIndex)="getPageIndex($event)"
+  (getPageSize)="getPageSize($event)"
+  [totalPage]="userListInfor.totalPage"
+  [currentPageIndex] = "currentIndex"
+></app-generic-pagination>
 
-<app-generic-modal [modalTitle]="selectedUser ? 'Sửa' : 'Thêm'">
+<app-generic-modal
+  [modalTitle]="
+    selectedUser ? (isDelete ? 'Xoá' : 'Sửa') : 'Thêm'
+  "
+>
   <app-user-form
+    *ngIf="!isDelete"
     [labelItems]="selectedUser ? formItem : formCreateItem"
     [form]="userForm"
+    [selectedItem]="selectedUser"
+    (createUser)="createUser($event)"
+    (updateUser)="updateUser($event)"
   ></app-user-form>
+  <app-delete-item-infor
+    *ngIf="isDelete"
+    [deletedItem]="selectedUser"
+    [labelItems]="deleteUserInfor"
+   (handleDelete)="deleteUser($event)"
+  ></app-delete-item-infor>
 </app-generic-modal>
 
-<app-toast [content]="'Cập nhật thành công'"></app-toast>
+<app-toast [toastType]="toastType" [content]="toastContent"> </app-toast>
+
+
+
+

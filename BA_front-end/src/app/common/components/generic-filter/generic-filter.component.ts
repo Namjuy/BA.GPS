@@ -13,14 +13,18 @@ export class GenericFilterComponent implements OnInit {
   @Input() selectOption: [{ content: string; type: string }] | any;
   @Output() handleSearch = new EventEmitter<Map<string, any>>();
   @Output() handelCreate = new EventEmitter();
+  @Input() selectGender: [{ content: string; type: string }] | any;
 
   inputSearchValue: string = '';
+
   optionLabel: string = '';
   optionValue: string = '';
 
+  genderLabel: string = '';
+  genderValue: string = '';
+
   startDate: string = '';
   endDate: string = '';
-  selectedGender: number = 1;
 
   filterMap = new Map<string, any>();
 
@@ -37,6 +41,10 @@ export class GenericFilterComponent implements OnInit {
       this.optionLabel = this.selectOption[0].content;
       this.optionValue = this.selectOption[0].type;
     }
+    if (this.selectGender && this.selectGender.length > 0) {
+      this.genderLabel = this.selectGender[0].content;
+      this.genderValue = this.selectGender[0].type;
+    }
   }
 
   onSearch(): void {
@@ -44,16 +52,23 @@ export class GenericFilterComponent implements OnInit {
     this.filterMap.set('optionValue', this.optionValue);
     this.filterMap.set('startDate', this.startDate);
     this.filterMap.set('endDate', this.endDate);
-    this.filterMap.set('selectedGender', this.selectedGender);
-
+    this.filterMap.set('selectedGender', this.genderValue);
+   
     // Emit the filter map to the parent component
     this.handleSearch.emit(this.filterMap);
+    
+    
   }
 
   handleSelectOption(option: any): void {
     this.optionLabel = option.content;
     this.optionValue = option.type;
   }
+
+  handleSelectGender = (gender: any): void => {
+    this.genderLabel = gender.content;
+    this.genderValue = gender.type;
+  };
 
   onCreate = () => this.handelCreate.emit();
 }

@@ -18,7 +18,7 @@ export class GenericNavbarComponent {
   //get userId from local storage
   @Input() menuItems: MenuItem[] | any;
 
-  userId = localStorage.getItem('userId');
+  userName = localStorage.getItem('userName');
 
   constructor(
     private translate: TranslateService,

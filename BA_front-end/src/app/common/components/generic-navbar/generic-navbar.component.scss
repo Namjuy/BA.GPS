@@ -45,16 +45,18 @@ nav {
         }
       }
 
-      .dropdown{
-        .dropdown-menu{
+      .dropdown {
+        .dropdown-menu {
           min-width: auto;
         }
       }
 
       .navbar-right__language {
         font: small robotoRegular, sans-serif;
-
+        margin-right: 20px;
         .nav-link {
+          display: flex;
+          align-items: center;
           .dropdown-item__image {
             margin-right: 5px;
             width: 19px;
@@ -62,7 +64,7 @@ nav {
         }
         .navbar-right__logout {
           width: max-content;
-          text-decoration: none;
+          // text-decoration: none;
           cursor: pointer;
         }
 
@@ -117,7 +119,22 @@ nav {
     }
   }
 
-  .navbar-right .navbar-right__item {
-    border: 0;
+  .navbar-right {
+    .navbar-right__item {
+      border: 0;
+    }
+    .navbar-right__language {
+      flex-direction: column;
+
+      .dropdown,
+      .navbar-right__logout {
+        height: 30px;
+        display: flex;
+        align-items: center;
+      
+     
+      }
+    
+    }
   }
 }

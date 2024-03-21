@@ -1,4 +1,3 @@
-
 <div
   data-bs-ride="carousel"
   id="carouselExampleIndicators"
@@ -138,6 +137,7 @@
         class="login__button--submit btn btn-primary rounded-pill"
         type="submit"
         (click)="login()"
+        appToast
       >
         {{ "LOGIN" | translate }}
       </button>
@@ -154,3 +154,6 @@
     </div>
   </div>
 </div>
+
+<app-toast [toastType]="toastType" [content]="toastContent"> </app-toast>
+

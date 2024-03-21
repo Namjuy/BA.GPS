@@ -1,8 +1,16 @@
 .modal-content {
   width: 500px;
-  .modal-title {
-    text-align: center;
-    width: 100%;
+  .modal-header{
+    background-color: rgb(0, 115, 255);
+    height: 30px;
+    .modal-title {
+      text-align: center;
+      width: 100%;
+      font-size: 12px;
+      font-family: robotoBold,sans-serif;
+      color: #fff;
+    }
   }
+  
   
 }

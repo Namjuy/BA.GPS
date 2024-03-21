@@ -3,18 +3,34 @@
     <span *ngFor="let item of labelItems" class="input-container mb-4">
       <label class="input-label">{{ item.heading | translate }}:</label>
       <div class="input-form d-flex flex-column ps-2">
-        <input
-          *ngIf="item.type !== 'gender'"
-          [type]="item.type"
-          [formControlName]="item.value"
-          class="form-control"
-          [class.is-valid]="form.get(item.value)?.valid"
-          [class.is-invalid]="
-            !form.get(item.value)?.valid && form.get(item.value)?.dirty
-          "
-          id="{{ item.value }}"
-        />
-
+        <ng-container *ngIf="item.value !== 'userName'; else userInput">
+          <input
+            *ngIf="item.type !== 'gender'"
+            [type]="item.type"
+            [formControlName]="item.value"
+            class="form-control"
+            [class.is-valid]="form.get(item.value)?.valid"
+            [class.is-invalid]="
+              !form.get(item.value)?.valid && form.get(item.value)?.dirty
+            "
+            id="{{ item.value }}"
+          />
+        </ng-container>
+        <ng-template #userInput>
+          <input
+            [type]="item.type"
+            [formControlName]="item.value"
+            [attr.disabled]="selectedItem"
+            class="form-control"
+            [class.is-valid]="form.get(item.value)?.valid"
+            [class.is-invalid]="
+              (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
+              check === true
+            "
+            (keyup)="checkUserNameExist(form.get(item.value))"
+            id="{{ item.value }}"
+          />
+        </ng-template>
         <ng-container *ngIf="item.type == 'gender'">
           <div class="d-flex">
             <div class="form-check form-check-inline">
@@ -52,17 +68,26 @@
           *ngIf="form.get(item.value)?.invalid && form.get(item.value)?.touched"
           >{{ item.errorMessage }}
         </span>
-      
+        <span
+          class="text-danger invalid-feedback"
+          id="item.value"
+          *ngIf="
+            item.value == 'userName' &&
+            form.get(item.value)?.touched &&
+            check == true
+          "
+          >Tên tài khoản trùng lặp
+        </span>
       </div>
     </span>
   </div>
   <div class="modal-footer">
     <button
       type="submit"
-      appToast
       class="btn btn-primary"
       [attr.data-bs-dismiss]="form.valid ? 'modal' : null"
-      [disabled]="!form.valid"
+      [disabled]="!form.valid || check == true"
+      appToast
     >
       {{ "SAVE" | translate }}
     </button>
