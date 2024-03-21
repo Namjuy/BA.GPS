@@ -5,8 +5,11 @@ import { Observable, catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-//19/04/2024
+////Name   Date       Comments
+////duypn  19/3/2024  create
 export class GenericService<T> {
+  
+  // initalize root api url 
   private apiUrl = 'http://localhost:5086/UserApi';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -14,6 +17,7 @@ export class GenericService<T> {
 
   constructor(private http: HttpClient) {}
 
+  // get all 
   getAll(pageIndex: number, pageSize: number): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}?pageIndex=${pageIndex}&pageSize=${pageSize}`,
@@ -21,6 +25,7 @@ export class GenericService<T> {
     );
   }
 
+  // search
   search(
     inputValue: string,
     type: string,
@@ -40,15 +45,18 @@ export class GenericService<T> {
     );
   }
 
+  //create
   create(newItem: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, newItem, { headers: this.headers });
   }
 
+  //update
   update(itemId: string, updatedItemData: any): Observable<T> {
     const url = `${this.apiUrl}/${itemId}`;
     return this.http.put<T>(url, updatedItemData, { headers: this.headers });
   }
 
+  //delete
   delete(itemId: string): Observable<any> {
     const url = `${this.apiUrl}/ban/${itemId}`;
     return this.http.put(url, { headers: this.headers }).pipe(
@@ -59,12 +67,7 @@ export class GenericService<T> {
     );
   }
 
-  getTotalPage(pageSize: number, list: any): Observable<any> {
-    return this.http.get<T[]>(`${this.apiUrl}/totalPage?pageSize=${pageSize}`, {
-      headers: this.headers,
-    });
-  }
-
+  //check exist
   checkExist(userName: string): Observable<any> {
     return this.http.get<T[]>(`${this.apiUrl}/checkExist?value=${userName}`, {
       headers: this.headers,

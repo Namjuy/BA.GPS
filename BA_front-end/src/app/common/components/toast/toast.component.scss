@@ -1,3 +1,4 @@
+// Toast success
 .toast-success {
   position: absolute; /*or fixed*/
   top: 90px;
@@ -6,7 +7,7 @@
   z-index: 1000;
   width: 250px;
   border: 15%;
-  
+
   .d-flex {
     box-shadow: -10px 0px 10px 1px #aaaaaa;
     align-items: center;
@@ -16,11 +17,11 @@
     }
     .toast-body {
       background-color: green;
-     
     }
   }
 }
 
+// Toast failed
 .toast-failed {
   position: absolute; /*or fixed*/
   top: 90px;
@@ -29,7 +30,7 @@
   z-index: 1000;
   width: 250px;
   border: 15%;
-  
+
   .d-flex {
     box-shadow: -10px 0px 10px 1px #aaaaaa;
     align-items: center;
@@ -39,8 +40,6 @@
     }
     .toast-body {
       background-color: red;
-     
     }
   }
 }
-

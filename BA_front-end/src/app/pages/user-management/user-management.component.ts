@@ -14,7 +14,8 @@ import { GenericService } from 'src/app/services/generic-service.service';
   styleUrls: ['./user-management.component.scss'],
 })
 
-//1/3/2024
+////Name   Date       Comments
+////duypn  1/3/2024  create
 export class UserManagementComponent implements OnInit {
 
   //Initalize 
@@ -285,6 +286,7 @@ export class UserManagementComponent implements OnInit {
         this.toastContent = 'Tạo thất bại';
         this.toastDirective.showToast(this.toastType);
         this.getUser();
+        
       }
     );
   };
@@ -321,7 +323,7 @@ export class UserManagementComponent implements OnInit {
         this.getUser();
       },
       (error) => {
-        this.toastContent = 'Xoá thất bại công';
+        this.toastContent = 'Xoá thất bại ';
         this.toastDirective.showToast('toast-failed');
       }
     );

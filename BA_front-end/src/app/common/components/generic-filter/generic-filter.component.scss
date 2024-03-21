@@ -1,14 +1,18 @@
+// Home heading
 .home__heading {
   color: rgb(0, 85, 255);
   font-family: RobotoBold, sans-serif;
 }
 
+//Home filter
 .home-filter {
   justify-content: space-between;
 
   .button__create {
     width: 90px;
   }
+
+  // Input filter
   .home-filter__input {
     display: flex;
 
@@ -32,6 +36,7 @@
     }
   }
 
+  // Date filter
   .home-filter__date {
     display: flex;
     justify-content: space-around;
@@ -55,6 +60,7 @@
     }
   }
 
+  // Gender filter
   .home-filter__gender {
     width: 150px;
     height: 30px;
@@ -67,6 +73,7 @@
     }
   }
 
+  //Button
   .home-filter__button {
     display: flex;
     justify-content: space-between;
@@ -80,23 +87,7 @@
   }
 }
 
-.form-check {
-  margin-top: 20px;
-
-  .form-check-label {
-    font-size: 13px;
-    font-family: RobotoRegular, sans-serif;
-  }
-
-  button {
-    background-color: #0d6efd;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 13px;
-  }
-}
-
+//Dropdown
 .dropdown-center {
   text-align: center;
   font-family: RobotoBold, sans-serif;
@@ -114,6 +105,8 @@
     font-family: RobotoRegular, sans-serif;
   }
 }
+
+//Responsive
 @media screen and (max-width: 1400px) {
   .home-filter {
     .home-filter__input {

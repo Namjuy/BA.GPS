@@ -30,10 +30,8 @@ export class AuthService {
     const loginUrl = `http://localhost:5086/api/Authentication/login`;
     return this.http
       .post(loginUrl, { username, password }, {responseType: 'text'})
-   
   }
 
- 
   //Method to handle logout
   logout() {
     localStorage.clear();

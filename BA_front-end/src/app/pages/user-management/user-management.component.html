@@ -1,7 +1,10 @@
+<!-- Navbar -->
 <app-generic-navbar></app-generic-navbar>
 
+<!-- Heading page -->
 <p class="page-heading mb-4">{{ "USER_LIST_MANAGEMENT" | translate }}</p>
 
+<!-- Filter  -->
 <div class="container">
   <app-generic-filter
     [selectOption]="selectOption"
@@ -11,6 +14,7 @@
   ></app-generic-filter>
 </div>
 
+<!-- Table  -->
 <app-generic-table
   [listItem]="userListInfor.dataList"
   [listContent]="tableContent"
@@ -20,6 +24,7 @@
   (isDelete)="handleDelete($event)"
 ></app-generic-table>
 
+<!-- Pagination  -->
 <app-generic-pagination
   (getPageIndex)="getPageIndex($event)"
   (getPageSize)="getPageSize($event)"
@@ -27,11 +32,13 @@
   [currentPageIndex] = "currentIndex"
 ></app-generic-pagination>
 
+<!-- Modal popup -->
 <app-generic-modal
   [modalTitle]="
     selectedUser ? (isDelete ? 'Xoá' : 'Sửa') : 'Thêm'
   "
 >
+<!-- Modal body  -->
   <app-user-form
     *ngIf="!isDelete"
     [labelItems]="selectedUser ? formItem : formCreateItem"
@@ -48,6 +55,7 @@
   ></app-delete-item-infor>
 </app-generic-modal>
 
+<!-- Toast  -->
 <app-toast [toastType]="toastType" [content]="toastContent"> </app-toast>
 
 

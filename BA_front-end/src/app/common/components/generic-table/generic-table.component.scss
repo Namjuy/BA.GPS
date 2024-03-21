@@ -1,3 +1,4 @@
+//Table container
 .table-container {
   overflow-x: auto;
   overflow-y: auto;
@@ -8,6 +9,7 @@
   height: fit-content;
   border-collapse: collapse;
 }
+// Table header
 .table__head {
   text-align: center;
   position: sticky;
@@ -22,6 +24,8 @@ th {
   vertical-align: middle;
 }
 
+
+// Table body 
 tbody {
   .table__row {
     text-align: center;
@@ -37,6 +41,8 @@ tbody {
     }
   }
 }
+
+//Empty table message
 .error-message {
   text-align: center;
 }
