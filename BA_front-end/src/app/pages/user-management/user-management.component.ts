@@ -191,7 +191,6 @@ export class UserManagementComponent implements OnInit {
       .getAll(this.currentIndex, this.itemsPerPage)
       .subscribe((data) => {
         this.userListInfor = data;
-        console.log(this.userListInfor);
       });
   };
 

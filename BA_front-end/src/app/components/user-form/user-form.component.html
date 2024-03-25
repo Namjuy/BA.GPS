@@ -7,7 +7,11 @@
       <div class="input-form d-flex flex-column ps-2">
         <ng-container *ngIf="item.value !== 'userName'; else userInput">
           <input
-            *ngIf="item.type !== 'gender'"
+            *ngIf="
+              item.type !== 'gender' &&
+              item.value !== 'passWord' &&
+              item.value !== 'confirmPassWord'
+            "
             [type]="item.type"
             [formControlName]="item.value"
             class="form-control"
@@ -17,6 +21,54 @@
             "
             id="{{ item.value }}"
           />
+          <div
+            *ngIf="item.type !== 'gender' && item.value == 'passWord'"
+            class="input-group"
+          >
+            <input
+              [type]="isShowPassword ? item.type : 'password'"
+              [formControlName]="item.value"
+              class="form-control"
+              [class.is-valid]="form.get(item.value)?.valid"
+              [class.is-invalid]="
+                !form.get(item.value)?.valid && form.get(item.value)?.dirty
+              "
+              id="{{ item.value }}"
+             
+            />
+            <i
+              (click)="tooglePasswordVisible()"
+              [class]="
+                isShowPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'
+              "
+              id="togglePasword"
+            ></i>
+          </div>
+          <div
+            *ngIf="item.type !== 'gender' && item.value == 'confirmPassWord'"
+            class="input-group"
+          >
+            <input
+              [type]="isShowConfirmPassword ? item.type : 'password'"
+              [formControlName]="item.value"
+              class="form-control"
+              [class.is-valid]="form.get(item.value)?.valid"
+              [class.is-invalid]="
+                !form.get(item.value)?.valid && form.get(item.value)?.dirty
+              "
+              id="{{ item.value }}"
+              
+            />
+            <i
+              (click)="toggleConfirmPassword()"
+              [class]="
+                isShowConfirmPassword
+                  ? 'bi bi-eye-fill'
+                  : 'bi bi-eye-slash-fill'
+              "
+              id="togglePasword"
+            ></i>
+          </div>
         </ng-container>
         <ng-template #userInput>
           <input

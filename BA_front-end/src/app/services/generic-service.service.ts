@@ -11,10 +11,13 @@ export class GenericService<T> {
   
   // initalize root api url 
   private apiUrl = 'http://localhost:5086/UserApi';
+  private token = localStorage.getItem('jwtToken');
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + this.token
   });
 
+  
   constructor(private http: HttpClient) {}
 
   // get all 

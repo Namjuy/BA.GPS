@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
@@ -23,13 +23,9 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { ToastDirective } from './directives/toast.directive';
 import { ToastComponent } from './common/components/toast/toast.component';
 import { DeleteItemInforComponent } from './common/components/delete-item-infor/delete-item-infor.component';
+import { RouterRoutes } from './routes/router.routing';
 
 
-
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'user-management', component: UserManagementComponent },
-];
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -59,7 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: true }),
+    RouterRoutes,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

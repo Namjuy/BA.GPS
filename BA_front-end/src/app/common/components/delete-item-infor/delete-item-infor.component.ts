@@ -8,7 +8,7 @@ import { GenericService } from 'src/app/services/generic-service.service';
 @Component({
   selector: 'app-delete-item-infor',
   templateUrl: './delete-item-infor.component.html',
-  styleUrls: ['./delete-item-infor.component.css'],
+  styleUrls: ['./delete-item-infor.component.scss'],
 })
 export class DeleteItemInforComponent implements OnInit {
   @Input() labelItems: any;

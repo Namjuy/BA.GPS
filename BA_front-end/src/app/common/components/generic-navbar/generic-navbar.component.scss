@@ -15,11 +15,12 @@ nav {
     }
   }
   #navbarSupportedContent {
+   
     /* --------------------NavBar menu--------------------- */
     .navbar-middle {
       display: flex;
       justify-content: space-around;
-
+   
       .nav-link {
         font: small BobotoBold, sans-serif;
         color: #1b75d0;
@@ -28,6 +29,7 @@ nav {
 
     /* ------------------Navbar right--------------------- */
     .navbar-right {
+     
       .navbar-right__phone {
         border: #1b75d0 1px solid;
         border-radius: 20px;

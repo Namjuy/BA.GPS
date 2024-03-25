@@ -1,22 +1,36 @@
 //Input form
 .input-container {
-    display: flex;
-    justify-content: space-between;
-    .input-label {
-      width: 150px;
-      padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  .input-label {
+    width: 150px;
+    padding: 5px;
+  }
+  .input-form {
+    width: 80%;
+    .form-control {
+      height: 30px;
+      font-size: 12px;
     }
-    .input-form {
-      width: 80%;
+    .input-group {
       .form-control {
+        border-right: none;
+      }
+      i {
         height: 30px;
-        font-size: 12px;
+        border: 1px solid rgb(222, 226, 230);
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        width: 20px;
+        padding-top: 2px;
+        padding-right: 2px;
+        font-size: 15px;
       }
     }
   }
-  
-  .btn {
-    font-size: 12px;
-    height: 30px;
-  }
-  
+}
+
+.btn {
+  font-size: 12px;
+  height: 30px;
+}

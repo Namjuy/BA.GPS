@@ -80,7 +80,7 @@ export class LoginFormComponent {
        
         if (response != null) {
           this.decodeToken = this.jwtService.decodeToken(response);
-           
+          localStorage.setItem('jwtToken', response);
           if (
             Number(
               this.decodeToken[
@@ -89,7 +89,9 @@ export class LoginFormComponent {
             ) == 1
           ) {
          
+          
             localStorage.setItem('authToken', JSON.stringify(this.decodeToken));
+
             localStorage.setItem(
               'userName',
               JSON.stringify(
