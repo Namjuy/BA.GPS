@@ -18,10 +18,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div
-    class="collapse navbar-collapse justify-content-end xl"
-    id="navbarSupportedContent"
-  >
+  <div class="collapse navbar-collapse xl" id="navbarSupportedContent">
     <!-- ------------------Create menu items--------------------- -->
     <ul class="navbar-middle navbar-nav">
       <li *ngFor="let menuItem of menuItems" class="nav-item">
@@ -31,6 +28,7 @@
       </li>
     </ul>
 
+
     <ul class="navbar-right navbar-nav">
       <!-- -----------------Create phone contact item----------------- -->
       <li *ngIf="!userName" class="navbar-right__phone nav-item d-inline-block">
@@ -39,7 +37,7 @@
           >19080000</a
         >
       </li>
-      <li><hr class="dropdown-divider"></li>
+      <li><hr class="dropdown-divider" /></li>
       <!-- ---------------------Create language choosing item----------------- -->
       <li class="navbar-right__language nav-item d-flex align-items-center">
         <div class="dropdown">
@@ -58,7 +56,7 @@
               việt
             </ng-container>
             <ng-template #englishContent>
-              <div class="d-flex ">
+              <div class="d-flex">
                 <img
                   class="dropdown-item__image"
                   src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg"
@@ -86,7 +84,7 @@
             </a>
           </div>
         </div>
-        
+
         <!-- ------------------Create logout link -------------- -->
         <a *ngIf="userName" class="navbar-right__logout" (click)="logout()">{{
           "LOGOUT" | translate

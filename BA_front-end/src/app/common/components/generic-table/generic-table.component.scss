@@ -1,27 +1,31 @@
 .table-container {
-  overflow-x: auto;
   max-height: 500px;
+  overflow-x: auto;
   .table {
     width: 100%;
     border-collapse: collapse;
-    // Table header
+  
     .table__head {
       text-align: center;
       position: sticky;
-      top: 0; /* Specify the top position */
-      z-index: 1; /* Ensure it appears above other content */
+      top: 0; 
+      z-index: 1;
+      border-top: 0;
+      border-bottom: 0;
+      tr{
+        th {
+          background-color: rgb(0, 115, 255);
+          color: #fff;
+          font-size: 13px;
+          font-family: robotoBold, sans-serif;
+          vertical-align: middle;
+        }
+      }
     }
-    th {
-      background-color: rgb(0, 115, 255);
-      color: #fff;
-      font-size: 13px;
-      font-family: robotoBold, sans-serif;
-      vertical-align: middle;
-    }
+  
 
     // Table body
     tbody {
-
       .table__row {
         text-align: center;
         font-size: 12px;

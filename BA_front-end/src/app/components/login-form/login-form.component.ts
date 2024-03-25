@@ -87,9 +87,7 @@ export class LoginFormComponent {
                 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
               ]
             ) == 1
-          ) {
-         
-          
+          ) { 
             localStorage.setItem('authToken', JSON.stringify(this.decodeToken));
 
             localStorage.setItem(

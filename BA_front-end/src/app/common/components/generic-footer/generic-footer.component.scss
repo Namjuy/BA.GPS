@@ -73,12 +73,16 @@ footer {
     .footer-download {
       min-width: 30%;
       margin: 0 auto;
+      .footer-app__link {
+        width: 100%;
+        // text-align: center;
+        .footer-app__image{
+          width: 50px;
+        }
+      }
     }
 
-    .footer-app__link {
-      width: 100%;
-      text-align: center;
-    }
+  
   }
 }
 

@@ -185,6 +185,19 @@ export class UserManagementComponent implements OnInit {
     { content: 'ALL', type: '' },
   ];
 
+  //home MenuItem 
+  homeMenuItems = [
+    {
+      title: 'HOME',
+      link: 'https://bagps.vn/',
+    },
+    {
+      title: 'PRODUCTS',
+      link: 'http://localhost:4200/vehicle',
+    },
+  
+  ];
+
   // Fetch all users
   getUser = (): void => {
     this.generic

@@ -1,11 +1,9 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -24,8 +22,8 @@ import { ToastDirective } from './directives/toast.directive';
 import { ToastComponent } from './common/components/toast/toast.component';
 import { DeleteItemInforComponent } from './common/components/delete-item-infor/delete-item-infor.component';
 import { RouterRoutes } from './routes/router.routing';
-
-
+import { MapComponent } from './common/components/map/map.component';
+import { VehicleMonitorComponent } from './pages/vehicle-monitor/vehicle-monitor.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -47,7 +45,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserFormComponent,
     ToastDirective,
     ToastComponent,
-    DeleteItemInforComponent
+    DeleteItemInforComponent,
+     MapComponent,
+     VehicleMonitorComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +64,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     FormsModule,
-  
   ],
   providers: [DatePipe, ToastDirective],
   bootstrap: [AppComponent],
