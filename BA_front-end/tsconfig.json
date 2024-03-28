@@ -22,7 +22,7 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],"types": ["leaflet-draw","leaflet"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

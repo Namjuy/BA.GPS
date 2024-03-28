@@ -10,29 +10,27 @@ import 'leaflet-draw';
 
 export class MapComponent implements OnInit {
 
-  map!: L.Map;
+  map!:L.Map;
   initialView = { lat: 21.01158471251956, lng: 105.78064478236135, zoom: 19 };
   drawnItems = new L.FeatureGroup();
-
-  constructor() {}
 
   ngOnInit(): void {
     this.initMap();
   }
 
-  setCoordinate(event: any): void {
+  setCoordinate = (event: any): void => {
     this.initialView.lat = event.get('lat');
     this.initialView.lng = event.get('lng');
     this.initialView.zoom = event.get('zoom');
 
+    // Set the new map view using the updated initial coordinates and zoom level
     this.map.setView(
       [this.initialView.lat, this.initialView.lng],
       this.initialView.zoom
     );
-  }
+  };
 
-  initMap(): void {
-    
+  initMap = (): void => {
     this.map = L.map('map').setView(
       [this.initialView.lat, this.initialView.lng],
       this.initialView.zoom
@@ -57,6 +55,7 @@ export class MapComponent implements OnInit {
             iconSize: [25, 41],
             iconAnchor: [13, 41],
             iconUrl: '../../../../assets/car_icon.png',
+            // shadowUrl
           }),
         },
       },
@@ -64,9 +63,10 @@ export class MapComponent implements OnInit {
 
     this.map.addControl(drawControl);
 
-    this.map.on('draw:created', (event: any) => {
+    this.map.on(L.Draw.Event.CREATED, (event: any) => {
       const layer = event.layer;
       this.drawnItems.addLayer(layer);
     });
-  }
+  };
+
 }

@@ -20,10 +20,12 @@ import { NgModule } from '@angular/core';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ToastDirective } from './directives/toast.directive';
 import { ToastComponent } from './common/components/toast/toast.component';
-import { DeleteItemInforComponent } from './common/components/delete-item-infor/delete-item-infor.component';
+
 import { RouterRoutes } from './routes/router.routing';
 import { MapComponent } from './common/components/map/map.component';
 import { VehicleMonitorComponent } from './pages/vehicle-monitor/vehicle-monitor.component';
+import { ModalDirective } from './directives/modal.directive';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -45,9 +47,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserFormComponent,
     ToastDirective,
     ToastComponent,
-    DeleteItemInforComponent,
      MapComponent,
-     VehicleMonitorComponent
+     VehicleMonitorComponent,
+     ModalDirective
   ],
   imports: [
     BrowserModule,

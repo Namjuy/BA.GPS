@@ -5,23 +5,28 @@
 <p class="page-heading mb-4">{{ "USER_LIST_MANAGEMENT" | translate }}</p>
 
 <!-- Filter  -->
-<div class="container">
+<div class="container d-flex filter-container">
   <app-generic-filter
     [selectOption]="selectOption"
     [selectGender]="selectGender"
-    (handleSearch)="handleSearch($event)"
-    (handelCreate)="handleCreate()"
+    (handleSearch)="searchUser($event)"
   ></app-generic-filter>
+  <!-- create button -->
+  <button
+    class="btn btn-primary button__create mb-4"
+    data-bs-toggle="modal"
+    data-bs-target="#genericModal"
+    (click)="setCreate()"
+  >
+    {{ "CREATE" | translate }}
+  </button>
 </div>
 
 <!-- Table  -->
 <app-generic-table
-  [listItem]="userListInfor.dataList"
-  [listContent]="tableContent"
-  [currentPage]="currentIndex"
-  [itemsPerPage]="itemsPerPage"
-  (selectedItem)="handleSelectedUser($event)"
-  (isDelete)="handleDelete($event)"
+  [tableContent]="tableItemMap"
+  (setEdit)="setEdit($event)"
+  (setDelete)="setDelete($event)"
 ></app-generic-table>
 
 <!-- Pagination  -->
@@ -29,35 +34,24 @@
   (getPageIndex)="getPageIndex($event)"
   (getPageSize)="getPageSize($event)"
   [totalPage]="userListInfor.totalPage"
-  [currentPageIndex] = "currentIndex"
+  [currentPageIndex]="currentIndex"
 ></app-generic-pagination>
 
 <!-- Modal popup -->
 <app-generic-modal
-  [modalTitle]="
-    selectedUser ? (isDelete ? 'Xoá' : 'Sửa') : 'Thêm'
-  "
+  [modalTitle]="selectedUser ? (isDelete ? 'Xoá' : 'Sửa') : 'Thêm'"
 >
-<!-- Modal body  -->
+  <!-- Modal body  -->
   <app-user-form
-    *ngIf="!isDelete"
-    [labelItems]="selectedUser ? formItem : formCreateItem"
+    [labelItems]="
+      selectedUser ? (isDelete ? formDeleteItem : formItem) : formCreateItem
+    "
     [form]="userForm"
-    [selectedItem]="selectedUser"
-    (createUser)="createUser($event)"
-    (updateUser)="updateUser($event)"
+    [createStatus]="selectedUser ? false : true"
+    (close)="resetForm()"
+    (submitForm)="submitForm($event)"
   ></app-user-form>
-  <app-delete-item-infor
-    *ngIf="isDelete"
-    [deletedItem]="selectedUser"
-    [labelItems]="deleteUserInfor"
-   (handleDelete)="deleteUser($event)"
-  ></app-delete-item-infor>
 </app-generic-modal>
 
 <!-- Toast  -->
 <app-toast [toastType]="toastType" [content]="toastContent"> </app-toast>
-
-
-
-

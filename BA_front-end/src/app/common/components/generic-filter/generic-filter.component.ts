@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class GenericFilterComponent implements OnInit {
   @Input() selectOption: [{ content: string; type: string }] | any;
   @Output() handleSearch = new EventEmitter<Map<string, any>>();
-  @Output() handelCreate = new EventEmitter();
+ 
   @Input() selectGender: [{ content: string; type: string }] | any;
 
   inputSearchValue: string = '';
@@ -70,5 +70,5 @@ export class GenericFilterComponent implements OnInit {
     this.genderValue = gender.type;
   };
 
-  onCreate = () => this.handelCreate.emit();
+ 
 }

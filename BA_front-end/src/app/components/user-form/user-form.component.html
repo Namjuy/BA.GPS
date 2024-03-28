@@ -1,16 +1,21 @@
-<!-- Form  -->
 <form [formGroup]="form" (ngSubmit)="onSubmit()" method="post">
   <div class="modal-body d-flex flex-column">
     <span *ngFor="let item of labelItems" class="input-container mb-4">
-      <label class="input-label">{{ item.heading | translate }}:</label>
+      <label
+        [for]="item.type == 'gender' ? 'maleRadio' : item.value"
+        class="input-label"
+      >
+        {{ item.heading | translate }}:
+      </label>
+
       <!-- Form input  -->
       <div class="input-form d-flex flex-column ps-2">
         <ng-container *ngIf="item.value !== 'userName'; else userInput">
           <input
             *ngIf="
               item.type !== 'gender' &&
-              item.value !== 'passWord' &&
-              item.value !== 'confirmPassWord'
+              item.value !== 'confirmPassWord' &&
+              item.value !== 'passWord'
             "
             [type]="item.type"
             [formControlName]="item.value"
@@ -20,69 +25,25 @@
               !form.get(item.value)?.valid && form.get(item.value)?.dirty
             "
             id="{{ item.value }}"
+            autocomplete="item.value"
           />
-          <div
-            *ngIf="item.type !== 'gender' && item.value == 'passWord'"
-            class="input-group"
-          >
-            <input
-              [type]="isShowPassword ? item.type : 'password'"
-              [formControlName]="item.value"
-              class="form-control"
-              [class.is-valid]="form.get(item.value)?.valid"
-              [class.is-invalid]="
-                !form.get(item.value)?.valid && form.get(item.value)?.dirty
-              "
-              id="{{ item.value }}"
-             
-            />
-            <i
-              (click)="tooglePasswordVisible()"
-              [class]="
-                isShowPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'
-              "
-              id="togglePasword"
-            ></i>
-          </div>
-          <div
-            *ngIf="item.type !== 'gender' && item.value == 'confirmPassWord'"
-            class="input-group"
-          >
-            <input
-              [type]="isShowConfirmPassword ? item.type : 'password'"
-              [formControlName]="item.value"
-              class="form-control"
-              [class.is-valid]="form.get(item.value)?.valid"
-              [class.is-invalid]="
-                !form.get(item.value)?.valid && form.get(item.value)?.dirty
-              "
-              id="{{ item.value }}"
-              
-            />
-            <i
-              (click)="toggleConfirmPassword()"
-              [class]="
-                isShowConfirmPassword
-                  ? 'bi bi-eye-fill'
-                  : 'bi bi-eye-slash-fill'
-              "
-              id="togglePasword"
-            ></i>
-          </div>
         </ng-container>
         <ng-template #userInput>
           <input
             [type]="item.type"
             [formControlName]="item.value"
-            [attr.disabled]="selectedItem"
+            [attr.disabled]="createStatus ? null : true"
             class="form-control"
             [class.is-valid]="form.get(item.value)?.valid"
             [class.is-invalid]="
               (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
               check === true
             "
-            (keyup)="checkUserNameExist(form.get(item.value))"
+            (keyup)="
+              createStatus ? checkUserNameExist(form.get(item.value)) : null
+            "
             id="{{ item.value }}"
+            autocomplete="item.value"
           />
         </ng-template>
 
@@ -118,22 +79,71 @@
           </div>
         </ng-container>
 
+        <div *ngIf="item.value == 'passWord'" class="input-group">
+          <input
+            [type]="isShowPassword ? item.type : 'password'"
+            formControlName="passWord"
+            class="form-control"
+            [class.is-valid]="form.get(item.value)?.valid"
+            [class.is-invalid]="
+              !form.get(item.value)?.valid && form.get(item.value)?.dirty
+            "
+            id="{{ item.value }}"
+          />
+          <i
+            (click)="togglePasswordVisible()"
+            [class]="isShowPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"
+            id="togglePasword"
+          ></i>
+        </div>
+        <div *ngIf="item.value == 'confirmPassWord'" class="input-group">
+          <input
+            [type]="isShowPassword ? item.type : 'confirmPassWord'"
+            formControlName="confirmPassWord"
+            class="form-control"
+            [class.is-valid]="form.get(item.value)?.valid"
+            [class.is-invalid]="
+              (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
+              form.hasError('mismatch')
+            "
+            id="{{ item.value }}"
+          />
+          <i
+            (click)="toggleConfirmPassword()"
+            [class]="
+              isShowConfirmPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'
+            "
+            id="togglePasword"
+          ></i>
+        </div>
         <!-- Error message  -->
         <span
           class="text-danger invalid-feedback"
-          id="item.value"
+          id="{{ item.value }}"
           *ngIf="form.get(item.value)?.invalid && form.get(item.value)?.touched"
-          >{{ item.errorMessage }}
+        >
+          {{ item.errorMessage }}
         </span>
         <span
           class="text-danger invalid-feedback"
-          id="item.value"
+          id="{{ item.value }}"
           *ngIf="
             item.value == 'userName' &&
             form.get(item.value)?.touched &&
             check == true
           "
-          >Tên tài khoản trùng lặp
+        >
+          Tên tài khoản trùng lặp
+        </span>
+        <span
+          class="text-danger invalid-feedback"
+          id="{{ item.value }}"
+          *ngIf="
+            (form.get(item.value)?.invalid && form.get(item.value)?.dirty) ||
+            form.hasError('mismatch')
+          "
+        >
+          Xác thực khẩu không đúng
         </span>
       </div>
     </span>
@@ -150,7 +160,12 @@
     >
       {{ "SAVE" | translate }}
     </button>
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal"
+      (click)="closeForm()"
+    >
       {{ "CANCEL" | translate }}
     </button>
   </div>

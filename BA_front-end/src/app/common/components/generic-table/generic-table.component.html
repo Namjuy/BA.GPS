@@ -4,8 +4,8 @@
     <thead class="table__head">
       <tr>
         <th>{{ "INDEX" | translate }}</th>
-        <th *ngFor="let headingItem of listContent">
-          {{ headingItem.heading | translate }}
+        <th *ngFor="let tableHeading of tableContent.get('label')">
+          {{ tableHeading.heading | translate }}
         </th>
         <th>{{ "EDIT" | translate }}</th>
         <th>{{ "DELETE" | translate }}</th>
@@ -13,14 +13,29 @@
     </thead>
 
     <!-- Table body with user data -->
-    <tbody *ngIf="listItem.length > 0" class="table__body">
-      <tr *ngFor="let item of listItem; let i = index" class="table__row">
-        <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-        <td class="table__data" *ngFor="let headingItem of listContent">
+    <tbody *ngIf="tableContent.get('data').length > 0" class="table__body">
+      <tr
+        *ngFor="let item of tableContent.get('data'); let i = index"
+        class="table__row"
+      >
+        <td>
           {{
-            headingItem.type === "date"
+            (tableContent.get("index") - 1) * tableContent.get("size") + i + 1
+          }}
+        </td>
+        <td
+          class="table__data"
+          *ngFor="let headingItem of tableContent.get('label')"
+        >
+          {{
+            (headingItem.type === "date"
               ? convertDateFormat(item[headingItem.value])
+              : headingItem.value === "isMale"
+              ? item[headingItem.value] == 1
+                ? "MALE"
+                : "FEMALE"
               : item[headingItem.value]
+            ) | translate
           }}
         </td>
         <td>
@@ -28,7 +43,7 @@
             data-bs-toggle="modal"
             data-bs-target="#genericModal"
             class="bi bi-wrench"
-            (click)="getSelectedItem(item)"
+            (click)="clickEdit(item)"
           ></i>
         </td>
         <td>
@@ -36,14 +51,17 @@
             data-bs-toggle="modal"
             data-bs-target="#genericModal"
             class="bi bi-trash"
-            (click)="checkDelete(item)"
+            (click)="clickDelete(item)"
           ></i>
         </td>
       </tr>
     </tbody>
 
     <!-- Table displaying none user -->
-    <tbody *ngIf="listItem.length === 0" class="empty-list-message mt-4 p-5">
+    <tbody
+      *ngIf="tableContent.get('data').length === 0"
+      class="empty-list-message mt-4 p-5"
+    >
       <tr>
         <td class="error-message" colspan="10">
           {{ "NO_ITEM_REMAIN" | translate }}

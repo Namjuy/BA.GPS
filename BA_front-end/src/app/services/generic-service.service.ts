@@ -62,12 +62,7 @@ export class GenericService<T> {
   //delete
   delete(itemId: string): Observable<any> {
     const url = `${this.apiUrl}/ban/${itemId}`;
-    return this.http.put(url, { headers: this.headers }).pipe(
-      catchError((error: any) => {
-        console.error('Error deleting item:', error);
-        return throwError(error);
-      })
-    );
+    return this.http.put(url,'', { headers:this.headers });
   }
 
   //check exist
@@ -76,4 +71,6 @@ export class GenericService<T> {
       headers: this.headers,
     });
   }
+
+  
 }

@@ -1,7 +1,7 @@
 <!-- toast  -->
 <div
-  id="toast"
-  class="toast text-bg-primary border-0"
+  id="toast-failed"
+  class="toast-failed text-bg-primary border-0 toast"
   role="alert"
   aria-live="assertive"
   aria-atomic="true"
@@ -12,4 +12,15 @@
   </div>
 </div>
 
-
+<div
+  id="toast-success"
+  class="toast-success text-bg-primary border-0 toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex justify-content-around">
+    <i class="bi bi-check-circle"></i>
+    <div class="toast-body">{{ content }}</div>
+  </div>
+</div>

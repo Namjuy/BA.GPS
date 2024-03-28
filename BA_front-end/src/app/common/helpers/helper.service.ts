@@ -1,8 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { GenericService } from 'src/app/services/generic-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +17,7 @@ import { User } from 'src/app/models/user.model';
 ////Name   Date       Comments
 ////duypn  16/3/2024  create
 export class HelperService {
-  constructor() {}
+  constructor(private service : GenericService<User>) {}
 
   // Helper method to format date strings
   formatDate: (dateString: string) => string = (dateString) => {
@@ -43,10 +49,32 @@ export class HelperService {
     return null;
   };
 
-  //Get username in list
-  getUserName(userName: string, listUser: any[]) {
-    return listUser.some((item) => item.name === userName);
-  }
+  // //Get username in list
+  // getUserName(userName: string, listUser: any[]) {
+  //   return listUser.some((item) => item.name === userName);
+  // }
 
+  //Handel check the password and confirm password are same
+  passwordMatchValidator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const passwordControl = control.get('passWord');
+    const confirmPasswordControl = control.get('confirmPassWord');
 
+    return passwordControl?.value !== confirmPasswordControl?.value
+      ? { mismatch: true }
+      : null;
+  };
+
+  // Validator function for date of birth
+  checkUserNameExist: (control: FormControl) => ValidationErrors | null = (
+    control
+  ) => {
+    
+    const userName = control.value
+    var check = false;
+    this.service.checkExist(userName).subscribe(response => check= response)
+
+    return check ? { exist: true } : null;
+  };
 }

@@ -5,7 +5,6 @@ import { HelperService } from 'src/app/common/helpers/helper.service';
 import { ToastDirective } from 'src/app/directives/toast.directive';
 import { DataListInfor } from 'src/app/models/dataListInfor';
 import { User } from 'src/app/models/user.model';
-import { AuthService } from 'src/app/services/auth-service.service';
 import { GenericService } from 'src/app/services/generic-service.service';
 
 @Component({
@@ -17,8 +16,7 @@ import { GenericService } from 'src/app/services/generic-service.service';
 ////Name   Date       Comments
 ////duypn  1/3/2024  create
 export class UserManagementComponent implements OnInit {
-
-  //Initalize 
+  //Initalize
   userListInfor: DataListInfor<User> = new DataListInfor();
   userFilter: any;
   userForm: FormGroup | any;
@@ -27,7 +25,16 @@ export class UserManagementComponent implements OnInit {
   toastType = '';
   toastContent = '';
   currentIndex = 1;
-  itemsPerPage = 10;
+  pageSize = 10;
+
+  tableItemMap = new Map();
+
+  setTableContent = () => {
+    this.tableItemMap.set('data', this.userListInfor.dataList);
+    this.tableItemMap.set('label', this.tableContent);
+    this.tableItemMap.set('index', this.currentIndex);
+    this.tableItemMap.set('size', this.pageSize);
+  };
 
   //constructor
   constructor(
@@ -35,7 +42,6 @@ export class UserManagementComponent implements OnInit {
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private helper: HelperService,
-    private authService: AuthService,
     private toastDirective: ToastDirective
   ) {
     translate.addLangs(['vi', 'en']);
@@ -45,26 +51,27 @@ export class UserManagementComponent implements OnInit {
   //handle methods when initialize
   ngOnInit() {
     this.getUser();
+    this.setTableContent();
     this.initializeForm();
+    this.clickOutSideModal();
   }
 
   //initialize form
   initializeForm = () => {
     const formControls: Record<string, any> = {};
-    if (this.selectedUser) {
-      this.formItem.forEach((item: any) => {
-        formControls[item.value] = ['', item.validator];
-      });
-    } else {
-      this.formCreateItem.forEach((item: any) => {
-        formControls[item.value] = ['', item.validator];
-      });
-    }
+    const formItems = this.isDelete
+      ? this.formDeleteItem
+      : this.selectedUser
+      ? this.formItem
+      : this.formCreateItem;
 
-    this.userForm = this.formBuilder.group(
-      formControls,
-      this.authService.passwordMatchValidator
-    );
+    formItems.forEach((item: any) => {
+      formControls[item.value] = ['', item.validator];
+    });
+
+    this.userForm = this.formBuilder.group(formControls, {
+      validators: this.helper.passwordMatchValidator,
+    });
   };
 
   //update data form
@@ -101,7 +108,7 @@ export class UserManagementComponent implements OnInit {
     {
       heading: 'GENDER',
       value: 'isMale',
-      validator: [],
+      validator: [Validators.required],
       type: 'gender',
       errorMessage: 'Giới tính không hợp lệ',
     },
@@ -148,15 +155,16 @@ export class UserManagementComponent implements OnInit {
       heading: 'CONFIRM_PASSWORD',
       value: 'confirmPassWord',
       validator: [Validators.required],
-      errorMessage: 'Xác nhận mật khẩu không khớp',
+      type: 'text',
+      errorMessage: 'Mật khẩu xác thực không đúng',
     },
   ];
 
   //delete user information
-  deleteUserInfor = [
-    { heading: 'USERNAME', content: 'userName' },
-    { heading: 'FULLNAME', content: 'fullName' },
-    { heading: 'PHONE', content: 'phoneNumber' },
+  formDeleteItem = [
+    { heading: 'USERNAME', value: 'userName', validator: '', type: 'text' },
+    { heading: 'FULLNAME', value: 'fullName', validator: '', type: 'text' },
+    { heading: 'PHONE', value: 'phoneNumber', validator: '', type: 'text' },
   ];
 
   //contents of the table
@@ -185,7 +193,7 @@ export class UserManagementComponent implements OnInit {
     { content: 'ALL', type: '' },
   ];
 
-  //home MenuItem 
+  //home MenuItem
   homeMenuItems = [
     {
       title: 'HOME',
@@ -195,23 +203,21 @@ export class UserManagementComponent implements OnInit {
       title: 'PRODUCTS',
       link: 'http://localhost:4200/vehicle',
     },
-  
   ];
 
   // Fetch all users
   getUser = (): void => {
-    this.generic
-      .getAll(this.currentIndex, this.itemsPerPage)
-      .subscribe((data) => {
-        this.userListInfor = data;
-      });
+    this.generic.getAll(this.currentIndex, this.pageSize).subscribe((data) => {
+      this.userListInfor = data;
+      this.setTableContent();
+    });
   };
 
   // Handle search functionality
-  handleSearch = (event: any) => {
-    if(this.userFilter != event ) this.currentIndex=1;
+  searchUser = (event: any) => {
+    if (this.userFilter != event) this.currentIndex = 1;
     this.userFilter = event;
-     
+
     this.generic
       .search(
         this.userFilter.get('inputSearchValue'),
@@ -226,16 +232,17 @@ export class UserManagementComponent implements OnInit {
           ? null
           : this.userFilter.get('selectedGender'),
         this.currentIndex,
-        this.itemsPerPage
+        this.pageSize
       )
       .subscribe((response) => {
-
         this.userListInfor = response;
+        this.setTableContent();
       });
   };
 
   // handle when click edit user
-  handleSelectedUser = (event: any) => {
+  setEdit = (event: any) => {
+    this.focusInput('fullName');
     this.isDelete = false;
     this.selectedUser = event;
     this.selectedUser.dateOfBirth = this.helper.formatDate(
@@ -246,29 +253,43 @@ export class UserManagementComponent implements OnInit {
   };
 
   //handle when click create user
-  handleCreate = () => {
+  setCreate = () => {
+    this.focusInput('userName');
     this.isDelete = false;
-    this.selectedUser = undefined;
-    this.initializeForm();
+    this.resetForm();
   };
 
   //handle click delete user
-  handleDelete = (event: any) => {
+  setDelete = (event: any) => {
     this.isDelete = true;
     this.selectedUser = event;
+    this.selectedUser.dateOfBirth = this.helper.formatDate(
+      this.selectedUser.dateOfBirth
+    );
+    this.initializeForm();
+    this.userForm.patchValue(event);
+  };
+
+  //handle form submit
+  submitForm = (item: any) => {
+    this.isDelete
+      ? this.deleteUser(this.selectedUser.userId)
+      : this.selectedUser
+      ? this.updateUser(item)
+      : this.createUser(item);
   };
 
   //get page index
   getPageIndex = (event: any) => {
     this.currentIndex = event;
-    this.userFilter ? this.handleSearch(this.userFilter) : this.getUser();
+    this.userFilter ? this.searchUser(this.userFilter) : this.getUser();
   };
 
   //get page size
   getPageSize = (event: any) => {
-    this.itemsPerPage = event;
-    this.currentIndex=1;
-    this.userFilter ? this.handleSearch(this.userFilter) : this.getUser();
+    this.pageSize = event;
+    this.currentIndex = 1;
+    this.userFilter ? this.searchUser(this.userFilter) : this.getUser();
   };
 
   //create user
@@ -281,8 +302,8 @@ export class UserManagementComponent implements OnInit {
       passWordHash: event.get('passWord')?.value,
       userType: 1,
       companyId: 123,
-      createDate: now.toISOString(),
-      lastModifyDate: now.toISOString(),
+      // createDate: now.toISOString(),
+      // lastModifyDate: now.toISOString(),
     };
     delete createUserData.confirmPassword;
     delete createUserData.newPassword;
@@ -298,7 +319,6 @@ export class UserManagementComponent implements OnInit {
         this.toastContent = 'Tạo thất bại';
         this.toastDirective.showToast(this.toastType);
         this.getUser();
-        
       }
     );
   };
@@ -314,6 +334,7 @@ export class UserManagementComponent implements OnInit {
       () => {
         this.toastType = 'toast-success';
         this.toastContent = 'Cập nhật thành công';
+
         this.toastDirective.showToast(this.toastType);
         this.getUser();
       },
@@ -328,7 +349,7 @@ export class UserManagementComponent implements OnInit {
 
   //delete user
   deleteUser = (event: any) => {
-    this.generic.delete(event.userId).subscribe(
+    this.generic.delete(event).subscribe(
       () => {
         this.toastContent = 'Xoá thành công';
         this.toastDirective.showToast('toast-success');
@@ -339,5 +360,27 @@ export class UserManagementComponent implements OnInit {
         this.toastDirective.showToast('toast-failed');
       }
     );
+  };
+
+  //set focus input when create modal
+  focusInput = (inputName: string) => {
+    const myModal = document.getElementById('genericModal');
+    const myInput = document.getElementById(inputName);
+
+    myModal?.addEventListener('shown.bs.modal', () => {
+      myInput?.focus();
+    });
+  };
+
+  resetForm = () => {
+    this.selectedUser = undefined;
+    this.initializeForm();
+  };
+
+  clickOutSideModal = () => {
+    const myModal = document.getElementById('genericModal');
+    myModal?.addEventListener('hide.bs.modal', () => {
+      this.resetForm
+    });
   };
 }

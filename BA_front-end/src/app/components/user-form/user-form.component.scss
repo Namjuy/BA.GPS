@@ -8,23 +8,24 @@
   }
   .input-form {
     width: 80%;
+    justify-content: center;
     .form-control {
       height: 30px;
       font-size: 12px;
     }
     .input-group {
       .form-control {
-        border-right: none;
       }
       i {
         height: 30px;
         border: 1px solid rgb(222, 226, 230);
         border-top-right-radius: 6px;
         border-bottom-right-radius: 6px;
-        width: 20px;
+        width: 30px;
         padding-top: 2px;
         padding-right: 2px;
         font-size: 15px;
+        padding-left: 6px;
       }
     }
   }

@@ -26,7 +26,7 @@ export class LoginFormComponent {
     private authService: AuthService,
     private router: Router,
     private jwtService: JwtService,
-    private toast:ToastDirective
+    private toast: ToastDirective
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
@@ -35,7 +35,6 @@ export class LoginFormComponent {
   // Initialize a boolean variable isShowPassword and set it to false
   isShowPassword: boolean = false;
 
- 
   // The array is created using Array.from() and a mapping function that returns the index
   ellipsify = (str: string) => {
     if (str.length > 50) {
@@ -77,7 +76,6 @@ export class LoginFormComponent {
   login(): void {
     this.authService.login(this.username, this.password).subscribe(
       (response) => {
-       
         if (response != null) {
           this.decodeToken = this.jwtService.decodeToken(response);
           localStorage.setItem('jwtToken', response);
@@ -87,7 +85,7 @@ export class LoginFormComponent {
                 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
               ]
             ) == 1
-          ) { 
+          ) {
             localStorage.setItem('authToken', JSON.stringify(this.decodeToken));
 
             localStorage.setItem(
@@ -98,9 +96,9 @@ export class LoginFormComponent {
                 ]
               )
             );
-            this.toastType = 'toast-success'
+            this.toastType = 'toast-success';
             this.toast.showToast(this.toastType);
-            this.toastContent= 'Đăng nhập thành công'
+            this.toastContent = 'Đăng nhập thành công';
             this.router.navigate(['/user-management']);
           } else {
             this.router.navigate(['/user']);
@@ -108,7 +106,7 @@ export class LoginFormComponent {
         }
       },
       (errorMess) => {
-        this.toastType = 'toast-failed'
+        this.toastType = 'toast-failed';
         this.toastContent = 'Đăng nhập thất bại';
         this.toast.showToast(this.toastType);
       }

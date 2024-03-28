@@ -5,14 +5,22 @@
     <!-- Pagination controls -->
     <ul class="pagination pagination-sm py-1 mb-0">
       <!-- First page button -->
-      <li  [class.disabled]="currentPageIndex == 1" class="page-item" (click)="handleFirstPage()">
+      <li
+        [class.disabled]="currentPageIndex == 1"
+        class="page-item"
+        (click)="setFirstPage()"
+      >
         <a class="page-link" aria-label="Previous">
           <i class="bi bi-skip-start-fill"></i>
         </a>
       </li>
 
       <!-- Previous page button -->
-      <li [class.disabled]="currentPageIndex == 1" class="page-item" (click)="handlePrevious()">
+      <li
+        [class.disabled]="currentPageIndex == 1"
+        class="page-item"
+        (click)="handlePrevious()"
+      >
         <a class="page-link" aria-label="Previous">
           <i class="bi bi-caret-left-fill"></i>
         </a>
@@ -20,24 +28,32 @@
 
       <!-- Display page numbers -->
       <li
-      class="page-item"
-      *ngFor="let pageNumber of getNumberPage()"
-      [class.active]="currentPageIndex=== pageNumber"
-    >
-      <a class="page-link" (click)="changePage(pageNumber)">{{
-        pageNumber
-      }}</a>
-    </li>
+        class="page-item"
+        *ngFor="let pageNumber of getNumberPage()"
+        [class.active]="currentPageIndex === pageNumber"
+      >
+        <a class="page-link" (click)="changePage(pageNumber)">{{
+          pageNumber
+        }}</a>
+      </li>
 
       <!-- Next page button -->
-      <li [class.disabled]="currentPageIndex == totalPage" class="page-item" (click)="handleNext()">
+      <li
+        [class.disabled]="currentPageIndex == totalPage"
+        class="page-item"
+        (click)="handleNext()"
+      >
         <a class="page-link" aria-label="Next">
           <i class="bi bi-caret-right-fill"></i>
         </a>
       </li>
 
       <!-- Last page button -->
-      <li [class.disabled]="currentPageIndex == totalPage" class="page-item" (click)="handleLastPage()">
+      <li
+        [class.disabled]="currentPageIndex == totalPage"
+        class="page-item"
+        (click)="setLastPage()"
+      >
         <a class="page-link" aria-label="Next">
           <i class="bi bi-skip-end-fill"></i>
         </a>
@@ -57,11 +73,11 @@
 
       <!-- Dropdown menu for selecting items per page -->
       <ul class="dropdown-menu">
-        <li class="page-item" (click)="setItemPerPage(5)">5</li>
-        <li class="page-item" (click)="setItemPerPage(10)">10</li>
-        <li class="page-item" (click)="setItemPerPage(20)" >20</li>
+        <li class="page-item" (click)="setPageSize(5)">5</li>
+        <li class="page-item" (click)="setPageSize(10)">10</li>
+        <li class="page-item" (click)="setPageSize(20)">20</li>
       </ul>
-      <p>dòng mỗi trang</p>
+      <p>{{'ROW_PER_PAGE'|translate}}</p>
     </div>
   </div>
 
@@ -69,7 +85,6 @@
   <div class="pagination__right d-flex align-items-center">
     <!-- Display details about the current page and total rows -->
     <p class="pagination__right--detail py-1 mb-0">
-  
       <i class="bi bi-arrow-clockwise"></i>
     </p>
   </div>

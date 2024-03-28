@@ -6,6 +6,7 @@
 
 //Home filter
 .home-filter {
+  width: 100%;
   justify-content: space-between;
 
   .button__create {
@@ -23,7 +24,7 @@
       border-radius: 0;
       border-right: white;
       z-index: 1;
-      width: 50%;
+      width: 200px;
       height: 30px;
     }
 
@@ -42,12 +43,14 @@
     justify-content: space-around;
     align-items: center;
     height: 30px;
-    width: 35%;
+    width: 500px;
 
     .home-filter__title {
+     
       text-align: center;
       margin-bottom: 0;
       font-size: 12px;
+      // width: 50px;
     }
 
     .dropdown-menu__date {
@@ -62,10 +65,15 @@
 
   // Gender filter
   .home-filter__gender {
-    width: 150px;
+    margin: 0 auto;
+    max-width: 20%;
+    flex: 20%;
     height: 30px;
     align-items: center;
     justify-content: space-around;
+    .home-filter__title{
+      width: 50px;
+    }
     .dropdown-center {
       .dropdown-menu {
         min-width: 50px;
@@ -77,7 +85,7 @@
   .home-filter__button {
     display: flex;
     justify-content: space-between;
-    width: 200px;
+   
     .btn-primary {
       width: 85px;
       height: 30px;

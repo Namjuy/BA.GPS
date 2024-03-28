@@ -61,5 +61,6 @@
   "SEARCH": "Tìm kiếm",
   "CREATE":"Tạo",
   "USER_LIST_MANAGEMENT":"Quản lý danh sách người dùng",
-  "NO_ITEM_REMAIN":"Không có giá trị nào phù hợp"
+  "NO_ITEM_REMAIN":"Không có giá trị nào phù hợp",
+  "ROW_PER_PAGE":"dòng mỗi trang"
 }

@@ -10,14 +10,13 @@ export class ToastDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   //handle show toast when click button
-  @HostListener('click') showToast(toastType:string) {
-    const toastElement = document.getElementById('toast');
+  @HostListener('click') showToast(toastType: string) {
+    const toastElement = document.getElementById(toastType);
 
     if (toastElement) {
       this.renderer.addClass(toastElement, 'show');
-      this.renderer.addClass(toastElement, toastType);
+      // this.renderer.addClass(toastElement, toastType);
       setTimeout(() => {
-
         this.renderer.removeClass(toastElement, 'show');
       }, 2000);
     }

@@ -12,49 +12,47 @@ import { GenericService } from 'src/app/services/generic-service.service';
 
 //15-03-2024
 export class UserFormComponent implements OnInit {
-
   @Input() modalTitle: string = '';
   @Input() labelItems: any;
   @Input() form: FormGroup | any;
-  @Input() selectedItem: any;
-  @Output() updateUser = new EventEmitter();
-  @Output() createUser = new EventEmitter();
-
-  constructor(
-    private translate: TranslateService, 
-    private service: GenericService<User>
-  ) {
-    translate.addLangs(['en', 'vi']);
-    translate.setDefaultLang('vi');
-  }
+  @Input() createStatus: boolean | any;
+  @Output() submitForm = new EventEmitter();
+  @Output() close = new EventEmitter();
 
   isShowConfirmPassword = false;
-  isShowPassword= false;
+  isShowPassword = false;
   check = false;
-  confirmCheck = false;
+  
+  constructor(
+    private translate: TranslateService,
+    private service: GenericService<User>
+  ) {}
+
+ 
 
   ngOnInit() {}
 
-  onSubmit() {
-    if (this.form.valid) {
-      this.selectedItem
-        ? this.updateUser.emit(this.form)
-        : this.createUser.emit(this.form);
-    }
-  }
+  onSubmit = () => this.submitForm.emit(this.form);
 
+  //check UserName Exist
   checkUserNameExist(username: FormControl) {
-    this.service
-      .checkExist(username.value)
-      .subscribe((response) => (this.check = response));
+    if (this.createStatus) {
+      this.service
+        .checkExist(username.value)
+        .subscribe((response) => (this.check = response));
+    } else this.check = false;
   }
 
   // Create a method to toggle the visibility of the password
-  tooglePasswordVisible = () => {
-    this.isShowPassword = !this.isShowPassword;
-  };
+  togglePasswordVisible = () => (this.isShowPassword = !this.isShowPassword);
 
-  toggleConfirmPassword = () => {
-    this.isShowConfirmPassword = !this.isShowConfirmPassword;
-  }
+  // Create a method to toggle the visibility of the confirm password password
+  toggleConfirmPassword = () =>
+    (this.isShowConfirmPassword = !this.isShowConfirmPassword);
+
+  //close modal
+  closeForm = () => {
+    this.check = false;
+    this.close.emit();
+  };
 }
