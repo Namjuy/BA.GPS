@@ -10,7 +10,8 @@ import { JwtService } from 'src/app/services/jwt-service.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-//create 13/03/2024
+////Name   Date       Comments
+////duypn  13/3/2024  create
 export class LoginFormComponent {
   // Initalize variable
   decodeToken: any;

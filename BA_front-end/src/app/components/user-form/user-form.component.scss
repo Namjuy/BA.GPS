@@ -31,6 +31,19 @@
   }
 }
 
+.delete-input-container {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 0;
+  height: 30px;
+  .input-group {
+    .input-group-text {
+      width: 130px;
+    }
+  }
+}
+
 .btn {
   font-size: 12px;
   height: 30px;

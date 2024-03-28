@@ -165,6 +165,12 @@ export class UserManagementComponent implements OnInit {
     { heading: 'USERNAME', value: 'userName', validator: '', type: 'text' },
     { heading: 'FULLNAME', value: 'fullName', validator: '', type: 'text' },
     { heading: 'PHONE', value: 'phoneNumber', validator: '', type: 'text' },
+    {
+      heading: 'DATE_OF_BIRTH',
+      value: 'dateOfBirth',
+      validator: '',
+      type: 'date',
+    },
   ];
 
   //contents of the table
@@ -302,8 +308,6 @@ export class UserManagementComponent implements OnInit {
       passWordHash: event.get('passWord')?.value,
       userType: 1,
       companyId: 123,
-      // createDate: now.toISOString(),
-      // lastModifyDate: now.toISOString(),
     };
     delete createUserData.confirmPassword;
     delete createUserData.newPassword;
@@ -372,15 +376,17 @@ export class UserManagementComponent implements OnInit {
     });
   };
 
+  //click reset form
   resetForm = () => {
     this.selectedUser = undefined;
     this.initializeForm();
   };
 
+  //click outside modal
   clickOutSideModal = () => {
     const myModal = document.getElementById('genericModal');
     myModal?.addEventListener('hide.bs.modal', () => {
-      this.resetForm
+      this.resetForm;
     });
   };
 }

@@ -10,7 +10,8 @@ import { GenericService } from 'src/app/services/generic-service.service';
   styleUrls: ['./user-form.component.scss'],
 })
 
-//15-03-2024
+////Name   Date       Comments
+////duypn  15/3/2024  create
 export class UserFormComponent implements OnInit {
   @Input() modalTitle: string = '';
   @Input() labelItems: any;
@@ -18,17 +19,16 @@ export class UserFormComponent implements OnInit {
   @Input() createStatus: boolean | any;
   @Output() submitForm = new EventEmitter();
   @Output() close = new EventEmitter();
+  @Input() deleteStatus: boolean | any;
 
   isShowConfirmPassword = false;
   isShowPassword = false;
   check = false;
-  
+
   constructor(
     private translate: TranslateService,
     private service: GenericService<User>
   ) {}
-
- 
 
   ngOnInit() {}
 

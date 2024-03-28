@@ -39,7 +39,7 @@
 
 <!-- Modal popup -->
 <app-generic-modal
-  [modalTitle]="selectedUser ? (isDelete ? 'Xoá' : 'Sửa') : 'Thêm'"
+  [modalTitle]="selectedUser ? (isDelete ? 'Bạn có chắc chắn muốn xoá?' : 'Sửa') : 'Thêm'"
 >
   <!-- Modal body  -->
   <app-user-form
@@ -50,6 +50,7 @@
     [createStatus]="selectedUser ? false : true"
     (close)="resetForm()"
     (submitForm)="submitForm($event)"
+    [deleteStatus]="isDelete"
   ></app-user-form>
 </app-generic-modal>
 
