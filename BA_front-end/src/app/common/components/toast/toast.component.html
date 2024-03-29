@@ -1,20 +1,24 @@
 <!-- toast  -->
 <div
-  id="toast-failed"
-  class="toast-failed text-bg-primary border-0 toast"
+  [id]="toastType"
+  class="text-bg-primary border-0 toast"
   role="alert"
   aria-live="assertive"
   aria-atomic="true"
 >
   <div class="d-flex justify-content-around">
-    <i class="bi bi-x-circle"></i>
+    <i
+      [class]="
+        toastType == 'toast-success' ? 'bi bi-check-circle' : 'bi bi-x-circle'
+      "
+    ></i>
     <div class="toast-body">{{ content }}</div>
   </div>
 </div>
 
-<div
-  id="toast-success"
-  class="toast-success text-bg-primary border-0 toast"
+<!-- <div
+  [id]="toastType"
+  class="text-bg-primary border-0 toast"
   role="alert"
   aria-live="assertive"
   aria-atomic="true"
@@ -24,3 +28,16 @@
     <div class="toast-body">{{ content }}</div>
   </div>
 </div>
+
+<div
+  [id]="toastType"
+  class="toast-failed text-bg-primary border-0 toast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex justify-content-around">
+    <i class="bi bi-x-circle"></i>
+    <div class="toast-body">{{ content }}</div>
+  </div>
+</div> -->

@@ -25,11 +25,15 @@ import { RouterRoutes } from './routes/router.routing';
 import { MapComponent } from './common/components/map/map.component';
 import { VehicleMonitorComponent } from './pages/vehicle-monitor/vehicle-monitor.component';
 import { ModalDirective } from './directives/modal.directive';
-
-
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { viLocale } from 'ngx-bootstrap/locale';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
 }
+defineLocale('vi', viLocale);
 
 @NgModule({
   declarations: [
@@ -66,8 +70,15 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     FormsModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot()
   ],
-  providers: [DatePipe, ToastDirective],
+  providers: [DatePipe, ToastDirective,],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor( private bsLocaleService: BsLocaleService){
+    this.bsLocaleService.use('vi');
+
+  }
+}

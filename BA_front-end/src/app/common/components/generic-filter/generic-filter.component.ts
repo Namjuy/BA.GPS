@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { HelperService } from '../../helpers/helper.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastDirective } from 'src/app/directives/toast.directive';
 
 @Component({
   selector: 'app-generic-filter',
@@ -8,11 +9,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./generic-filter.component.scss'],
 })
 
-//1/3/2024
+////Name   Date       Comments
+////duypn  1/3/2024  create
 export class GenericFilterComponent implements OnInit {
   @Input() selectOption: [{ content: string; type: string }] | any;
   @Output() handleSearch = new EventEmitter<Map<string, any>>();
- 
+
   @Input() selectGender: [{ content: string; type: string }] | any;
 
   inputSearchValue: string = '';
@@ -30,7 +32,8 @@ export class GenericFilterComponent implements OnInit {
 
   constructor(
     private helper: HelperService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toast: ToastDirective
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
@@ -45,19 +48,22 @@ export class GenericFilterComponent implements OnInit {
       this.genderLabel = this.selectGender[0].content;
       this.genderValue = this.selectGender[0].type;
     }
+    
   }
 
   onSearch(): void {
-    this.filterMap.set('inputSearchValue', this.inputSearchValue);
-    this.filterMap.set('optionValue', this.optionValue);
-    this.filterMap.set('startDate', this.startDate);
-    this.filterMap.set('endDate', this.endDate);
-    this.filterMap.set('selectedGender', this.genderValue);
-   
-    // Emit the filter map to the parent component
-    this.handleSearch.emit(this.filterMap);
-    
-    
+    if (this.endDate && this.startDate && this.endDate < this.startDate) {
+      this.toast.showToast('toast-search-failed');
+    } else {
+      this.filterMap.set('inputSearchValue', this.inputSearchValue);
+      this.filterMap.set('optionValue', this.optionValue);
+      this.filterMap.set('startDate', this.helper.formatValidDate(this.startDate));
+      this.filterMap.set('endDate', this.helper.formatValidDate(this.endDate));
+      this.filterMap.set('selectedGender', this.genderValue);
+
+      // Emit the filter map to the parent component
+      this.handleSearch.emit(this.filterMap);
+    }
   }
 
   handleSelectOption(option: any): void {

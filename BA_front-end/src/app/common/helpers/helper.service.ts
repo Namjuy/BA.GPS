@@ -77,4 +77,19 @@ export class HelperService {
 
     return check ? { exist: true } : null;
   };
+
+  formatValidDate = (dateString: any) => {
+    if (dateString) {
+      const date = new Date(dateString);
+
+      // Extract the date components
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-indexed, so we add 1
+      const day = ('0' + date.getDate()).slice(-2);
+
+      // Concatenate the components into the desired format
+      return `${year}-${month}-${day}`;
+    }
+    return null;
+  };
 }

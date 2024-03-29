@@ -6,7 +6,8 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
   templateUrl: './generic-modal.component.html',
   styleUrls: ['./generic-modal.component.scss'],
 })
-//1/1/2024
+////Name   Date       Comments
+////duypn  1/3/2024  create
 export class GenericModalComponent implements OnInit {
   @Input() modalTitle: string = '';
 

@@ -16,16 +16,26 @@
   // Input filter
   .home-filter__input {
     display: flex;
-
+    width: 400px;
     height: 30px;
     align-items: center;
     .form-control {
-      font-size: 12px;
-      border-radius: 0;
-      border-right: white;
-      z-index: 1;
-      width: 200px;
       height: 30px;
+
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border: 1px solid black;
+      border-right: none;
+    }
+    .form-group {
+      .form-control {
+        font-size: 12px;
+        border-radius: 0;
+        border-right: white;
+        z-index: 1;
+        width: 200px;
+        height: 30px;
+      }
     }
 
     .input-group-text {
@@ -34,6 +44,8 @@
       background-color: white;
       border-left: 0;
       height: 30px;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
     }
   }
 
@@ -46,7 +58,6 @@
     width: 500px;
 
     .home-filter__title {
-     
       text-align: center;
       margin-bottom: 0;
       font-size: 12px;
@@ -59,6 +70,7 @@
       width: 300px;
       input {
         height: 30px;
+        border: 1px solid black;
       }
     }
   }
@@ -71,12 +83,15 @@
     height: 30px;
     align-items: center;
     justify-content: space-around;
-    .home-filter__title{
+    .home-filter__title {
       width: 50px;
     }
     .dropdown-center {
       .dropdown-menu {
         min-width: 50px;
+      }
+      .dropdown-toggle {
+        border-radius: 6px;
       }
     }
   }
@@ -85,7 +100,7 @@
   .home-filter__button {
     display: flex;
     justify-content: space-between;
-   
+
     .btn-primary {
       width: 85px;
       height: 30px;
@@ -106,6 +121,8 @@
     font-size: 12px;
     border-radius: 0;
     height: 30px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
   }
 
   .dropdown-menu {
@@ -220,4 +237,8 @@
   .form-check {
     margin-top: 50px;
   }
+}
+
+.theme-green .bs-datepicker-head{
+  background-color: #0087ff;
 }

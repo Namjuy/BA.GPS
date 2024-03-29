@@ -39,7 +39,7 @@
 
 <!-- Modal popup -->
 <app-generic-modal
-  [modalTitle]="selectedUser ? (isDelete ? 'Bạn có chắc chắn muốn xoá?' : 'Sửa') : 'Thêm'"
+  [modalTitle]="selectedUser ? (isDelete ? ('ARE_YOU_SURE_TO_DELETE'|translate) : ('EDIT'|translate)) : ('ADD'|translate)"
 >
   <!-- Modal body  -->
   <app-user-form

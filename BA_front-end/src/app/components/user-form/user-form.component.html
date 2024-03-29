@@ -12,22 +12,41 @@
         <!-- Form input  -->
         <div class="input-form d-flex flex-column ps-2">
           <ng-container *ngIf="item.value !== 'userName'; else userInput">
-            <input
-              *ngIf="
-                item.type !== 'gender' &&
-                item.value !== 'confirmPassWord' &&
-                item.value !== 'passWord'
-              "
-              [type]="item.type"
-              [formControlName]="item.value"
-              class="form-control"
-              [class.is-valid]="form.get(item.value)?.valid"
-              [class.is-invalid]="
-                !form.get(item.value)?.valid && form.get(item.value)?.dirty
-              "
-              id="{{ item.value }}"
-              autocomplete="item.value"
-            />
+            <ng-container *ngIf="item.type === 'date'">
+              <input
+                type="text"
+                class="form-control"
+                bsDatepicker
+                style="font-size: 13px"
+                [formControlName]="item.value"
+                [class.is-valid]="form.get(item.value)?.valid"
+                [class.is-invalid]="
+                  !form.get(item.value)?.valid && form.get(item.value)?.dirty
+                "
+                id="{{ item.value }}"
+                autocomplete="item.value"
+                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                placeholder="DD-MM-YYYY"
+              />
+            </ng-container>
+            <ng-container *ngIf="item.type !== 'date'">
+              <input
+                *ngIf="
+                  item.type !== 'gender' &&
+                  item.value !== 'confirmPassWord' &&
+                  item.value !== 'passWord'
+                "
+                [type]="item.type"
+                [formControlName]="item.value"
+                class="form-control"
+                [class.is-valid]="form.get(item.value)?.valid"
+                [class.is-invalid]="
+                  !form.get(item.value)?.valid && form.get(item.value)?.dirty
+                "
+                id="{{ item.value }}"
+                autocomplete="item.value"
+              />
+            </ng-container>
           </ng-container>
           <ng-template #userInput>
             <input
@@ -174,9 +193,9 @@
   <ng-template #deleteForm>
     <span *ngFor="let item of labelItems" class="delete-input-container mb-4">
       <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-sm "
-          >{{ item.heading | translate }}</span
-        >
+        <span class="input-group-text" id="inputGroup-sizing-sm ">{{
+          item.heading | translate
+        }}</span>
         <input
           type="text"
           class="form-control"

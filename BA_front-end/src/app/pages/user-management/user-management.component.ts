@@ -336,9 +336,9 @@ export class UserManagementComponent implements OnInit {
     };
     this.generic.update(userId, updatedUserData).subscribe(
       () => {
+        
         this.toastType = 'toast-success';
-        this.toastContent = 'Cập nhật thành công';
-
+        this.toastContent = 'Cập nhật thành công';        
         this.toastDirective.showToast(this.toastType);
         this.getUser();
       },
@@ -386,6 +386,7 @@ export class UserManagementComponent implements OnInit {
   clickOutSideModal = () => {
     const myModal = document.getElementById('genericModal');
     myModal?.addEventListener('hide.bs.modal', () => {
+      this.userForm = new FormGroup({})
       this.resetForm;
     });
   };

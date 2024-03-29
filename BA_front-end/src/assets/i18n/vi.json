@@ -62,5 +62,7 @@
   "CREATE":"Tạo",
   "USER_LIST_MANAGEMENT":"Quản lý danh sách người dùng",
   "NO_ITEM_REMAIN":"Không có giá trị nào phù hợp",
-  "ROW_PER_PAGE":"dòng mỗi trang"
+  "ROW_PER_PAGE":"dòng mỗi trang",
+  "ARE_YOU_SURE_TO_DELETE":"Bạn có chắc chắn muốn xoá",
+  "ADD":"Thêm"
 }

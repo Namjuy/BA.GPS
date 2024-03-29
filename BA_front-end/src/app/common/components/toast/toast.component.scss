@@ -1,5 +1,5 @@
 // Toast success
-.toast-success {
+#toast-success {
   position: absolute; /*or fixed*/
   top: 90px;
   right: 0px;
@@ -22,7 +22,7 @@
 }
 
 // Toast failed
-.toast-failed {
+#toast-failed ,#toast-search-failed{
   position: absolute; /*or fixed*/
   top: 90px;
   right: 0px;
