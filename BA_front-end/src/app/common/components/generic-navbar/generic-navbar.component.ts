@@ -5,6 +5,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { viLocale } from 'ngx-bootstrap/locale';
 import { enGbLocale } from 'ngx-bootstrap/locale';
 import { defineLocale } from 'ngx-bootstrap/chronos';
+
 defineLocale('en-gb', enGbLocale);
 defineLocale('vi', viLocale);
 interface MenuItem {

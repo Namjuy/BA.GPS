@@ -205,14 +205,14 @@ export class UserManagementComponent implements OnInit {
 
   //home MenuItem
   homeMenuItems = [
-    {
-      title: 'HOME',
-      link: 'https://bagps.vn/',
-    },
-    {
-      title: 'PRODUCTS',
-      link: 'http://localhost:4200/vehicle',
-    },
+    // {
+    //   title: 'HOME',
+    //   link: 'https://bagps.vn/',
+    // },
+    // {
+    //   title: 'PRODUCTS',
+    //   link: 'http://localhost:4200/vehicle',
+    // },
   ];
 
   // Fetch all users
