@@ -8,7 +8,7 @@
       aria-label="Username"
       name="inputSearchValue"
       [(ngModel)]="inputSearchValue"
-      style="font-size: 13px;"
+      style="font-size: 13px"
     />
     <span class="input-group-text"><i class="bi bi-search"></i></span>
 
@@ -68,7 +68,7 @@
 
     <div class="d-flex dropdown-menu__date">
       <span>{{ "FROM" | translate }}</span>
-      <div class="col-xs-12 col-12 col-md-4 form-group">
+      <div class="col-md-4 form-group">
         <input
           type="text"
           placeholder="DD/MM/YYYY"
@@ -81,7 +81,7 @@
 
       <!-- <input type="date" [(ngModel)]="startDate" bsDatePicker/> -->
       <span>- {{ "TO" | translate }}</span>
-      <div class="col-xs-12 col-12 col-md-4 form-group">
+      <div class="col-md-4 form-group">
         <input
           type="text"
           placeholder="DD/MM/YYYY"
@@ -91,8 +91,22 @@
           style="font-size: 13px"
         />
       </div>
-    </div>
 
+     
+    </div>
+    <div class=" dropdown-menu__date--group  ">
+      <div class="col-md-4 form-groups">
+        <input
+          class="form-control"
+          #drp="bsDaterangepicker"
+          placeholder="DD/MM/YYYY-DD/MM/YYYY"
+          bsDaterangepicker
+          [(ngModel)]="bsRangeValue"
+          type="text"
+          style="font-size: 13px;"
+        />
+      </div>
+    </div>
   </div>
 
   <div class="home-filter__button mb-3">
@@ -106,7 +120,13 @@
     </button>
 
     <!-- Create button -->
+    <ng-content></ng-content>
   </div>
 </div>
+
 <!-- Toast  -->
-<app-toast [toastType]="'toast-search-failed'" [content]="'Ngày tìm kiếm không hợp lệ'"> </app-toast>
+<app-toast
+  [toastType]="'toast-search-failed'"
+  [content]="'Ngày tìm kiếm không hợp lệ'"
+>
+</app-toast>

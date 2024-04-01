@@ -53,7 +53,6 @@ export class UserManagementComponent implements OnInit {
     this.getUser();
     this.setTableContent();
     this.initializeForm();
-    this.clickOutSideModal();
   }
 
   //initialize form
@@ -69,8 +68,13 @@ export class UserManagementComponent implements OnInit {
       formControls[item.value] = ['', item.validator];
     });
 
+    // Add checkUserNameExistAsync validator to the 'userName' control
+    if (!this.isDelete && !this.selectedUser) {
+      formControls['userName'].push(this.helper.checkUserNameExistAsync);
+    }
+
     this.userForm = this.formBuilder.group(formControls, {
-      validators: this.helper.passwordMatchValidator,
+      validators: [this.helper.passwordMatchValidator],
     });
   };
 
@@ -147,7 +151,7 @@ export class UserManagementComponent implements OnInit {
         Validators.maxLength(100),
         Validators.pattern('^(?=.*[A-Z])(?=.*[!@#$%^&*()])(?=.*[0-9]).{8,}$'),
       ],
-      type: 'text',
+      type: 'password',
       errorMessage:
         'Mật khẩu chưa ít nhất 1 ký tự viết hoa , 1 ký tự đặc biệt và 1 chữ số',
     },
@@ -155,7 +159,7 @@ export class UserManagementComponent implements OnInit {
       heading: 'CONFIRM_PASSWORD',
       value: 'confirmPassWord',
       validator: [Validators.required],
-      type: 'text',
+      type: 'password',
       errorMessage: 'Mật khẩu xác thực không đúng',
     },
   ];
@@ -262,7 +266,8 @@ export class UserManagementComponent implements OnInit {
   setCreate = () => {
     this.focusInput('userName');
     this.isDelete = false;
-    this.resetForm();
+    this.selectedUser=undefined;
+    this.initializeForm();
   };
 
   //handle click delete user
@@ -300,7 +305,6 @@ export class UserManagementComponent implements OnInit {
 
   //create user
   createUser = (event: any) => {
-    const now = new Date();
     const createUserData = {
       ...event.value,
       email: event.get('email')?.value || '',
@@ -336,9 +340,8 @@ export class UserManagementComponent implements OnInit {
     };
     this.generic.update(userId, updatedUserData).subscribe(
       () => {
-        
         this.toastType = 'toast-success';
-        this.toastContent = 'Cập nhật thành công';        
+        this.toastContent = 'Cập nhật thành công';
         this.toastDirective.showToast(this.toastType);
         this.getUser();
       },
@@ -373,21 +376,19 @@ export class UserManagementComponent implements OnInit {
 
     myModal?.addEventListener('shown.bs.modal', () => {
       myInput?.focus();
+      if (this.selectedUser) {
+        const userNameInput = document.getElementById(
+          'userName'
+        ) as HTMLInputElement;
+        if (userNameInput) {
+          userNameInput.disabled = true;
+        }
+      }
     });
   };
 
   //click reset form
   resetForm = () => {
-    this.selectedUser = undefined;
     this.initializeForm();
-  };
-
-  //click outside modal
-  clickOutSideModal = () => {
-    const myModal = document.getElementById('genericModal');
-    myModal?.addEventListener('hide.bs.modal', () => {
-      this.userForm = new FormGroup({})
-      this.resetForm;
-    });
   };
 }

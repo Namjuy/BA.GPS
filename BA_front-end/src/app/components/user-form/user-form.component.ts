@@ -4,14 +4,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { GenericService } from 'src/app/services/generic-service.service';
 
-
-
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-
 
 ////Name   Date       Comments
 ////duypn  15/3/2024  create
@@ -30,24 +27,12 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private service: GenericService<User>,
-
+    private service: GenericService<User>
   ) {}
 
-  ngOnInit() {
-  
-  }
+  ngOnInit() {}
 
   onSubmit = () => this.submitForm.emit(this.form);
-
-  //check UserName Exist
-  checkUserNameExist(username: FormControl) {
-    if (this.createStatus) {
-      this.service
-        .checkExist(username.value)
-        .subscribe((response) => (this.check = response));
-    } else this.check = false;
-  }
 
   // Create a method to toggle the visibility of the password
   togglePasswordVisible = () => (this.isShowPassword = !this.isShowPassword);

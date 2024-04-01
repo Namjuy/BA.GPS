@@ -20,7 +20,6 @@ import { NgModule } from '@angular/core';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { ToastDirective } from './directives/toast.directive';
 import { ToastComponent } from './common/components/toast/toast.component';
-
 import { RouterRoutes } from './routes/router.routing';
 import { MapComponent } from './common/components/map/map.component';
 import { VehicleMonitorComponent } from './pages/vehicle-monitor/vehicle-monitor.component';

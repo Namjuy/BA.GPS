@@ -61,7 +61,7 @@
       text-align: center;
       margin-bottom: 0;
       font-size: 12px;
-      // width: 50px;
+      width: 100px;
     }
 
     .dropdown-menu__date {
@@ -73,13 +73,20 @@
         border: 1px solid black;
       }
     }
+    .dropdown-menu__date--group {
+      .form-groups {
+        .form-control {
+          display: none;
+        }
+      }
+    }
   }
 
   // Gender filter
   .home-filter__gender {
     margin: 0 auto;
-    max-width: 20%;
-    flex: 20%;
+    // max-width: 20%;
+    // flex: 20%;
     height: 30px;
     align-items: center;
     justify-content: space-around;
@@ -107,6 +114,9 @@
       font-size: 12px;
       font-family: RobotoRegular, sans-serif;
     }
+  }
+  .home-filter__button {
+    width: 15%;
   }
 }
 
@@ -168,21 +178,21 @@
   .home-filter {
     flex-wrap: wrap;
     .home-filter__input {
-      width: 30%;
+      width: 60%;
     }
     .home-filter__gender {
-      width: 13%;
+      width: 20%;
       justify-content: space-between;
     }
     .home-filter__date {
       justify-content: end;
-      width: 375px;
+      width: 60%;
       .home-filter__title {
         margin: 10px;
       }
     }
     .home-filter__button {
-      width: calc(100% - 200px);
+      width: 30%;
       justify-content: start;
     }
   }
@@ -191,54 +201,128 @@
 @media screen and (max-width: 768px) {
   .home-filter {
     .home-filter__input {
-      width: 70%;
+      width: 60%;
+    }
+    .home-filter__gender {
+      width: 40%;
+      justify-content: end;
+      .home-filter__title {
+        width: 70px;
+      }
+    }
+    .home-filter__date {
+      justify-content: start;
+      width: 60%;
+      .dropdown-menu__date {
+        display: none !important;
+      }
+      .home-filter__title {
+        margin-left: 0;
+        text-align: start;
+      }
+
+      .dropdown-menu__date--group {
+        .form-groups {
+          .form-control {
+            display: flex;
+            width: 250px;
+          }
+        }
+      }
+      .form-group {
+        .form-control {
+          width: 120px;
+        }
+      }
+    }
+    .home-filter__button {
+      width: 40%;
+      padding-left: 0;
+      justify-content: end;
+    }
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .home-filter {
+    .home-filter__input {
+      width: 100%;
     }
     .home-filter__gender {
       width: 30%;
       justify-content: start;
       .home-filter__title {
-        margin-right: 10px;
+        text-align: start;
+        padding-left: 0;
+        width: 70px;
       }
     }
     .home-filter__date {
       justify-content: start;
-      width: 420px;
+      width: 70%;
       .home-filter__title {
-        margin: 10px;
+        margin-left: 0;
+        text-align: start;
+      }
+      .form-group {
+        .form-control {
+          width: 120px;
+        }
       }
     }
     .home-filter__button {
-      width: 200px;
+      width: 40%;
+      margin: 0;
       justify-content: start;
     }
   }
 }
 
-@media screen and (max-width: 477px) {
+@media screen and (max-width: 525px) {
   .home-filter {
-    height: fit-content;
-
-    .home-filter__right {
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-
+    .home-filter__input {
+      width: 100%;
+    }
+    .home-filter__gender {
+      width: 25%;
+      justify-content: start;
       .home-filter__title {
-        text-align: center;
-        margin-right: 0;
-      }
-
-      .home-filter__btn-search {
-        margin-left: 0px;
+        width: 70px;
       }
     }
-  }
+    .home-filter__date {
+      justify-content: start;
+      width: 75%;
+      .dropdown-menu__date {
+        display: none !important;
+      }
+      .home-filter__title {
+        margin-left: 20px;
+        text-align: start;
+      }
 
-  .form-check {
-    margin-top: 50px;
+      .dropdown-menu__date--group {
+        .form-groups {
+          .form-control {
+            display: flex;
+            width: 250px;
+          }
+        }
+      }
+      .form-group {
+        .form-control {
+          width: 120px;
+        }
+      }
+    }
+    .home-filter__button {
+      width: 40%;
+      padding-left: 0;
+      justify-content: start;
+    }
   }
 }
 
-.theme-green .bs-datepicker-head{
+.theme-green .bs-datepicker-head {
   background-color: #0087ff;
 }

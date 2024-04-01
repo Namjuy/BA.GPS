@@ -2,11 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   AbstractControl,
+  AsyncValidatorFn,
   FormControl,
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { GenericService } from 'src/app/services/generic-service.service';
 
@@ -17,7 +18,7 @@ import { GenericService } from 'src/app/services/generic-service.service';
 ////Name   Date       Comments
 ////duypn  16/3/2024  create
 export class HelperService {
-  constructor(private service : GenericService<User>) {}
+  constructor(private service: GenericService<User>) {}
 
   // Helper method to format date strings
   formatDate: (dateString: string) => string = (dateString) => {
@@ -33,7 +34,6 @@ export class HelperService {
     const currentDate = new Date();
     const enteredDate = new Date(control.value);
     const age = currentDate.getFullYear() - enteredDate.getFullYear();
-
     return age < 18 ? { underage: true } : null;
   };
 
@@ -41,11 +41,8 @@ export class HelperService {
   phoneNumberValidator: () => ValidatorFn = () => (control) => {
     const phoneNumberRegex = /^\d{10}$/;
     const value = control.value;
-
     if (!value) return null;
-
     if (!phoneNumberRegex.test(value)) return { invalidPhoneNumber: true };
-
     return null;
   };
 
@@ -67,21 +64,27 @@ export class HelperService {
   };
 
   // Validator function for date of birth
-  checkUserNameExist: (control: FormControl) => ValidationErrors | null = (
-    control
-  ) => {
-    
-    const userName = control.value
-    var check = false;
-    this.service.checkExist(userName).subscribe(response => check= response)
-
-    return check ? { exist: true } : null;
+  checkUserNameExistAsync: AsyncValidatorFn = (control: AbstractControl): Observable<ValidationErrors | null> => {
+    const userName = control.value;
+  
+    if (!userName) {
+      return of(null);
+    }
+  
+    return this.service.checkExist(userName).pipe(
+      map((response) => {
+        return response ? { exist: true } : null;
+      }),
+      catchError(() => {
+        // Handle errors if needed
+        return of(null);
+      })
+    );
   };
 
   formatValidDate = (dateString: any) => {
     if (dateString) {
       const date = new Date(dateString);
-
       // Extract the date components
       const year = date.getFullYear();
       const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-indexed, so we add 1

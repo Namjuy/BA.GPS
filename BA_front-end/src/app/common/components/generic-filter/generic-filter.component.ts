@@ -28,6 +28,8 @@ export class GenericFilterComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
 
+  bsRangeValue: Date[];
+
   filterMap = new Map<string, any>();
 
   constructor(
@@ -37,6 +39,7 @@ export class GenericFilterComponent implements OnInit {
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
+    this.bsRangeValue = [];
   }
 
   ngOnInit() {
@@ -48,21 +51,43 @@ export class GenericFilterComponent implements OnInit {
       this.genderLabel = this.selectGender[0].content;
       this.genderValue = this.selectGender[0].type;
     }
-    
   }
 
   onSearch(): void {
-    if (this.endDate && this.startDate && this.endDate < this.startDate) {
-      this.toast.showToast('toast-search-failed');
-    } else {
+    if (this.bsRangeValue.length > 0) {
       this.filterMap.set('inputSearchValue', this.inputSearchValue);
       this.filterMap.set('optionValue', this.optionValue);
-      this.filterMap.set('startDate', this.helper.formatValidDate(this.startDate));
-      this.filterMap.set('endDate', this.helper.formatValidDate(this.endDate));
+      this.filterMap.set(
+        'startDate',
+        this.helper.formatValidDate(this.bsRangeValue[0])
+      );
+      this.filterMap.set(
+        'endDate',
+        this.helper.formatValidDate(this.bsRangeValue[1])
+      );
       this.filterMap.set('selectedGender', this.genderValue);
 
       // Emit the filter map to the parent component
       this.handleSearch.emit(this.filterMap);
+    } else {
+      if (this.endDate && this.startDate && this.endDate < this.startDate) {
+        this.toast.showToast('toast-search-failed');
+      } else {
+        this.filterMap.set('inputSearchValue', this.inputSearchValue);
+        this.filterMap.set('optionValue', this.optionValue);
+        this.filterMap.set(
+          'startDate',
+          this.helper.formatValidDate(this.startDate)
+        );
+        this.filterMap.set(
+          'endDate',
+          this.helper.formatValidDate(this.endDate)
+        );
+        this.filterMap.set('selectedGender', this.genderValue);
+
+        // Emit the filter map to the parent component
+        this.handleSearch.emit(this.filterMap);
+      }
     }
   }
 
@@ -75,6 +100,4 @@ export class GenericFilterComponent implements OnInit {
     this.genderLabel = gender.content;
     this.genderValue = gender.type;
   };
-
- 
 }

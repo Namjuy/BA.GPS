@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-generic-modal',
   templateUrl: './generic-modal.component.html',
@@ -11,12 +10,7 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 export class GenericModalComponent implements OnInit {
   @Input() modalTitle: string = '';
 
+  ngOnInit() {}
 
-  ngOnInit() { 
-  }
-
-  ngAfterViewInit(){  
-  }
-
-  
+  ngAfterViewInit() {}
 }

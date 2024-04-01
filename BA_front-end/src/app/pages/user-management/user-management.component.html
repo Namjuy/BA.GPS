@@ -10,16 +10,17 @@
     [selectOption]="selectOption"
     [selectGender]="selectGender"
     (handleSearch)="searchUser($event)"
-  ></app-generic-filter>
-  <!-- create button -->
-  <button
-    class="btn btn-primary button__create mb-4"
-    data-bs-toggle="modal"
-    data-bs-target="#genericModal"
-    (click)="setCreate()"
   >
-    {{ "CREATE" | translate }}
-  </button>
+    <button
+      class="btn btn-primary button__create mb-4"
+      data-bs-toggle="modal"
+      data-bs-target="#genericModal"
+      (click)="setCreate()"
+    >
+      {{ "CREATE" | translate }}
+    </button>
+    </app-generic-filter
+  >
 </div>
 
 <!-- Table  -->
@@ -39,7 +40,13 @@
 
 <!-- Modal popup -->
 <app-generic-modal
-  [modalTitle]="selectedUser ? (isDelete ? ('ARE_YOU_SURE_TO_DELETE'|translate) : ('EDIT'|translate)) : ('ADD'|translate)"
+  [modalTitle]="
+    selectedUser
+      ? isDelete
+        ? ('ARE_YOU_SURE_TO_DELETE' | translate)
+        : ('EDIT' | translate)
+      : ('ADD' | translate)
+  "
 >
   <!-- Modal body  -->
   <app-user-form

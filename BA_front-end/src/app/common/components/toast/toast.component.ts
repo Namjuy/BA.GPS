@@ -10,5 +10,7 @@ export class ToastComponent implements OnInit {
   @Input() content: any;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 }

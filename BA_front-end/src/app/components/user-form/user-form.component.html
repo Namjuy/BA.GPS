@@ -11,62 +11,44 @@
 
         <!-- Form input  -->
         <div class="input-form d-flex flex-column ps-2">
-          <ng-container *ngIf="item.value !== 'userName'; else userInput">
-            <ng-container *ngIf="item.type === 'date'">
-              <input
-                type="text"
-                class="form-control"
-                bsDatepicker
-                style="font-size: 13px"
-                [formControlName]="item.value"
-                [class.is-valid]="form.get(item.value)?.valid"
-                [class.is-invalid]="
-                  !form.get(item.value)?.valid && form.get(item.value)?.dirty
-                "
-                id="{{ item.value }}"
-                autocomplete="item.value"
-                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
-                placeholder="DD-MM-YYYY"
-              />
-            </ng-container>
-            <ng-container *ngIf="item.type !== 'date'">
-              <input
-                *ngIf="
-                  item.type !== 'gender' &&
-                  item.value !== 'confirmPassWord' &&
-                  item.value !== 'passWord'
-                "
-                [type]="item.type"
-                [formControlName]="item.value"
-                class="form-control"
-                [class.is-valid]="form.get(item.value)?.valid"
-                [class.is-invalid]="
-                  !form.get(item.value)?.valid && form.get(item.value)?.dirty
-                "
-                id="{{ item.value }}"
-                autocomplete="item.value"
-              />
-            </ng-container>
-          </ng-container>
-          <ng-template #userInput>
+          <!-- <ng-container *ngIf="item.value !== 'userName'; else userInput"> -->
+          <ng-container *ngIf="item.type === 'date'">
             <input
+              type="text"
+              class="form-control"
+              bsDatepicker
+              style="font-size: 13px"
+              [formControlName]="item.value"
+              [class.is-valid]="form.get(item.value)?.valid"
+              [class.is-invalid]="
+                !form.get(item.value)?.valid && form.get(item.value)?.dirty
+              "
+              id="{{ item.value }}"
+              autocomplete="item.value"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+              placeholder="DD-MM-YYYY"
+            />
+          </ng-container>
+          <ng-container *ngIf="item.type !== 'date'">
+            <input
+              *ngIf="
+                item.type !== 'gender' &&
+                item.value !== 'confirmPassWord' &&
+                item.value !== 'passWord'
+              "
               [type]="item.type"
               [formControlName]="item.value"
-              [attr.disabled]="createStatus ? null : true"
               class="form-control"
               [class.is-valid]="form.get(item.value)?.valid"
               [class.is-invalid]="
                 (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
-                check === true
-              "
-              (keyup)="
-                createStatus ? checkUserNameExist(form.get(item.value)) : null
+                form.hasError('exist')
               "
               id="{{ item.value }}"
               autocomplete="item.value"
+              [attr.disabled]="item.value == true"
             />
-          </ng-template>
-
+          </ng-container>
           <!-- Form gender radio button   -->
           <ng-container *ngIf="item.type == 'gender'">
             <div class="d-flex">
@@ -112,7 +94,7 @@
               [class.is-invalid]="
                 !form.get(item.value)?.valid && form.get(item.value)?.dirty
               "
-              [type]="isShowPassword ? item.type : 'password'"
+              [type]="isShowPassword ? 'text' : item.type"
               formControlName="passWord"
               class="form-control"
               id="{{ item.value }}"
@@ -140,7 +122,7 @@
                 (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
                 form.hasError('mismatch')
               "
-              [type]="isShowPassword ? item.type : 'confirmPassWord'"
+              [type]="isShowConfirmPassword ? 'text' : item.type"
               formControlName="confirmPassWord"
               class="form-control"
               id="{{ item.value }}"
@@ -160,32 +142,25 @@
             class="text-danger invalid-feedback"
             id="{{ item.value }}"
             *ngIf="
-              form.get(item.value)?.invalid && form.get(item.value)?.touched
+              form.get(item.value)?.invalid && form.get(item.value)?.touched;
+              else specificError
             "
           >
             {{ item.errorMessage }}
           </span>
-          <span
-            class="text-danger invalid-feedback"
-            id="{{ item.value }}"
-            *ngIf="
-              item.value == 'userName' &&
-              form.get(item.value)?.touched &&
-              check == true
-            "
-          >
-            Tên tài khoản trùng lặp
-          </span>
-          <span
-            class="text-danger invalid-feedback"
-            id="{{ item.value }}"
-            *ngIf="
-              (form.get(item.value)?.invalid && form.get(item.value)?.dirty) ||
-              form.hasError('mismatch')
-            "
-          >
-            Xác thực khẩu không đúng
-          </span>
+
+          <ng-template #specificError>
+            <span
+              class="text-danger invalid-feedback"
+              id="specificError"
+              *ngIf="
+                item.value === 'confirmPassWord' &&
+                (form.get(item.value)?.touched || form.hasError('mismatch'))
+              "
+            >
+              Xác thực mật khẩu không đúng
+            </span>
+          </ng-template>
         </div>
       </span>
     </div></ng-container
@@ -213,7 +188,7 @@
       type="submit"
       class="btn btn-primary"
       [attr.data-bs-dismiss]="form.valid ? 'modal' : null"
-      [disabled]="!form.valid || check == true"
+      [disabled]="!form.valid"
       appToast
     >
       {{ deleteStatus ? ("DELETE" | translate) : ("SAVE" | translate) }}

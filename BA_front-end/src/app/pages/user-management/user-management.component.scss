@@ -1,5 +1,7 @@
 .filter-container{
-    
+    app-generic-filter{
+        width: 100%;
+    }
     .btn-primary{
         max-width: 85px;
         
@@ -8,28 +10,13 @@
         font-family: RobotoRegular, sans-serif;
 
     }
-    app-generic-filter{
-        max-width: 80%;
-        flex: 80%;
-        margin: 0 auto;
-    }
+  
 }
 
 @media screen and (max-width: 1400px){
-    .filter-container app-generic-filter{
-        max-width: 90%;
-        flex: 90%;
-    }
+
 }
 
 @media screen and (max-width: 1200px){
-    .filter-container{
-        justify-content: space-between;
-        // flex-direction: column;
-        flex-wrap: wrap;
-        app-generic-filter{
-            max-width: 100%;
-            flex: 100%;
-        }
-    }
+ 
 }
