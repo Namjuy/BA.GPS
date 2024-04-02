@@ -27,7 +27,7 @@ export class AuthService {
 
   // Method to handle user login
   login(username: string, password: string): Observable<any> {
-    const loginUrl = `http://localhost:5159/api/Authentication/login`;
+    const loginUrl = `http://localhost:5159/api/AuthenApi/login`;
     return this.http
       .post(loginUrl, { username, password }, {responseType: 'text'})
   }

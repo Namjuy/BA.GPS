@@ -87,8 +87,7 @@ export class LoginFormComponent {
               ]
             ) == 1
           ) {
-            this.toastType = 'toast-success';
-            this.toast.showToast(this.toastType);
+            this.toast.showToast('toast-success');
             this.toastContent = 'Đăng nhập thành công';
             localStorage.setItem('authToken', JSON.stringify(this.decodeToken));
 
@@ -103,17 +102,15 @@ export class LoginFormComponent {
 
             this.router.navigate(['/user-management']);
           } else {
-            this.toastType = 'toast-success';
-            this.toast.showToast(this.toastType);
+            this.toast.showToast('toast-success');
             this.toastContent = 'Đăng nhập thành công';
             this.router.navigate(['/user']);
           }
         }
       },
       (errorMess) => {
-        this.toastType = 'toast-failed';
         this.toastContent = 'Đăng nhập thất bại';
-        this.toast.showToast(this.toastType);
+        this.toast.showToast('toast-failed');
       }
     );
   }

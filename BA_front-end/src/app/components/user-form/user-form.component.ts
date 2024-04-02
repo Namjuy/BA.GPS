@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,7 +28,8 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private service: GenericService<User>
+    private service: GenericService<User>,
+    private datePipe:DatePipe
   ) {}
 
   ngOnInit() {}
@@ -46,4 +48,7 @@ export class UserFormComponent implements OnInit {
     this.check = false;
     this.close.emit();
   };
+
+ 
+ 
 }

@@ -19,6 +19,14 @@
       background-color: green;
     }
   }
+  &::after{
+    content: '';
+ 
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    background: white anim 5s linear forwards;
+  }
 }
 
 // Toast failed
@@ -41,5 +49,11 @@
     .toast-body {
       background-color: red;
     }
+  }
+}
+
+@keyframes anim{
+  100%{
+    width: 0;
   }
 }

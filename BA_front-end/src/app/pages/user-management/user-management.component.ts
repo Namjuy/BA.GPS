@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +23,7 @@ export class UserManagementComponent implements OnInit {
   userForm: FormGroup | any;
   selectedUser: User | any;
   isDelete: any;
-  toastType = '';
+
   toastContent = '';
   currentIndex = 1;
   pageSize = 10;
@@ -42,10 +43,12 @@ export class UserManagementComponent implements OnInit {
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private helper: HelperService,
-    private toastDirective: ToastDirective
+    private toastDirective: ToastDirective,
+    private datePipe: DatePipe
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
+  
   }
 
   //handle methods when initialize
@@ -53,6 +56,8 @@ export class UserManagementComponent implements OnInit {
     this.getUser();
     this.setTableContent();
     this.initializeForm();
+   
+    
   }
 
   //initialize form
@@ -250,17 +255,20 @@ export class UserManagementComponent implements OnInit {
       });
   };
 
-  // handle when click edit user
-  setEdit = (event: any) => {
-    this.focusInput('fullName');
-    this.isDelete = false;
-    this.selectedUser = event;
-    this.selectedUser.dateOfBirth = this.helper.formatDate(
-      this.selectedUser.dateOfBirth
-    );
-    this.initializeForm();
-    this.userForm.patchValue(this.selectedUser);
-  };
+    // handle when click edit user
+    setEdit = (event: any) => {
+      this.focusInput('fullName');
+      this.isDelete = false;
+      this.selectedUser = event;
+  
+      this.selectedUser.dateOfBirth = this.helper.formatDate(
+        this.selectedUser.dateOfBirth
+      );
+     
+  
+      this.initializeForm();
+      this.userForm.patchValue(this.selectedUser);
+    };
 
   //handle when click create user
   setCreate = () => {
@@ -307,6 +315,7 @@ export class UserManagementComponent implements OnInit {
   createUser = (event: any) => {
     const createUserData = {
       ...event.value,
+      dateOfBirth: this.datePipe.transform(this.helper.formatDate(event.value.dateOfBirth),'yyyy-MM-dd'),
       email: event.get('email')?.value || '',
       address: event.get('address')?.value || '',
       passWordHash: event.get('passWord')?.value,
@@ -317,15 +326,15 @@ export class UserManagementComponent implements OnInit {
     delete createUserData.newPassword;
     this.generic.create(createUserData).subscribe(
       () => {
-        this.toastType = 'toast-success';
         this.toastContent = 'Tạo thành công';
-        this.toastDirective.showToast(this.toastType);
+        this.toastDirective.showToast('toast-success');
         this.getUser();
+   
+        
       },
       (error) => {
-        this.toastType = 'toast-failed';
         this.toastContent = 'Tạo thất bại';
-        this.toastDirective.showToast(this.toastType);
+        this.toastDirective.showToast('toast-failed');
         this.getUser();
       }
     );
@@ -334,21 +343,21 @@ export class UserManagementComponent implements OnInit {
   //update user
   updateUser = (event: any) => {
     const userId = this.selectedUser.userId;
+    
     const updatedUserData = {
       ...event.value,
+      dateOfBirth: this.datePipe.transform(event.value.dateOfBirth,'yyyy-MM-dd'),
       passWordHash: this.selectedUser.passWordHash,
     };
     this.generic.update(userId, updatedUserData).subscribe(
       () => {
-        this.toastType = 'toast-success';
         this.toastContent = 'Cập nhật thành công';
-        this.toastDirective.showToast(this.toastType);
+        this.toastDirective.showToast('toast-success');
         this.getUser();
       },
       (error) => {
-        this.toastType = 'toast-failed';
         this.toastContent = 'Cập nhật thất bại';
-        this.toastDirective.showToast(this.toastType);
+        this.toastDirective.showToast('toast-failed');
         this.getUser();
       }
     );

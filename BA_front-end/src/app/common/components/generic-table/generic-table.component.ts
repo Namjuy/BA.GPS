@@ -27,6 +27,7 @@ export class GenericTableComponent implements OnInit {
   clickEdit = (item: any) => this.setEdit.emit(item);
   clickDelete = (item: any) => this.setDelete.emit(item);
 
+  //change date format
   convertDateFormat = (inputDateString: Date) =>
     this.datePipe.transform(inputDateString, 'dd/MM/yyyy');
 }

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
@@ -18,14 +19,37 @@ import { GenericService } from 'src/app/services/generic-service.service';
 ////Name   Date       Comments
 ////duypn  16/3/2024  create
 export class HelperService {
-  constructor(private service: GenericService<User>) {}
+  constructor(
+    private service: GenericService<User>,
+    private datePipe: DatePipe
+  ) {}
 
-  // Helper method to format date strings
-  formatDate: (dateString: string) => string = (dateString) => {
-    const date = new Date(dateString);
-    date.setHours(date.getHours() + 7);
-    return date.toISOString().split('T')[0];
-  };
+  formatDate(date: any): string {
+    if (!date) return ''; // Return an empty string if date is not provided or invalid
+  
+    // If date is already a string in the desired format, return it directly
+    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return date;
+    }
+  
+    // Assuming date is either a Date object or a string in a different format
+    const newDate = new Date(date);
+    if (isNaN(newDate.getTime())) return ''; // Return empty string if date is invalid
+  
+    // Add 7 hours (7 * 60 * 60 * 1000 milliseconds) to the date
+    newDate.setTime(newDate.getTime() + (7 * 60 * 60 * 1000));
+  
+    // Construct the formatted date string
+    const year = newDate.getFullYear();
+    const month = String(newDate.getMonth() + 1).padStart(2, '0');
+    const day = String(newDate.getDate()).padStart(2, '0');
+    const hours = String(newDate.getHours()).padStart(2, '0');
+    const minutes = String(newDate.getMinutes()).padStart(2, '0');
+    const seconds = String(newDate.getSeconds()).padStart(2, '0');
+  
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+  
 
   // Validator function for date of birth
   dateOfBirthValidator: (control: FormControl) => ValidationErrors | null = (
@@ -64,13 +88,15 @@ export class HelperService {
   };
 
   // Validator function for date of birth
-  checkUserNameExistAsync: AsyncValidatorFn = (control: AbstractControl): Observable<ValidationErrors | null> => {
+  checkUserNameExistAsync: AsyncValidatorFn = (
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> => {
     const userName = control.value;
-  
+
     if (!userName) {
       return of(null);
     }
-  
+
     return this.service.checkExist(userName).pipe(
       map((response) => {
         return response ? { exist: true } : null;

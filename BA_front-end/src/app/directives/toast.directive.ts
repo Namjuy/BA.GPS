@@ -15,7 +15,6 @@ export class ToastDirective {
 
     if (toastElement) {
       this.renderer.addClass(toastElement, 'show');
-      // this.renderer.addClass(toastElement, toastType);
       setTimeout(() => {
         this.renderer.removeClass(toastElement, 'show');
       }, 2000);
