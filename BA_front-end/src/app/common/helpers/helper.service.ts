@@ -8,6 +8,8 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { Observable, catchError, map, of } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { GenericService } from 'src/app/services/generic-service.service';
@@ -21,35 +23,25 @@ import { GenericService } from 'src/app/services/generic-service.service';
 export class HelperService {
   constructor(
     private service: GenericService<User>,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {}
 
   formatDate(date: any): string {
     if (!date) return ''; // Return an empty string if date is not provided or invalid
-  
+
     // If date is already a string in the desired format, return it directly
-    if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    if (typeof date === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(date)) {
       return date;
     }
-  
-    // Assuming date is either a Date object or a string in a different format
+
     const newDate = new Date(date);
-    if (isNaN(newDate.getTime())) return ''; // Return empty string if date is invalid
-  
-    // Add 7 hours (7 * 60 * 60 * 1000 milliseconds) to the date
-    newDate.setTime(newDate.getTime() + (7 * 60 * 60 * 1000));
-  
-    // Construct the formatted date string
-    const year = newDate.getFullYear();
-    const month = String(newDate.getMonth() + 1).padStart(2, '0');
-    const day = String(newDate.getDate()).padStart(2, '0');
-    const hours = String(newDate.getHours()).padStart(2, '0');
-    const minutes = String(newDate.getMinutes()).padStart(2, '0');
-    const seconds = String(newDate.getSeconds()).padStart(2, '0');
-  
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    if (isNaN(newDate.getTime())) return '';
+
+    // Use DatePipe to format the date
+    const datePipe = new DatePipe('en-US');
+    return datePipe.transform(newDate, 'yyyy/MM/dd') || '';
   }
-  
 
   // Validator function for date of birth
   dateOfBirthValidator: (control: FormControl) => ValidationErrors | null = (
@@ -59,15 +51,6 @@ export class HelperService {
     const enteredDate = new Date(control.value);
     const age = currentDate.getFullYear() - enteredDate.getFullYear();
     return age < 18 ? { underage: true } : null;
-  };
-
-  // Custom validator function for validating phone numbers
-  phoneNumberValidator: () => ValidatorFn = () => (control) => {
-    const phoneNumberRegex = /^\d{10}$/;
-    const value = control.value;
-    if (!value) return null;
-    if (!phoneNumberRegex.test(value)) return { invalidPhoneNumber: true };
-    return null;
   };
 
   // //Get username in list
@@ -99,7 +82,7 @@ export class HelperService {
 
     return this.service.checkExist(userName).pipe(
       map((response) => {
-        return response ? { exist: true } : null;
+        return response ? null : { exist: true };
       }),
       catchError(() => {
         // Handle errors if needed
@@ -120,5 +103,21 @@ export class HelperService {
       return `${year}-${month}-${day}`;
     }
     return null;
+  };
+
+  checkAuth = () => {
+    var username = localStorage.getItem('userName');
+    var role = localStorage.getItem('role');
+    if (username == null) {
+      this.router.navigate(['/login']);
+    }
+    else{
+      if(role == '0'){
+        this.router.navigate(['/user-management']);
+      }
+      if(role =='1'){
+        this.router.navigate(['/home']);
+      }
+    }
   };
 }

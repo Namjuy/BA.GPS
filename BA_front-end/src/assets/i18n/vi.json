@@ -9,12 +9,12 @@
 
   "LOGIN": "Đăng nhập",
   "LOGOUT": "Đăng xuất",
-  "USER": "Tên người dùng",
+  "USER": "Người dùng",
   "PASSWORD": "Mật khẩu",
   "FORGETPASS": "Quên mật khẩu",
   "REMEMBERME": "Nhớ mật khẩu",
   "QR": "Quét mã QR để cài đặt",
-
+  "ADMIN":"Quản trị viên",
   "CAPTION1": "NĂNG LỰC CÔNG NGHỆ",
   "DETAIL1": "BA GPS tự hào mang đến cho ngành giao thông vận tải các sản phẩm ứng dụng các công nghệ lõi.",
 
@@ -43,6 +43,7 @@
   "USERNAME": "Tên đăng nhập",
   "DATE_OF_BIRTH": "Ngày sinh",
   "PHONE": "Điện thoại",
+  "PERMISSION":"Quyền",
   "EDIT": "Sửa",
   "DELETE": "Xoá",
   "INPUT_SEARCH_VALUE": "Nhập thông tin tìm kiếm",

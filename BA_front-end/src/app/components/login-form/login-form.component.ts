@@ -85,12 +85,12 @@ export class LoginFormComponent {
               this.decodeToken[
                 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
               ]
-            ) == 1
+            ) == 0
           ) {
             this.toast.showToast('toast-success');
             this.toastContent = 'Đăng nhập thành công';
             localStorage.setItem('authToken', JSON.stringify(this.decodeToken));
-
+            localStorage.setItem('role', JSON.stringify(0));
             localStorage.setItem(
               'userName',
               JSON.stringify(
@@ -102,9 +102,18 @@ export class LoginFormComponent {
 
             this.router.navigate(['/user-management']);
           } else {
+            localStorage.setItem('role', JSON.stringify(1));
+            localStorage.setItem(
+              'userName',
+              JSON.stringify(
+                this.decodeToken[
+                  'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+                ]
+              )
+            );
             this.toast.showToast('toast-success');
             this.toastContent = 'Đăng nhập thành công';
-            this.router.navigate(['/user']);
+            this.router.navigate(['/home']);
           }
         }
       },

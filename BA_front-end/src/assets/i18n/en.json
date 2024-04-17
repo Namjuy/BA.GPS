@@ -9,12 +9,12 @@
 
   "LOGIN": "Login",
   "LOGOUT": "Logout",
-  "USER": "Username",
+  "USER": "User",
   "PASSWORD": "Password",
   "FORGETPASS": "Forget Password",
   "REMEMBERME": "Remember me",
   "QR": "Scan QR Code to install",
-
+  "ADMIN": "Admin",
   "CAPTION1": "TECHNOLOGICAL CAPACITY",
   "DETAIL1": "BA GPS is proud to bring products that apply core technologies to the transportation industry.",
 
@@ -42,6 +42,7 @@
   "USERNAME": "User name",
   "DATE_OF_BIRTH": "Date of birth",
   "PHONE": "Phone",
+  "PERMISSION": "Permission",
   "EDIT": "Edit",
   "DELETE": "Delete",
   "INPUT_SEARCH_VALUE": "Input search value",

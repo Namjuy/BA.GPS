@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError } from 'rxjs';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { JwtService } from './jwt-service.service';
 
 @Injectable({
@@ -27,7 +26,7 @@ export class AuthService {
 
   // Method to handle user login
   login(username: string, password: string): Observable<any> {
-    const loginUrl = `http://localhost:5159/api/AuthenApi/login`;
+    const loginUrl = `http://localhost:5159/AuthenApi/login`;
     return this.http
       .post(loginUrl, { username, password }, {responseType: 'text'})
   }

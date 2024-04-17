@@ -6,6 +6,9 @@
     width: 150px;
     padding: 5px;
   }
+  .input-label__required {
+    color: red;
+  }
   .input-form {
     width: 80%;
     justify-content: center;
@@ -14,8 +17,7 @@
       font-size: 12px;
     }
     .input-group {
-      .form-control {
-      }
+      
       i {
         height: 30px;
         border: 1px solid rgb(222, 226, 230);

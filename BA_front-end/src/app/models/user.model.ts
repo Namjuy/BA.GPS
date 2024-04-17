@@ -11,7 +11,7 @@ export class User {
   phoneNumber: number = 0;
   email: string = '';
   address: string = '';
-  userType: number = 0;
+  permissionId: number = 0;
   companyId: number = 0;
   creatorUserId: string = '';
   lastModifyUserId: string = '';

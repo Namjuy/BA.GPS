@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/common/helpers/helper.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   footerItemMap = new Map();
 
-  constructor() {}
+  constructor(private helper: HelperService) {}
 
   createFooterItemMap = (): void => {
     this.footerItemMap.set('footerCol', this.footerLocationItems);
@@ -20,7 +21,9 @@ export class LoginComponent implements OnInit {
     this.footerItemMap.set('footerSocial', this.footerAppItem);
   };
   ngOnInit() {
+    this.helper.checkAuth();
     this.createFooterItemMap();
+    
   }
 
   loginMenuItems = [

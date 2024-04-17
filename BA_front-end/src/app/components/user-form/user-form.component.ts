@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { GenericService } from 'src/app/services/generic-service.service';
@@ -14,6 +14,7 @@ import { GenericService } from 'src/app/services/generic-service.service';
 ////Name   Date       Comments
 ////duypn  15/3/2024  create
 export class UserFormComponent implements OnInit {
+
   @Input() modalTitle: string = '';
   @Input() labelItems: any;
   @Input() form: FormGroup | any;
@@ -29,7 +30,7 @@ export class UserFormComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private service: GenericService<User>,
-    private datePipe:DatePipe
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit() {}
@@ -48,7 +49,7 @@ export class UserFormComponent implements OnInit {
     this.check = false;
     this.close.emit();
   };
-
  
  
+  
 }

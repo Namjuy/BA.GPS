@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/common/helpers/helper.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private helper:HelperService) { }
 
   ngOnInit() {
+    this.helper.checkAuth();
   }
 
+  homeMenuItems = [
+    {
+      title: 'HOME',
+      link: 'https://bagps.vn/',
+    },
+    {
+      title: 'PRODUCTS',
+      link: 'http://localhost:4200/vehicle',
+    },
+  ];
 }

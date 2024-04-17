@@ -6,41 +6,39 @@
           [for]="item.type == 'gender' ? 'maleRadio' : item.value"
           class="input-label"
         >
-          {{ item.heading | translate }}:
+          {{ item.heading | translate }} 
+          <strong class="input-label__required" *ngIf="item.required">*</strong>:
         </label>
 
         <!-- Form input  -->
         <div class="input-form d-flex flex-column ps-2">
           <!-- <ng-container *ngIf="item.value !== 'userName'; else userInput"> -->
           <ng-container *ngIf="item.type === 'date'">
-            <input
-              type="text"
-              class="form-control"
-              bsDatepicker
-              style="font-size: 13px"
-              [formControlName]="item.value"
-              [class.is-valid]="form.get(item.value)?.valid"
-              [class.is-invalid]="
-                !form.get(item.value)?.valid && form.get(item.value)?.dirty
-              "
-              id="{{ item.value }}"
-              autocomplete="item.value"
-              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
-              placeholder="YYYY-MM-DD"
-          
-            />
+              <input
+                type="text"
+                class="form-control"
+                bsDatepicker
+                style="font-size: 13px"
+                [formControlName]="(item.value)"
+                
+                [class.is-invalid]="
+                  !form.get(item.value)?.valid && form.get(item.value)?.dirty
+                "
+                id="{{ item.value }}"
+                placeholder="DD/MM/YYYY"
+              />
           </ng-container>
           <ng-container *ngIf="item.type !== 'date'">
             <input
               *ngIf="
                 item.type !== 'gender' &&
                 item.value !== 'confirmPassWord' &&
-                item.value !== 'passWord'
+                item.value !== 'passWord' &&
+                item.value !== 'permissionId'
               "
               [type]="item.type"
               [formControlName]="item.value"
               class="form-control"
-              [class.is-valid]="form.get(item.value)?.valid"
               [class.is-invalid]="
                 (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
                 form.hasError('exist')
@@ -81,9 +79,39 @@
               </div>
             </div>
           </ng-container>
-
+          <!-- Permission  -->
+          <ng-container *ngIf="item.type == 'permission'">
+            <div class="d-flex">
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  [formControlName]="item.value"
+                  [id]="'permission-admin'"
+                  [value]="0"
+                  [checked]="item.value == 0"
+                />
+                <label class="form-check-label" for="permission-admin">{{
+                  "ADMIN" | translate
+                }}</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  [formControlName]="item.value"
+                  [id]="'permission-user'"
+                  [value]="1"
+                  [checked]="item.value == 1"
+                />
+                <label class="form-check-label" for="permission-user">{{
+                  "USER" | translate
+                }}</label>
+              </div>
+              
+            </div>
+          </ng-container>
           <div
-            [class.is-valid]="form.get(item.value)?.valid"
             [class.is-invalid]="
               !form.get(item.value)?.valid && form.get(item.value)?.dirty
             "
@@ -91,7 +119,6 @@
             class="input-group"
           >
             <input
-              [class.is-valid]="form.get(item.value)?.valid"
               [class.is-invalid]="
                 !form.get(item.value)?.valid && form.get(item.value)?.dirty
               "
@@ -109,7 +136,6 @@
             ></i>
           </div>
           <div
-            [class.is-valid]="form.get(item.value)?.valid"
             [class.is-invalid]="
               (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
               form.hasError('mismatch')
@@ -118,7 +144,6 @@
             class="input-group"
           >
             <input
-              [class.is-valid]="form.get(item.value)?.valid"
               [class.is-invalid]="
                 (!form.get(item.value)?.valid && form.get(item.value)?.dirty) ||
                 form.hasError('mismatch')

@@ -48,15 +48,14 @@ export class UserManagementComponent implements OnInit {
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
-  
   }
 
   //handle methods when initialize
   ngOnInit() {
+    this.helper.checkAuth();
     this.getUser();
     this.setTableContent();
     this.initializeForm();
-   
     
   }
 
@@ -93,6 +92,7 @@ export class UserManagementComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9]+$'),
         Validators.maxLength(50),
       ],
+      required: true,
       type: 'text',
       errorMessage: 'Tên tài khoản không hợp lệ',
     },
@@ -104,6 +104,7 @@ export class UserManagementComponent implements OnInit {
         Validators.maxLength(200),
         Validators.pattern('^[a-zA-ZÀ-Ỹà-ỹ0-9 ]+$'),
       ],
+      required: true,
       type: 'text',
       errorMessage: 'Họ và tên không hợp lệ',
     },
@@ -111,6 +112,7 @@ export class UserManagementComponent implements OnInit {
       heading: 'DATE_OF_BIRTH',
       value: 'dateOfBirth',
       validator: [this.helper.dateOfBirthValidator, Validators.required],
+      required: true,
       type: 'date',
       errorMessage: 'Tuổi không hợp lệ , yêu cầu trên 18 tuổi',
     },
@@ -118,27 +120,39 @@ export class UserManagementComponent implements OnInit {
       heading: 'GENDER',
       value: 'isMale',
       validator: [Validators.required],
+      required: true,
       type: 'gender',
       errorMessage: 'Giới tính không hợp lệ',
-    },
-    {
-      heading: 'Email',
-      value: 'email',
-      validator: Validators.email,
-      type: 'email',
-      errorMessage: 'Email không hợp lệ',
     },
     {
       heading: 'PHONE',
       value: 'phoneNumber',
       validator: [Validators.required, Validators.pattern('[0-9 ]{10}')],
+      required: true,
       type: 'text',
       errorMessage: 'Số điện thoại không hợp lệ',
+    },
+    {
+      heading: 'PERMISSION',
+      value:'permissionId',
+      validator:[Validators.required],
+      required: true,
+      type:'permission',
+      errorMessage:'Thông tin không hợp lệ'
+    },
+    {
+      heading: 'Email',
+      value: 'email',
+      validator: Validators.email,
+      required: false,
+      type: 'email',
+      errorMessage: 'Email không hợp lệ',
     },
     {
       heading: 'ADDRESS',
       value: 'address',
       validator: [Validators.pattern('^[a-zA-ZÀ-Ỹà-ỹ0-9 ]+$')],
+      required: false,
       type: 'text',
       errorMessage: 'Địa chỉ không hợp lệ',
     },
@@ -156,7 +170,9 @@ export class UserManagementComponent implements OnInit {
         Validators.maxLength(100),
         Validators.pattern('^(?=.*[A-Z])(?=.*[!@#$%^&*()])(?=.*[0-9]).{8,}$'),
       ],
+      required: true,
       type: 'password',
+      
       errorMessage:
         'Mật khẩu chưa ít nhất 1 ký tự viết hoa , 1 ký tự đặc biệt và 1 chữ số',
     },
@@ -164,6 +180,7 @@ export class UserManagementComponent implements OnInit {
       heading: 'CONFIRM_PASSWORD',
       value: 'confirmPassWord',
       validator: [Validators.required],
+      required: true,
       type: 'password',
       errorMessage: 'Mật khẩu xác thực không đúng',
     },
@@ -210,14 +227,14 @@ export class UserManagementComponent implements OnInit {
 
   //home MenuItem
   homeMenuItems = [
-    // {
-    //   title: 'HOME',
-    //   link: 'https://bagps.vn/',
-    // },
-    // {
-    //   title: 'PRODUCTS',
-    //   link: 'http://localhost:4200/vehicle',
-    // },
+    {
+      title: 'HOME',
+      link: 'https://bagps.vn/',
+    },
+    {
+      title: 'PRODUCTS',
+      link: 'http://localhost:4200/',
+    },
   ];
 
   // Fetch all users
@@ -255,26 +272,27 @@ export class UserManagementComponent implements OnInit {
       });
   };
 
-    // handle when click edit user
-    setEdit = (event: any) => {
-      this.focusInput('fullName');
-      this.isDelete = false;
-      this.selectedUser = event;
-  
-      this.selectedUser.dateOfBirth = this.helper.formatDate(
-        this.selectedUser.dateOfBirth
-      );
-     
-  
-      this.initializeForm();
-      this.userForm.patchValue(this.selectedUser);
-    };
+  // handle when click edit user
+  setEdit = (event: any) => {
+    this.focusInput('fullName');
+    this.isDelete = false;
+    this.selectedUser = event;
+
+    this.selectedUser.dateOfBirth = this.helper.formatDate(
+      this.selectedUser.dateOfBirth
+    );
+console.log(this.selectedUser.dateOfBirth);
+
+    this.initializeForm();
+    this.userForm.patchValue(this.selectedUser);
+    
+  };
 
   //handle when click create user
   setCreate = () => {
     this.focusInput('userName');
     this.isDelete = false;
-    this.selectedUser=undefined;
+    this.selectedUser = undefined;
     this.initializeForm();
   };
 
@@ -315,7 +333,10 @@ export class UserManagementComponent implements OnInit {
   createUser = (event: any) => {
     const createUserData = {
       ...event.value,
-      dateOfBirth: this.datePipe.transform(this.helper.formatDate(event.value.dateOfBirth),'yyyy-MM-dd'),
+      dateOfBirth: this.datePipe.transform(
+        this.helper.formatDate(event.value.dateOfBirth),
+        'yyyy-MM-dd'
+      ),
       email: event.get('email')?.value || '',
       address: event.get('address')?.value || '',
       passWordHash: event.get('passWord')?.value,
@@ -329,8 +350,6 @@ export class UserManagementComponent implements OnInit {
         this.toastContent = 'Tạo thành công';
         this.toastDirective.showToast('toast-success');
         this.getUser();
-   
-        
       },
       (error) => {
         this.toastContent = 'Tạo thất bại';
@@ -342,14 +361,19 @@ export class UserManagementComponent implements OnInit {
 
   //update user
   updateUser = (event: any) => {
-    const userId = this.selectedUser.userId;
-    
+
     const updatedUserData = {
+      
       ...event.value,
-      dateOfBirth: this.datePipe.transform(event.value.dateOfBirth,'yyyy-MM-dd'),
+      dateOfBirth: this.datePipe.transform(
+        event.value.dateOfBirth,
+        'yyyy-MM-dd'
+      ),
+       id:this.selectedUser.id ,
       passWordHash: this.selectedUser.passWordHash,
     };
-    this.generic.update(userId, updatedUserData).subscribe(
+
+    this.generic.update(this.selectedUser.id, updatedUserData).subscribe(
       () => {
         this.toastContent = 'Cập nhật thành công';
         this.toastDirective.showToast('toast-success');
@@ -365,7 +389,9 @@ export class UserManagementComponent implements OnInit {
 
   //delete user
   deleteUser = (event: any) => {
-    this.generic.delete(event).subscribe(
+  
+  
+    this.generic.delete(this.selectedUser.id).subscribe(
       () => {
         this.toastContent = 'Xoá thành công';
         this.toastDirective.showToast('toast-success');
