@@ -65,5 +65,15 @@
   "NO_ITEM_REMAIN":"Không có giá trị nào phù hợp",
   "ROW_PER_PAGE":"dòng mỗi trang",
   "ARE_YOU_SURE_TO_DELETE":"Bạn có chắc chắn muốn xoá",
-  "ADD":"Thêm"
+  "ADD":"Thêm",
+  "USER_ERROR_MESSAGE1":"Tên tài khoản không hợp lệ",
+  "USER_ERROR_MESSAGE2":"Họ và tên không hợp lệ",
+  "USER_ERROR_MESSAGE3":"Tuổi không hợp lệ , yêu cầu trên 18 tuổi",
+  "USER_ERROR_MESSAGE4":"Giới tính không hợp lệ",
+  "USER_ERROR_MESSAGE5":"Số điện thoại không hợp lệ",
+  "USER_ERROR_MESSAGE6":"Thông tin không hợp lệ",
+  "USER_ERROR_MESSAGE7":"Email không hợp lệ",
+  "USER_ERROR_MESSAGE8":"Địa chỉ không hợp lệ",
+  "USER_ERROR_MESSAGE9":"Mật khẩu chưa ít nhất 1 ký tự viết hoa , 1 ký tự đặc biệt và 1 chữ số",
+  "USER_ERROR_MESSAGE10":"Mật khẩu xác thực không đúng"
 }

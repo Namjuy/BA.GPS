@@ -77,7 +77,7 @@ export class LoginFormComponent {
   login(): void {
     this.authService.login(this.username, this.password).subscribe(
       (response) => {
-        if (response != null) {
+        if (response.length != 0) {
           this.decodeToken = this.jwtService.decodeToken(response);
           localStorage.setItem('jwtToken', response);
           if (
@@ -116,6 +116,11 @@ export class LoginFormComponent {
             this.router.navigate(['/home']);
           }
         }
+        else{
+          this.toastContent = 'Đăng nhập thất bại';
+          this.toast.showToast('toast-failed');
+        }
+      
       },
       (errorMess) => {
         this.toastContent = 'Đăng nhập thất bại';

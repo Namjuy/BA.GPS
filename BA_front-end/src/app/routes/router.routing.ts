@@ -5,6 +5,7 @@ import { VehicleMonitorComponent } from '../pages/vehicle-monitor/vehicle-monito
 import { HomeComponent } from '../pages/home/home.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'user-management', component: UserManagementComponent },
   { path: 'vehicle', component: VehicleMonitorComponent },

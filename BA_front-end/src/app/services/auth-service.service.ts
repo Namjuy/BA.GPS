@@ -44,7 +44,7 @@ export class AuthService {
       // For simplicity, let's assume a function decodeToken exists
       const decodedToken = this.jwtService.decodeToken(token);
 
-      if (decodedToken) {
+      if (this.jwtService.isTokenExpired(decodedToken)) {
         // Token is valid, navigate to the home page
         if (
           Number(

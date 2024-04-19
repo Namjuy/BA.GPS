@@ -40,4 +40,11 @@ export class JwtService {
     // Parse the JSON payload
     return JSON.parse(jsonPayload);
   };
+
+  public isTokenExpired(token: any): boolean {
+    const expiration = token.exp * 1000; // Convert expiration time from seconds to milliseconds
+    const currentTime = Date.now();
+    return expiration < currentTime;
+  }
+
 }

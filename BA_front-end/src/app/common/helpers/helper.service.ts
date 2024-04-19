@@ -40,7 +40,7 @@ export class HelperService {
 
     // Use DatePipe to format the date
     const datePipe = new DatePipe('en-US');
-    return datePipe.transform(newDate, 'yyyy/MM/dd') || '';
+    return datePipe.transform(newDate, 'MM/dd/yyyy') || '';
   }
 
   // Validator function for date of birth
@@ -70,7 +70,7 @@ export class HelperService {
       : null;
   };
 
-  // Validator function for date of birth
+  // Check username duplicate
   checkUserNameExistAsync: AsyncValidatorFn = (
     control: AbstractControl
   ): Observable<ValidationErrors | null> => {
@@ -83,6 +83,27 @@ export class HelperService {
     return this.service.checkExist(userName).pipe(
       map((response) => {
         return response ? null : { exist: true };
+      }),
+      catchError(() => {
+        // Handle errors if needed
+        return of(null);
+      })
+    );
+  };
+
+  //Check phone exist
+  checkPhoneNumberExistAsync: AsyncValidatorFn = (
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> => {
+    const phone = control.value;
+    
+    if (!phone) {
+      return of(null);
+    }
+
+    return this.service.checkPhone(phone).pipe(
+      map((response) => {
+        return response ? null : { duplicate: true };
       }),
       catchError(() => {
         // Handle errors if needed

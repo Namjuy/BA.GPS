@@ -75,7 +75,11 @@ export class UserManagementComponent implements OnInit {
     // Add checkUserNameExistAsync validator to the 'userName' control
     if (!this.isDelete && !this.selectedUser) {
       formControls['userName'].push(this.helper.checkUserNameExistAsync);
+      formControls['phoneNumber'].push(this.helper.checkPhoneNumberExistAsync);
     }
+    // if(this.selectedUser){
+    //   formControls['phoneNumber'].push(this.helper.checkPhoneNumberExistAsync);
+    // }
 
     this.userForm = this.formBuilder.group(formControls, {
       validators: [this.helper.passwordMatchValidator],
@@ -94,7 +98,7 @@ export class UserManagementComponent implements OnInit {
       ],
       required: true,
       type: 'text',
-      errorMessage: 'Tên tài khoản không hợp lệ',
+      errorMessage: 'USER_ERROR_MESSAGE1',
     },
     {
       heading: 'FULLNAME',
@@ -106,7 +110,7 @@ export class UserManagementComponent implements OnInit {
       ],
       required: true,
       type: 'text',
-      errorMessage: 'Họ và tên không hợp lệ',
+      errorMessage: 'USER_ERROR_MESSAGE2',
     },
     {
       heading: 'DATE_OF_BIRTH',
@@ -114,7 +118,7 @@ export class UserManagementComponent implements OnInit {
       validator: [this.helper.dateOfBirthValidator, Validators.required],
       required: true,
       type: 'date',
-      errorMessage: 'Tuổi không hợp lệ , yêu cầu trên 18 tuổi',
+      errorMessage: 'USER_ERROR_MESSAGE3',
     },
     {
       heading: 'GENDER',
@@ -122,7 +126,7 @@ export class UserManagementComponent implements OnInit {
       validator: [Validators.required],
       required: true,
       type: 'gender',
-      errorMessage: 'Giới tính không hợp lệ',
+      errorMessage: 'USER_ERROR_MESSAGE4',
     },
     {
       heading: 'PHONE',
@@ -130,7 +134,7 @@ export class UserManagementComponent implements OnInit {
       validator: [Validators.required, Validators.pattern('[0-9 ]{10}')],
       required: true,
       type: 'text',
-      errorMessage: 'Số điện thoại không hợp lệ',
+      errorMessage: 'USER_ERROR_MESSAGE5',
     },
     {
       heading: 'PERMISSION',
@@ -138,7 +142,7 @@ export class UserManagementComponent implements OnInit {
       validator:[Validators.required],
       required: true,
       type:'permission',
-      errorMessage:'Thông tin không hợp lệ'
+      errorMessage:'USER_ERROR_MESSAGE6'
     },
     {
       heading: 'Email',
@@ -146,7 +150,7 @@ export class UserManagementComponent implements OnInit {
       validator: Validators.email,
       required: false,
       type: 'email',
-      errorMessage: 'Email không hợp lệ',
+      errorMessage: 'USER_ERROR_MESSAGE7',
     },
     {
       heading: 'ADDRESS',
@@ -154,7 +158,7 @@ export class UserManagementComponent implements OnInit {
       validator: [Validators.pattern('^[a-zA-ZÀ-Ỹà-ỹ0-9 ]+$')],
       required: false,
       type: 'text',
-      errorMessage: 'Địa chỉ không hợp lệ',
+      errorMessage: 'USER_ERROR_MESSAGE8',
     },
   ];
 
@@ -174,7 +178,7 @@ export class UserManagementComponent implements OnInit {
       type: 'password',
       
       errorMessage:
-        'Mật khẩu chưa ít nhất 1 ký tự viết hoa , 1 ký tự đặc biệt và 1 chữ số',
+        'USER_ERROR_MESSAGE9',
     },
     {
       heading: 'CONFIRM_PASSWORD',
@@ -182,7 +186,7 @@ export class UserManagementComponent implements OnInit {
       validator: [Validators.required],
       required: true,
       type: 'password',
-      errorMessage: 'Mật khẩu xác thực không đúng',
+      errorMessage: 'USER_ERROR_MESSAGE10',
     },
   ];
 
@@ -233,7 +237,7 @@ export class UserManagementComponent implements OnInit {
     },
     {
       title: 'PRODUCTS',
-      link: 'http://localhost:4200/',
+      link: 'http://localhost:4200/home',
     },
   ];
 

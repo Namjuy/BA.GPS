@@ -26,6 +26,7 @@
                 "
                 id="{{ item.value }}"
                 placeholder="DD/MM/YYYY"
+               [bsConfig]="{dateInputFormat: 'MM/DD/YYYY'}"
               />
           </ng-container>
           <ng-container *ngIf="item.type !== 'date'">
@@ -172,7 +173,7 @@
               else specificError
             "
           >
-            {{ item.errorMessage }}
+            {{ item.errorMessage|translate }}
           </span>
 
           <ng-template #specificError>
@@ -224,6 +225,7 @@
       class="btn btn-secondary"
       data-bs-dismiss="modal"
       (click)="closeForm()"
+      
     >
       {{ "CANCEL" | translate }}
     </button>

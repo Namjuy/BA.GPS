@@ -54,6 +54,7 @@ export class GenericFilterComponent implements OnInit {
   }
 
   onSearch(): void {
+    
     if (this.bsRangeValue.length > 0) {
       this.filterMap.set('inputSearchValue', this.inputSearchValue);
       this.filterMap.set('optionValue', this.optionValue);

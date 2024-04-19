@@ -72,5 +72,12 @@ export class GenericService<T> {
     });
   }
 
+  //Check phone 
+  checkPhone(phone:string):Observable<any> {
+    return this.http.get<T[]>(`${this.apiUrl}/checkPhoneExist?phone=${phone}`, {
+      headers: this.headers,
+    });
+  }
+
   
 }

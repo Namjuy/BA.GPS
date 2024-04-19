@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     },
     {
       title: 'PRODUCTS',
-      link: 'http://localhost:4200/vehicle',
+      link: 'http://localhost:4200/home',
     },
   ];
 }
