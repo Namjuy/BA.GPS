@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 import { Observable, catchError, map, of } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth-service.service';
 import { GenericService } from 'src/app/services/generic-service.service';
 
 @Injectable({
@@ -25,6 +26,7 @@ export class HelperService {
     private service: GenericService<User>,
     private datePipe: DatePipe,
     private router: Router
+  
   ) {}
 
   formatDate(date: any): string {
@@ -126,19 +128,5 @@ export class HelperService {
     return null;
   };
 
-  checkAuth = () => {
-    var username = localStorage.getItem('userName');
-    var role = localStorage.getItem('role');
-    if (username == null) {
-      this.router.navigate(['/login']);
-    }
-    else{
-      if(role == '0'){
-        this.router.navigate(['/user-management']);
-      }
-      if(role =='1'){
-        this.router.navigate(['/home']);
-      }
-    }
-  };
+ 
 }

@@ -17,7 +17,6 @@ export class GenericService<T> {
     'Authorization': 'Bearer ' + this.token
   });
 
-  
   constructor(private http: HttpClient) {}
 
   // get all 
@@ -64,7 +63,7 @@ export class GenericService<T> {
     const url = `${this.apiUrl}/ban/${itemId}`;
     return this.http.put(url,'', { headers:this.headers });
   }
-
+  
   //check exist
   checkExist(userName: string): Observable<any> {
     return this.http.get<T[]>(`${this.apiUrl}/checkExist?value=${userName}`, {
@@ -78,6 +77,5 @@ export class GenericService<T> {
       headers: this.headers,
     });
   }
-
   
 }

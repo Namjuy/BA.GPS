@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HelperService } from 'src/app/common/helpers/helper.service';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,11 @@ import { HelperService } from 'src/app/common/helpers/helper.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private helper:HelperService) { }
+  constructor(private helper:HelperService, private auth:AuthService) { }
 
   ngOnInit() {
-    this.helper.checkAuth();
+   
+    this.auth.checkAuth();
   }
 
   homeMenuItems = [

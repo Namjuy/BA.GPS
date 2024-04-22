@@ -28,10 +28,9 @@
       </li>
     </ul>
 
-
     <ul class="navbar-right navbar-nav">
       <!-- -----------------Create phone contact item----------------- -->
-      <li *ngIf="!userName" class="navbar-right__phone nav-item d-inline-block">
+      <li class="navbar-right__phone nav-item d-inline-block">
         <a href="tel:19080000" class="nav-link">
           <i class="navbar-right__icon--phone bi bi-telephone-fill pe-2"></i
           >19080000</a
@@ -89,9 +88,8 @@
         <a *ngIf="userName" class="navbar-right__logout" (click)="logout()">{{
           "LOGOUT" | translate
         }}</a>
-        
-        <!-- <a href=""><i class="bi bi-person-circle"></i> Chào bạn!</a> -->
 
+        <!-- <a href=""><i class="bi bi-person-circle"></i> Chào bạn!</a> -->
       </li>
     </ul>
   </div>

@@ -6,6 +6,7 @@ import { HelperService } from 'src/app/common/helpers/helper.service';
 import { ToastDirective } from 'src/app/directives/toast.directive';
 import { DataListInfor } from 'src/app/models/dataListInfor';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth-service.service';
 import { GenericService } from 'src/app/services/generic-service.service';
 
 @Component({
@@ -44,7 +45,8 @@ export class UserManagementComponent implements OnInit {
     private translate: TranslateService,
     private helper: HelperService,
     private toastDirective: ToastDirective,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private authService: AuthService
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
@@ -52,11 +54,10 @@ export class UserManagementComponent implements OnInit {
 
   //handle methods when initialize
   ngOnInit() {
-    this.helper.checkAuth();
     this.getUser();
+    this.authService.checkAuth();
     this.setTableContent();
     this.initializeForm();
-    
   }
 
   //initialize form
@@ -136,14 +137,7 @@ export class UserManagementComponent implements OnInit {
       type: 'text',
       errorMessage: 'USER_ERROR_MESSAGE5',
     },
-    {
-      heading: 'PERMISSION',
-      value:'permissionId',
-      validator:[Validators.required],
-      required: true,
-      type:'permission',
-      errorMessage:'USER_ERROR_MESSAGE6'
-    },
+  
     {
       heading: 'Email',
       value: 'email',
@@ -166,6 +160,14 @@ export class UserManagementComponent implements OnInit {
   formCreateItem = [
     ...this.formItem,
     {
+      heading: 'PERMISSION',
+      value: 'permissionId',
+      validator: [Validators.required],
+      required: true,
+      type: 'permission',
+      errorMessage: 'USER_ERROR_MESSAGE6',
+    },
+    {
       heading: 'PASSWORD',
       value: 'passWord',
       validator: [
@@ -176,9 +178,8 @@ export class UserManagementComponent implements OnInit {
       ],
       required: true,
       type: 'password',
-      
-      errorMessage:
-        'USER_ERROR_MESSAGE9',
+
+      errorMessage: 'USER_ERROR_MESSAGE9',
     },
     {
       heading: 'CONFIRM_PASSWORD',
@@ -285,11 +286,9 @@ export class UserManagementComponent implements OnInit {
     this.selectedUser.dateOfBirth = this.helper.formatDate(
       this.selectedUser.dateOfBirth
     );
-console.log(this.selectedUser.dateOfBirth);
 
     this.initializeForm();
     this.userForm.patchValue(this.selectedUser);
-    
   };
 
   //handle when click create user
@@ -365,15 +364,13 @@ console.log(this.selectedUser.dateOfBirth);
 
   //update user
   updateUser = (event: any) => {
-
     const updatedUserData = {
-      
       ...event.value,
       dateOfBirth: this.datePipe.transform(
         event.value.dateOfBirth,
         'yyyy-MM-dd'
       ),
-       id:this.selectedUser.id ,
+      id: this.selectedUser.id,
       passWordHash: this.selectedUser.passWordHash,
     };
 
@@ -393,8 +390,6 @@ console.log(this.selectedUser.dateOfBirth);
 
   //delete user
   deleteUser = (event: any) => {
-  
-  
     this.generic.delete(this.selectedUser.id).subscribe(
       () => {
         this.toastContent = 'Xoá thành công';

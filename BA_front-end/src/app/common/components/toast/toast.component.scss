@@ -4,7 +4,7 @@
   top: 90px;
   right: 0px;
   height: 20px;
-  z-index: 1000;
+  // z-index: 1000;
   width: 250px;
   border: 15%;
 
@@ -19,9 +19,9 @@
       background-color: green;
     }
   }
-  &::after{
-    content: '';
- 
+  &::after {
+    content: "";
+
     bottom: 0;
     width: 100%;
     height: 5px;
@@ -30,16 +30,18 @@
 }
 
 // Toast failed
-#toast-failed ,#toast-search-failed{
+#toast-failed,
+#toast-search-failed {
   position: absolute; /*or fixed*/
   top: 90px;
   right: 0px;
   height: 20px;
   z-index: 1000;
   width: 250px;
-  border: 15%;
-
+  border-radius: 15px;
   .d-flex {
+    
+
     box-shadow: -10px 0px 10px 1px #aaaaaa;
     align-items: center;
     background-color: red;
@@ -47,13 +49,14 @@
       font-size: 20px;
     }
     .toast-body {
+     
       background-color: red;
     }
   }
 }
 
-@keyframes anim{
-  100%{
+@keyframes anim {
+  100% {
     width: 0;
   }
 }

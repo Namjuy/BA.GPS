@@ -1,5 +1,6 @@
 import { HelperService } from 'src/app/common/helpers/helper.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   footerItemMap = new Map();
 
-  constructor(private helper: HelperService) {}
+  constructor(private helper: HelperService, private auth:AuthService) {}
 
   createFooterItemMap = (): void => {
     this.footerItemMap.set('footerCol', this.footerLocationItems);
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     this.footerItemMap.set('footerSocial', this.footerAppItem);
   };
   ngOnInit() {
-    this.helper.checkAuth();
+    this.auth.checkAuth();
     this.createFooterItemMap();
     
   }

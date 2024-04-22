@@ -38,24 +38,23 @@ export class AuthService {
   }
 
   //Method to check authentication status
-  checkAuth(token: string | null): void {
+  checkAuth(): void {
+    var token = localStorage.getItem('jwtToken');
     if (token) {
       // Decode the token (you may need to use a library for this)
       // For simplicity, let's assume a function decodeToken exists
-      const decodedToken = this.jwtService.decodeToken(token);
-
+      const decodedToken = this.jwtService.decodeToken(token);       
       if (this.jwtService.isTokenExpired(decodedToken)) {
-        // Token is valid, navigate to the home page
         if (
           Number(
             decodedToken[
               'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
             ]
-          ) == 1
+          ) == 0
         ) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/user-management']);
         } else {
-          this.router.navigate(['/user']);
+          this.router.navigate(['/home']);
         }
       } else {
         // Invalid token, navigate to the login page
