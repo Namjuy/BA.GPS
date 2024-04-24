@@ -29,7 +29,7 @@ export class HelperService {
   
   ) {}
 
-  formatDate(date: any): string {
+  formatDate(date: Date): string {
     if (!date) return ''; // Return an empty string if date is not provided or invalid
 
     // If date is already a string in the desired format, return it directly
@@ -37,12 +37,12 @@ export class HelperService {
       return date;
     }
 
-    const newDate = new Date(date);
-    if (isNaN(newDate.getTime())) return '';
+   
+    if (isNaN(date.getTime())) return '';
 
     // Use DatePipe to format the date
     const datePipe = new DatePipe('en-US');
-    return datePipe.transform(newDate, 'MM/dd/yyyy') || '';
+    return datePipe.transform(date, 'dd/MM/yyyy') || '';
   }
 
   // Validator function for date of birth

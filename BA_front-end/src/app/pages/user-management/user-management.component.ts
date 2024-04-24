@@ -282,11 +282,9 @@ export class UserManagementComponent implements OnInit {
     this.focusInput('fullName');
     this.isDelete = false;
     this.selectedUser = event;
-
-    this.selectedUser.dateOfBirth = this.helper.formatDate(
-      this.selectedUser.dateOfBirth
-    );
-
+    
+    this.selectedUser.dateOfBirth = new Date(this.selectedUser.dateOfBirth)   
+  
     this.initializeForm();
     this.userForm.patchValue(this.selectedUser);
   };
@@ -337,7 +335,7 @@ export class UserManagementComponent implements OnInit {
     const createUserData = {
       ...event.value,
       dateOfBirth: this.datePipe.transform(
-        this.helper.formatDate(event.value.dateOfBirth),
+        event.value.dateOfBirth,
         'yyyy-MM-dd'
       ),
       email: event.get('email')?.value || '',
@@ -373,7 +371,6 @@ export class UserManagementComponent implements OnInit {
       id: this.selectedUser.id,
       passWordHash: this.selectedUser.passWordHash,
     };
-
     this.generic.update(this.selectedUser.id, updatedUserData).subscribe(
       () => {
         this.toastContent = 'Cập nhật thành công';

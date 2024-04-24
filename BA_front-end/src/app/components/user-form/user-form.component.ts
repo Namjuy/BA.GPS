@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user.model';
 import { GenericService } from 'src/app/services/generic-service.service';
@@ -36,7 +36,7 @@ export class UserFormComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit = () => this.submitForm.emit(this.form);
-
+  
   // Create a method to toggle the visibility of the password
   togglePasswordVisible = () => (this.isShowPassword = !this.isShowPassword);
 
