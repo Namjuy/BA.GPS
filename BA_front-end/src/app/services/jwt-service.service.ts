@@ -44,7 +44,7 @@ export class JwtService {
   public isTokenExpired(token: any): boolean {
     const expiration = new Date(token.exp * 1000);
     const currentTime = Date.now();
-    const expirationPlus24Hours = currentTime + (24 * 60 * 60 * 1000); // Add 24 hours in milliseconds
+    const expirationPlus24Hours = currentTime + (24 * 60 * 60 * 1000); 
     
     return expiration.getTime() < expirationPlus24Hours;
 }

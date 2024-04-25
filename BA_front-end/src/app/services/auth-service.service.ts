@@ -45,6 +45,8 @@ export class AuthService {
       // For simplicity, let's assume a function decodeToken exists
       const decodedToken = this.jwtService.decodeToken(token);       
       if (this.jwtService.isTokenExpired(decodedToken)) {
+        console.log(this.jwtService.isTokenExpired(decodedToken));
+        
         if (
           Number(
             decodedToken[

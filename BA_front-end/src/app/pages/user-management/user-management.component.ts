@@ -301,9 +301,7 @@ export class UserManagementComponent implements OnInit {
   setDelete = (event: any) => {
     this.isDelete = true;
     this.selectedUser = event;
-    this.selectedUser.dateOfBirth = this.helper.formatDate(
-      this.selectedUser.dateOfBirth
-    );
+    this.selectedUser.dateOfBirth = new Date(this.selectedUser.dateOfBirth)   
     this.initializeForm();
     this.userForm.patchValue(event);
   };
