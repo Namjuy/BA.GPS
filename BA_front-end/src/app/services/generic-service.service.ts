@@ -48,8 +48,8 @@ export class GenericService<T> {
   }
 
   //create
-  create(newItem: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, newItem, { headers: this.headers });
+  create(newItem: any, permissionId:any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}?permissionId=${permissionId}`, newItem, { headers: this.headers });
   }
 
   //update

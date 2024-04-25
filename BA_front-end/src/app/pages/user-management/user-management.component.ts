@@ -330,6 +330,8 @@ export class UserManagementComponent implements OnInit {
 
   //create user
   createUser = (event: any) => {
+    var role = event.value.permissionId;
+    delete event.value.permissionId;
     const createUserData = {
       ...event.value,
       dateOfBirth: this.datePipe.transform(
@@ -344,7 +346,7 @@ export class UserManagementComponent implements OnInit {
     };
     delete createUserData.confirmPassword;
     delete createUserData.newPassword;
-    this.generic.create(createUserData).subscribe(
+    this.generic.create(createUserData, role).subscribe(
       () => {
         this.toastContent = 'Tạo thành công';
         this.toastDirective.showToast('toast-success');
