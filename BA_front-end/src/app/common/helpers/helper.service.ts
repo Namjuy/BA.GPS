@@ -99,7 +99,7 @@ export class HelperService {
   ): Observable<ValidationErrors | null> => {
     const phone = control.value;
     
-    if (!phone) {
+    if (!phone || phone.length !=10) {
       return of(null);
     }
 
