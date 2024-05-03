@@ -137,7 +137,7 @@ export class UserManagementComponent implements OnInit {
       type: 'text',
       errorMessage: 'USER_ERROR_MESSAGE5',
     },
-  
+
     {
       heading: 'Email',
       value: 'email',
@@ -158,7 +158,7 @@ export class UserManagementComponent implements OnInit {
 
   //create data form
   formCreateItem = [
-    ...this.formItem,
+    ...this.formItem.slice(0, 5), 
     {
       heading: 'PERMISSION',
       value: 'permissionId',
@@ -178,7 +178,6 @@ export class UserManagementComponent implements OnInit {
       ],
       required: true,
       type: 'password',
-
       errorMessage: 'USER_ERROR_MESSAGE9',
     },
     {
@@ -189,6 +188,7 @@ export class UserManagementComponent implements OnInit {
       type: 'password',
       errorMessage: 'USER_ERROR_MESSAGE10',
     },
+    ...this.formItem.slice(5),
   ];
 
   //delete user information
@@ -282,9 +282,9 @@ export class UserManagementComponent implements OnInit {
     this.focusInput('fullName');
     this.isDelete = false;
     this.selectedUser = event;
-    
-    this.selectedUser.dateOfBirth = new Date(this.selectedUser.dateOfBirth)   
-  
+
+    this.selectedUser.dateOfBirth = new Date(this.selectedUser.dateOfBirth);
+
     this.initializeForm();
     this.userForm.patchValue(this.selectedUser);
   };
@@ -301,7 +301,7 @@ export class UserManagementComponent implements OnInit {
   setDelete = (event: any) => {
     this.isDelete = true;
     this.selectedUser = event;
-    this.selectedUser.dateOfBirth = new Date(this.selectedUser.dateOfBirth)   
+    this.selectedUser.dateOfBirth = new Date(this.selectedUser.dateOfBirth);
     this.initializeForm();
     this.userForm.patchValue(event);
   };

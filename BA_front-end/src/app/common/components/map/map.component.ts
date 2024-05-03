@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import * as L from "leaflet";
+import * as L from 'leaflet';
 import 'leaflet-draw';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css'],
 })
 
 export class MapComponent implements OnInit {
-
-  map!:L.Map;
+  map!: L.Map;
   initialView = { lat: 21.01158471251956, lng: 105.78064478236135, zoom: 19 };
   drawnItems = new L.FeatureGroup();
+
+ customIcon = L.icon({
+    iconUrl: '../../../../assets/car_icon.png', 
+    iconSize: [30, 30], 
+    iconAnchor: [15, 15], 
+    popupAnchor: [0, -15]
+});
 
   ngOnInit(): void {
     this.initMap();
@@ -30,6 +36,7 @@ export class MapComponent implements OnInit {
     );
   };
 
+  // Khởi tạo map
   initMap = (): void => {
     this.map = L.map('map').setView(
       [this.initialView.lat, this.initialView.lng],
@@ -43,6 +50,7 @@ export class MapComponent implements OnInit {
 
     this.map.addLayer(this.drawnItems);
 
+    // Tạo chức năng của thanh công cụ
     const drawControl = new L.Control.Draw({
       edit: { featureGroup: this.drawnItems },
       draw: {
@@ -50,22 +58,17 @@ export class MapComponent implements OnInit {
         polyline: { shapeOptions: { color: 'green', weight: 2 } },
         rectangle: { shapeOptions: { color: 'yellow', weight: 2 } },
         circle: { shapeOptions: { color: 'blue', weight: 2 } },
-        marker: {
-          icon: L.icon({
-            iconSize: [25, 41],
-            iconAnchor: [13, 41],
-            iconUrl: '../../../../assets/car_icon.png',
-            // shadowUrl
-          }),
-        },
-      },
+        marker: { 
+          icon: this.customIcon 
+        }
+      }
     });
-
+      
+    // Thêm thanh công cụ vào trong map
     this.map.addControl(drawControl);
 
-    this.map.on(L.Draw.Event.CREATED, (event: any) => {
-      const layer = event.layer;
-      this.drawnItems.addLayer(layer);
+    this.map.on('click', (event) => {
+       L.marker(event.latlng, { icon: this.customIcon }).addTo(this.map);
     });
   };
 

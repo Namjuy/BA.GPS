@@ -37,8 +37,9 @@ footer {
     .footer-app__link {
       text-align: end;
       width: 100%;
+      margin: 0 5px;
       .footer-app__image {
-        width: 130px;
+        width: 50px;
       }
     }
 
@@ -71,7 +72,7 @@ footer {
   footer {
     .footer-location .footer-item,
     .footer-download {
-      min-width: 30%;
+      min-width: 35%;
       margin: 0 auto;
       .footer-app__link {
         width: 100%;
@@ -99,6 +100,7 @@ footer {
       }
       .footer-social {
         margin: 0 auto;
+        width: 100%;
       }
     }
   }
