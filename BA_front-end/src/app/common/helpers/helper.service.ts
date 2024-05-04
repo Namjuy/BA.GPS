@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   AbstractControl,
@@ -12,7 +11,6 @@ import { Router } from '@angular/router';
 
 import { Observable, catchError, map, of } from 'rxjs';
 import { User } from 'src/app/models/user.model';
-import { AuthService } from 'src/app/services/auth-service.service';
 import { GenericService } from 'src/app/services/generic-service.service';
 
 @Injectable({
@@ -29,21 +27,21 @@ export class HelperService {
   
   ) {}
 
-  formatDate(date: Date): string {
-    if (!date) return ''; // Return an empty string if date is not provided or invalid
+  // formatDate(date: Date): string {
+  //   if (!date) return ''; // Return an empty string if date is not provided or invalid
 
-    // If date is already a string in the desired format, return it directly
-    if (typeof date === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(date)) {
-      return date;
-    }
+  //   // If date is already a string in the desired format, return it directly
+  //   if (typeof date === 'string' && /^\d{2}-\d{2}-\d{4}$/.test(date)) {
+  //     return date;
+  //   }
 
    
-    if (isNaN(date.getTime())) return '';
+  //   if (isNaN(date.getTime())) return '';
 
-    // Use DatePipe to format the date
-    const datePipe = new DatePipe('en-US');
-    return datePipe.transform(date, 'dd/MM/yyyy') || '';
-  }
+  //   // Use DatePipe to format the date
+  //   const datePipe = new DatePipe('en-US');
+  //   return datePipe.transform(date, 'dd/MM/yyyy') || '';
+  // }
 
   // Validator function for date of birth
   dateOfBirthValidator: (control: FormControl) => ValidationErrors | null = (
@@ -60,7 +58,7 @@ export class HelperService {
   //   return listUser.some((item) => item.name === userName);
   // }
 
-  //Handel check the password and confirm password are same
+  // Handel check the password and confirm password are same
   passwordMatchValidator: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {

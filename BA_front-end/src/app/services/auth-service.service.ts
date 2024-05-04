@@ -27,8 +27,11 @@ export class AuthService {
   // Method to handle user login
   login(username: string, password: string): Observable<any> {
     const loginUrl = `http://localhost:5159/AuthenApi/login`;
-    return this.http
-      .post(loginUrl, { username, password }, {responseType: 'text'})
+    return this.http.post(
+      loginUrl,
+      { username, password },
+      { responseType: 'text' }
+    );
   }
 
   //Method to handle logout
@@ -40,26 +43,30 @@ export class AuthService {
   //Method to check authentication status
   checkAuth(): void {
     var token = localStorage.getItem('jwtToken');
+  
     if (token) {
       // Decode the token (you may need to use a library for this)
       // For simplicity, let's assume a function decodeToken exists
-      const decodedToken = this.jwtService.decodeToken(token);       
-      if (this.jwtService.isTokenExpired(decodedToken)) {
-        console.log(this.jwtService.isTokenExpired(decodedToken));
-        
-        if (
-          Number(
-            decodedToken[
-              'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-            ]
-          ) == 0
-        ) {
-          this.router.navigate(['/user-management']);
+      const decodedToken = this.jwtService.decodeToken(token);
+      if (decodedToken) {
+        if (!this.jwtService.isTokenExpired(decodedToken)) {
+          localStorage.clear();
+          this.router.navigate(['login']);
         } else {
-          this.router.navigate(['/home']);
+          if (
+            Number(
+              decodedToken[
+                'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+              ]
+            ) == 0
+          ) {
+            this.router.navigate(['/user-management']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         }
       } else {
-        // Invalid token, navigate to the login page
+        // Handle the case where decoding fails
         this.router.navigate(['/login']);
       }
     } else {
@@ -67,8 +74,5 @@ export class AuthService {
       this.router.navigate(['/login']);
     }
   }
-
- 
-
- 
+  
 }

@@ -46,7 +46,7 @@ export class JwtService {
     const currentTime = Date.now();
     const expirationPlus24Hours = currentTime + (24 * 60 * 60 * 1000); 
     
-    return expiration.getTime() < expirationPlus24Hours;
+    return (expiration.getTime() < expirationPlus24Hours)
 }
 
 

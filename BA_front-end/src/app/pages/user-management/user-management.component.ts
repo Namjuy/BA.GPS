@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { GenericService } from 'src/app/services/generic-service.service';
 
+
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -46,7 +47,7 @@ export class UserManagementComponent implements OnInit {
     private helper: HelperService,
     private toastDirective: ToastDirective,
     private datePipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
@@ -54,8 +55,10 @@ export class UserManagementComponent implements OnInit {
 
   //handle methods when initialize
   ngOnInit() {
+  
     this.getUser();
     this.authService.checkAuth();
+   
     this.setTableContent();
     this.initializeForm();
   }
@@ -158,7 +161,7 @@ export class UserManagementComponent implements OnInit {
 
   //create data form
   formCreateItem = [
-    ...this.formItem.slice(0, 5), 
+    ...this.formItem.slice(0, 5),
     {
       heading: 'PERMISSION',
       value: 'permissionId',
@@ -271,10 +274,16 @@ export class UserManagementComponent implements OnInit {
         this.currentIndex,
         this.pageSize
       )
-      .subscribe((response) => {
-        this.userListInfor = response;
-        this.setTableContent();
-      });
+      .subscribe(
+        (response) => {
+          this.userListInfor = response;
+          this.setTableContent();
+        },
+        () => {
+          this.toastContent = 'Tìm kiếm không thành công';
+          this.toastDirective.showToast('toast-failed');
+        }
+      );
   };
 
   // handle when click edit user
@@ -352,7 +361,7 @@ export class UserManagementComponent implements OnInit {
         this.toastDirective.showToast('toast-success');
         this.getUser();
       },
-      (error) => {
+      () => {
         this.toastContent = 'Tạo thất bại';
         this.toastDirective.showToast('toast-failed');
         this.getUser();
@@ -377,7 +386,7 @@ export class UserManagementComponent implements OnInit {
         this.toastDirective.showToast('toast-success');
         this.getUser();
       },
-      (error) => {
+      () => {
         this.toastContent = 'Cập nhật thất bại';
         this.toastDirective.showToast('toast-failed');
         this.getUser();
@@ -393,7 +402,7 @@ export class UserManagementComponent implements OnInit {
         this.toastDirective.showToast('toast-success');
         this.getUser();
       },
-      (error) => {
+      () => {
         this.toastContent = 'Xoá thất bại ';
         this.toastDirective.showToast('toast-failed');
       }
