@@ -85,11 +85,41 @@
         </div>
 
         <!-- ------------------Create logout link -------------- -->
-        <a *ngIf="userName" class="navbar-right__logout" (click)="logout()">{{
-          "LOGOUT" | translate
-        }}</a>
-
-        <!-- <a href=""><i class="bi bi-person-circle"></i> Chào bạn!</a> -->
+        <div *ngIf="userName" class="dropdown-center">
+          <a
+            aria-haspopup="true"
+            aria-expanded="false"
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            >Chào bạn {{ userName }} <i class="bi bi-person-circle"></i
+          ></a>
+          <div
+            class="dropdown-menu dropdown-menu-center"
+            aria-labelledby="navbarDropdown"
+          >
+            <ul class="profile-dropdown">
+              <li class="profile-dropdown__item" (click)="handleProfile()">
+                Thông tin hồ sơ
+              </li>
+              <li
+                class="profile-dropdown__item"
+                data-bs-toggle="modal"
+                data-bs-target="#genericModal"
+                (click)="changePassword()"
+              >
+                Đổi mật khẩu
+              </li>
+              <li class="profile-dropdown__item" (click)="logout()">
+                Đăng xuất
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- <a  class="navbar-right__logout" (click)="logout()"
+          ><i class="bi bi-person-circle"></i>
+        </a> -->
       </li>
     </ul>
   </div>

@@ -63,6 +63,8 @@ export class GenericService<T> {
     const url = `${this.apiUrl}/ban/${itemId}`;
     return this.http.put(url,'', { headers:this.headers });
   }
+
+  
   
   //check exist
   checkExist(userName: string): Observable<any> {

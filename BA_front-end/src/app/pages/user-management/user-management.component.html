@@ -1,10 +1,13 @@
 <!-- Navbar -->
-<app-generic-navbar [menuItems]="homeMenuItems"></app-generic-navbar>
+<app-generic-navbar
+  [menuItems]="homeMenuItems"
+  (setChangePass)="changePassword()"
+></app-generic-navbar>
 
 <!-- Heading page -->
 <p class="page-heading mb-4">{{ "USER_LIST_MANAGEMENT" | translate }}</p>
 
-<!-- Filter  -->
+<!-- Filter -->
 <div class="container d-flex filter-container">
   <app-generic-filter
     [selectOption]="selectOption"
@@ -19,18 +22,17 @@
     >
       {{ "CREATE" | translate }}
     </button>
-    </app-generic-filter
-  >
+  </app-generic-filter>
 </div>
 
-<!-- Table  -->
+<!-- Table -->
 <app-generic-table
   [tableContent]="tableItemMap"
   (setEdit)="setEdit($event)"
   (setDelete)="setDelete($event)"
 ></app-generic-table>
 
-<!-- Pagination  -->
+<!-- Pagination -->
 <app-generic-pagination
   (getPageIndex)="getPageIndex($event)"
   (getPageSize)="getPageSize($event)"
@@ -39,31 +41,40 @@
 ></app-generic-pagination>
 
 <!-- Modal popup -->
-<app-generic-modal
-  [modalTitle]="
-    selectedUser
-      ? isDelete
-        ? ('ARE_YOU_SURE_TO_DELETE' | translate)
-        : ('EDIT' | translate)
-      : ('ADD' | translate)
-  "
->
-  <!-- Modal body  -->
-  <app-user-form
-    [labelItems]="
-      selectedUser ? (isDelete ? formDeleteItem : formItem) : formCreateItem
+<ng-container *ngIf="hasChangePassword == false; else changePass">
+  <app-generic-modal
+    [modalTitle]="
+      selectedUser
+        ? isDelete
+          ? ('ARE_YOU_SURE_TO_DELETE' | translate)
+          : ('EDIT' | translate)
+        : ('ADD' | translate)
     "
-    [form]="userForm"
-    [createStatus]="selectedUser ? false : true"
-    (close)="resetForm()"
-    (submitForm)="submitForm($event)"
-    [deleteStatus]="isDelete"
-  ></app-user-form>
-</app-generic-modal>
-
-<!-- Toast  -->
-
-
-<app-toast [toastType]="'toast-success'" [content]="toastContent"> </app-toast>
-<app-toast [toastType]="'toast-failed'" [content]="toastContent"> </app-toast>
-
+  >
+    <!-- Modal body -->
+    <app-user-form
+      [labelItems]="
+        selectedUser ? (isDelete ? formDeleteItem : formItem) : formCreateItem
+      "
+      [form]="userForm"
+      [createStatus]="selectedUser ? false : true"
+      (close)="resetForm()"
+      (submitForm)="submitForm($event)"
+      [deleteStatus]="isDelete"
+    ></app-user-form>
+  </app-generic-modal>
+</ng-container>
+<ng-template #changePass>
+  <app-generic-modal [modalTitle]="'CHANGE_PASSWORD'">
+    <!-- Modal body -->
+    <app-user-form
+      [labelItems]="formChangePassword"
+      [form]="userForm"
+      (close)="resetForm()"
+      (submitForm)="submitForm($event)"
+    ></app-user-form>
+  </app-generic-modal>
+</ng-template>
+<!-- Toast -->
+<app-toast [toastType]="'toast-success'" [content]="toastContent"></app-toast>
+<app-toast [toastType]="'toast-failed'" [content]="toastContent"></app-toast>

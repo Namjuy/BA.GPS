@@ -57,14 +57,32 @@ nav {
       }
 
       .dropdown {
+        min-width: 150px;
+        display: flex;
+        justify-content: space-around;
         .dropdown-menu {
           min-width: auto;
+        }
+      }
+      .dropdown-center {
+        .profile-dropdown {
+          
+          .profile-dropdown__item {
+            padding-left: 30px;
+            font-size: 12px;
+            line-height: 30px;
+            &:hover {
+              color: white;
+              background-color: #1b75d0;
+              cursor: pointer;
+            }
+          }         
         }
       }
 
       .navbar-right__language {
         font: small robotoRegular, sans-serif;
-
+        padding-right: 30px;
         .nav-link {
           display: flex;
           align-items: center;

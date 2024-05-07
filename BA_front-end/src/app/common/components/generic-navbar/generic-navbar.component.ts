@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -21,9 +21,10 @@ interface MenuItem {
 ////Name   Date       Comments
 ////duypn  1/3/2024  create
 export class GenericNavbarComponent {
+
   //get userId from local storage
   @Input() menuItems: MenuItem[] | any;
-
+  @Output() setChangePass = new EventEmitter();
   userName = localStorage.getItem('userName');
 
   constructor(
@@ -52,4 +53,14 @@ export class GenericNavbarComponent {
   logout = (): void => {
     this.authService.logout();
   };
+
+  handleProfile = (): void =>{
+    
+  }
+
+  changePassword =():void =>{
+      
+      this.setChangePass.emit();
+  }
+
 }

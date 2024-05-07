@@ -9,7 +9,6 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth-service.service';
 import { GenericService } from 'src/app/services/generic-service.service';
 
-
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -25,6 +24,7 @@ export class UserManagementComponent implements OnInit {
   userForm: FormGroup | any;
   selectedUser: User | any;
   isDelete: any;
+  hasChangePassword: boolean | any;
 
   toastContent = '';
   currentIndex = 1;
@@ -47,7 +47,7 @@ export class UserManagementComponent implements OnInit {
     private helper: HelperService,
     private toastDirective: ToastDirective,
     private datePipe: DatePipe,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     translate.addLangs(['vi', 'en']);
     translate.setDefaultLang('vi');
@@ -55,10 +55,9 @@ export class UserManagementComponent implements OnInit {
 
   //handle methods when initialize
   ngOnInit() {
-  
     this.getUser();
     this.authService.checkAuth();
-   
+
     this.setTableContent();
     this.initializeForm();
   }
@@ -66,7 +65,9 @@ export class UserManagementComponent implements OnInit {
   //initialize form
   initializeForm = () => {
     const formControls: Record<string, any> = {};
-    const formItems = this.isDelete
+    const formItems = this.hasChangePassword
+      ? this.formChangePassword
+      : this.isDelete
       ? this.formDeleteItem
       : this.selectedUser
       ? this.formItem
@@ -194,6 +195,37 @@ export class UserManagementComponent implements OnInit {
     ...this.formItem.slice(5),
   ];
 
+  formChangePassword = [
+    {
+      heading: 'OLD_PASSWORD',
+      value: 'oldPassWord',
+      validator: [
+    
+      ],
+      type: 'password',
+      errorMessage: 'USER_ERROR_MESSAGE9',
+    },
+    {
+      heading: 'NEW_PASSWORD',
+      value: 'newPassWord',
+      validator: [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(100),
+        Validators.pattern('^(?=.*[A-Z])(?=.*[!@#$%^&*()])(?=.*[0-9]).{8,}$'),
+      ],
+      type: 'password',
+      errorMessage: 'USER_ERROR_MESSAGE9',
+    },
+    {
+      heading: 'CONFIRM_PASSWORD',
+      value: 'confirmPassWord',
+      validator: [Validators.required],
+      type: 'password',
+      errorMessage: 'USER_ERROR_MESSAGE10',
+    },
+  ];
+
   //delete user information
   formDeleteItem = [
     { heading: 'USERNAME', value: 'userName', validator: '', type: 'text' },
@@ -284,6 +316,14 @@ export class UserManagementComponent implements OnInit {
           this.toastDirective.showToast('toast-failed');
         }
       );
+  };
+
+  changePassword = () => {
+    this.focusInput('password');
+    this.isDelete = false;
+    this.selectedUser = undefined;
+    this.hasChangePassword = true;
+    this.initializeForm();
   };
 
   // handle when click edit user
